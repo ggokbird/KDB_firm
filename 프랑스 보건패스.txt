@@ -1,0 +1,70 @@
+프랑스 보건패스 
+
+
+<개요>
+- 코로나 19 백신 접종한 해외거주 프랑스인 및 프랑스 방문 외국인 대상 QR 코드 발급
+- 2021년 7월 21일부터 보건패스가 의무적으로 도입됨.
+- 50인 이상이 모이는 문화.여가 생활 관련 장소(공연장, 놀이공원, 영화관, 극장, 체육시설 등), 카페, 레스토랑, 요양시설, 병원 및 비행기, 기차, 버스 등 장거리 이동수간 내에서도 요구됨.
+- 심사 후 QR 코드가 이메일로 송부됨.  QR 코드 증명서는 유효기간이 없으며 인쇄본 또는TousAntiCovid 앱 상 디지털 형식으로 제시 가능
+
+
+<신청 대상>
+- 만 12세 이상 백신 접종 완료자 ;
+- 유럽 약품청 (EMA) 승인을 받은 백신 접종 완료자
+- EU 국가, 안도라, 아이슬란드, 리히텐슈타인, 모나코, 노르웨이, 영국, 스위스 외 국가에서의 백신 접종자
+
+유럽 약품청 (EMA) 승인을 받은 백신을 접종한 경우에만 발급 가능
+? Pfizer, Moderna, AstraZeneca 백신 2회 접종 후 7일 경과
+? Johnson & Johnson 백신 1회 접종 후 28일 경과
+? 코로나 감염 이력이 있는 완치자는 요구되는 백신 1회 접종 이후 7일 경과
+
+
+< 필수 제출 서류 >
+ - 여권
+ - 백신접종증명서 종이 원본
+
+
+<발급 절차>
+- 프랑스 외교부 홈페이지를 통한 직접 신청(https://www.demarches-simplifiees.fr/commencer/passe-sanitaire-etrangers)
+
+- 11.5. 기준 현재, EU 역외에서 백신접종을 완료한 경우 일부 약국에서 보건패스 발급 신청 가능
+(제출 서류 조건 및 해당 약국 등 세부사항은 프랑스 보건부 홈페이지(하단 링크) 참조)
+
+* 보건패스 발급 가능 약국
+ - 프랑스 보건부 홈페이지 참조(https://www.sante.fr/obtenir-un-passe-sanitaire-en-cas-de-vaccination-letranger)
+(파리 소재 약국)
+Pharmacie Seror Legendre - 79 Rue Legendre, 75017 Paris 
+Pharmacie Fournet - 56 Rue des Dames, 75017 Paris
+Pharmacie Bader - 12 Boulevard Saint-Michel, 75006 Paris / 10-19h
+Pharmacie Arago - 6 Boulevard Arago, 75013 Paris
+Selarl Pharmacie Coty Issoire - 15 Avenue Rene Coty, 75014 Paris / 8:30-20:00 (토요일: 9:00-19:00)
+Pharmacie F - 141 Avenue de France, 75013 Paris / 9:00-20:00
+Pharmacie Matignon - 1 Avenue Matignon, 75008 Paris
+Pharmacie Friedland - 29 Avenue de Friedland, 75008 Paris / 8:30-20:00 (토요일: 10:00-18:00)
+Pharmacie Levy - 64 Boulevard Malesherbes, 75008 Paris / 9:30-17:30
+Pharmacie Homeopathique De L'europe - 31 Rue d’Amsterdam, 75008 Paris / 8:00-20:00
+Pharmacie Des Theatres - 1 Rue Pierre Fontaine, 75009 Paris / 9:30-18:30
+Pharmacie Du Tertre - 1 Rue Cortot, 75018 Paris / 9:30-12:30 , 14:00-19:00 (월요일: 14:00-19:00)
+Pharmacie Victoire Opera - 26 Rue des Petits Champs, 75002 Paris / 9:00-19:00 (토요일: 09:30-19:00)
+Pharmacie Benouaiche - 2 Place Andre Malraux, 75001 Paris 
+Pharmacie Plaisance - 203 Rue d’Alesia, 75014 Paris
+Pharmacie Bodin - 172 Rue d’Alesia, 75014 Paris 
+Pharmacie Plaisance - 203 Rue d’Alesia, 75014 Paris
+Pharmacie De L'ecole De Guerre - 57b Avenue de la Motte-Picquet, 75015 Paris / 10:00-20:00
+Pharmacie Du Champ De Mars - 124 Rue Saint-Dominique, 75007 Paris
+Pharmacie Du Forum Des Halles - 1 Rue Pierre Lescot, 75001 Paris / 8:30-20:30
+Pharmacie Du Chateau D'eau - 25b Rue du Chateau d’Eau, 75010 Paris / 8:30-20:00 (토요일: 9:30-20:00)
+
+
+* 상기 외에 프랑스 내 약국에서 신속항원검사(antigenique)를 받으면 72시간 유효한 임시 보건패스를 발급가능
+
+
+
+
+
+
+
+
+
+
+4) 일부 식당에서 한국에서 발급된 예방접종증명서를 인정하는 경우도 있으나, 이는 프랑스 정부의 공식 지침이 아님을 참고하여 주시기 바랍니다.
