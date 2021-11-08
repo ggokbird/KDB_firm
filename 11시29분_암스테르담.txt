@@ -1,0 +1,67 @@
+https://tracxn.com/explore/FinTech-Startups-in-Amsterdam
+Last Updated: September 9, 2021
+
+
+Mollie: Payment routing solutions for businesses
+Mollie provides payment routing solutions for businesses. It provides a payment API that allows merchants to accept payment online and on app-based platforms. It offers integration to its API which enables merchants to collect recurring payments and manage subscriptions. Accepts payments from Mastercard, Visa, PayPal, SEPA, and more.
+Founded Year: 2004
+Funding: USD 940M
+
+Bunq: Digital bank for individuals and businesses
+Digital bank for individuals and businesses. Its services include current and savings accounts, money transfers, prepaid cards, bill payments, and more. It features EasyTravel offering credit cards for traveling, EasyMoney for subscription and budget management, and more.
+Founded Year: 2013
+Funding: USD 231M
+
+BUX: App-based trading platform for multi-assets
+BUX provides an app-based trading platform for multi-assets. It offers a trading platform for stocks and ETFs. It features portfolio management tools, trading strategies, and market news & articles. Also offers a stock trading app for students. The app is available for Android and IOS platforms.
+Founded Year: 2014
+Funding: USD 117M
+
+Ohpen: Cloud-based core banking solution
+Ophen provides cloud-based core banking solution for administration of retail investment and savings accounts. Modules include investment accounts; savings accounts; payments; order & fund management; robo advice; audit, risk & fraud management; reporting & analytics; user management & statistics and CRM. It can be integrated with the front end using the API.
+Founded Year: 2009
+Funding: USD 50M
+
+Five Degrees: Cloud-enabled core banking solutions for banks & financial institutions
+Five Degrees provides cloud-enabled core banking solutions for banks & financial institutions. It features Matrix mid for orchestrating core banking platform, Matrix accounts for configurable core banking, Matrix lending & leasing for lending, leasing, & third-party debt management, and more. It provides solutions for mortgage lending, leasing, transactional accounts, and more.
+Founded Year: 2010
+Funding: USD 37M
+
+Cobase: Open banking aggregational APIs
+Cobase provides open banking aggregational APIs to banks & financial institutions. It offers a multibank platform that provides access to all bank accounts and other financial products & services from other banks and financial service providers. It features a central payment hub, cash management, and treasury modules.
+Founded Year: 2012
+Funding: USD 20M
+
+Swishfund: Online business loans platform
+Swishfund is an online business loans platform. The loan term can be 3, 6 and 12 months. Credit assessment is done on the basis of current business performance. Companies that are economically active for at least a year and have a minimum turnover of ¢æ 50,000 in the past year can apply for loans on the platform. Users can apply for loans up to ¢æ 250,000.
+Founded Year: 2016
+Funding: USD 19M
+
+DIG: Digital insurance solutions
+Digital Insurance Group provides software solutions for insurers, banks, and brokers. It features data and monitoring solutions for digital insurance.
+Founded Year: 2017
+Funding: USD 17M
+
+Sentinels: Software for transaction monitoring
+Software for transaction monitoring. It provides transaction monitoring for financial institutions by API integration. It offers a detection engine with predefined and customizable scenarios; comparison of client's transaction data with relevant peer's data; report on risk assessment quality, team performance, and workload improvements; an overview on account activity, risk level, historical alerts, and more.
+Founded Year: 2020
+Funding: USD 10M
+
+Factris: Online lending platform for invoice financing
+Factris is an online lending platform for invoice financing. Offers short-term working capital to businesses against their invoices. Users need to provide their basic details to apply for invoice finance. Once approved, users can upload their invoices on the platform & receive the funds directly to a linked bank account.
+Founded Year: 2017
+Funding: USD 8M
+
+
+
+
+
+
+
+
+
+
+
+
+
+
