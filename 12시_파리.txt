@@ -1,0 +1,83 @@
+https://tracxn.com/explore/FinTech-Startups-in-Paris
+
+Last Updated: September 8, 2021
+
+
+Ledger: Blockchain-based hardware wallet for cryptocurrencies 블록체인 기반 암호화폐 하드웨어 지갑 
+Ledger is a blockchain-based hardware wallet for cryptocurrencies. Products offered include Ledger Nano X, Ledger Nano S, Ledger Blue, and Ledger OTG Kit. Supports multiple cryptocurrencies including Bitcoin, Ripple, Ethereum, Bitcoin Cash, EOS, etc. Offers Ledger Vault which is a multi-authorization cryptocurrency wallet management solution.
+
+Ledger Nano X, Ledger Nano S, Ledger Blue, and Ledger OTG Kit 를 통해 Bitcoin, Ripple, Ethereum, Bitcoin Cash, EOS 등의 암호화폐 거래를 지원. 다중 인증 암호화폐 지갑 관리 솔루션을 제공함
+
+Founded Year: 2014
+Funding: USD 466M
+
+
+Younited Credit: Online lending marketplace 온라인 마켓플레이스 대출(:P2P)
+Younited Credit is an online lending marketplace for individuals, companies, insurers, foundations, pension funds, etc. Products include auto loan, boat loan, motorcycle loan, marriage loan, travel loan and business loan. Users can avail loans from €1,000 to €50,000. The platform offers 8 loan durations: 6 months, 12 months, 24 months, 36 months, 48 ??months, 60 months, 72 months and 84 months. The company offers 3 public funds for investors to invest in loans. The minimum investment amount is €1,000.
+개인, 기업, 보험회사, 재단, 연기금 등을 위한 온라인 마켓 플레이스
+auto loan, boat loan, motorcycle loan, marriage loan, travel loan and business loan 등의 상품을 통해 총 여덟 종류의 만기(6개월, 12개월, 24개월, 36개월, 48개월, 60개월, 72개월, 84개월)로 €1,000에서 €50,000까지 융자를 제공함. 투자자들이 대출에 투자할 수 있도록 3개의 공적 펀드를 제공함.
+Founded Year: 2009
+Funding: USD 400M 
+
+
+October: P2P platform for business loans 기업대출을 위한 P2P플랫폼
+October is a P2P platform for business loans. Allows private & institutional investors to invest in business loans extended to companies. Borrowers need to provide basic details to post project requirements on the platform. Once the project is fully funded, funds are transferred to the borrower's bank account. Provides loans for digitalization, debt refinancing, communication, renovation, recruitments, company acquisition, and more.
+개인 또는 기관 투자자들이 기업대출에 투자할 수 있도록 플랫폼 제공 . 차입자들이 프로젝트 수행에 필요한 기본 정보를 플랫폼에 올려 펀딩 목표를 달성하면, 차입자의 계좌로 송금됨. 디지털화, 채무 차환, 커뮤니케이션, 리노베이션, 채용, 회사 인수 등에 필요한 자금 대출
+Founded Year: 2014
+Funding: USD 391M
+
+
+Alan: App-based health insurance platform for individuals and businesses 개인, 회사 대상 앱 기반 건강보험 플랫폼
+Alan provides an app-based health insurance platform for individuals and businesses. It offers multiple plans such as Alan Green for health care protection, Alan Blue for reimbursement on uncovered hospitals, Alan Pension for employees, and more. It offers policies for freelancers, businesses, hotels, restaurants, startups and more. The app is available for Android and IOS platforms.
+헬스 케어 위한 Alan Green, 적발된 병원의 상환을 위한 Alan Blue, 고용자 대상 Alan Pension 등 다양한 상품 제공. 프리랜서, 사업가, 호텔, 식당, 스타트업 등을 위한 정책 제공
+Founded Year: 2016
+Funding: USD 361M
+
+
+Shift Technology: AI-based fraud detection and claim processing solutions for insurers 보험사 대상 AI 기반 사기 방지, 클레임 처리 솔루션 제공
+Shift Technology provides AI-based fraud detection and claims processing solutions for insurers. It features cloud-based end-to-end claim processing & filing solutions. It features underwriting fraud detection and investigation tools. It also offers solutions to accelerate & automate claim decisions.
+클라우드 기반 end-to-end 클레임 처리와 filing 솔루션, 증권(보험)인수와 조사 도구을 특징으로 함. 클레임 결정을 가속화, 자동화하는 솔루션을 제공
+Founded Year: 2014
+Funding: USD 320M
+
+
+
+PayFit: Cloud-based payroll & HR management software for businesses 클라우드 기반 급여명단 및 인사관리 소프트웨어
+Payfit provides cloud-based payroll and human resource management software for businesses. It provides solutions for wage management, expense reporting, employee management, leaves management, workflow management, onboarding, organizational management, and more. Its pricing is available on a monthly subscription plan.
+임금관리, 지출품의서, 고용자 및 퇴직자 관리, 워크플로우 관리, 신규 인사 교육, 조직 관리 등을 위한 솔루션 제공. 
+Founded Year: 2016
+Funding: USD 213M
+
+
+Spendesk: Cloud-driven travel & expense management solution for corporate travelers 출장자를 위한 클라우드 중심의 여행, 지출 관리
+Spendesk is a cloud-driven travel & expense management solution for corporate travelers. Their solution enables enterprises to keep a track of the daily expenses of their employees. It also allows companies to manage spendings with specified budget limits per team & person, review each purchase request, get automatic reminders for employees to upload docs for the purchases & more. Their features include expense tracking, virtual/physical cards, spending reports, payment invoice & more.
+기업이 고용자들의 일일 지출을 기록하고, 팀 및 개인별로 정해진 예산한도 내에서 지출을 관리하고, 각 구매 요청 검토, 직원들이 구매 문서를 업로드할 수 있도록 자동 리마인더 생성함. 
+
+기업들이 출장자들의 일일 지출 기록, 팀 및 개인별 예산한도 내 지출관리, 구매요청 검토 등을 할 수 있도록 솔루션을 제공함. 비용 추적, 가상/물리적 카드, 지출 보고서, 결제 송장 등의 기능 포함.
+
+
+Founded Year: 2015
+Funding: USD 190M
+
+
+Lydia: App-based mobile payment platform for consumers 소비자를 위한 앱 기반 모바일 결제 플랫폼
+Lydia is an app-based mobile payment platform for consumers. It supports Apple Pay, Samsung Pay, and QR code payments. Allows users to monitor bank accounts, make bank transfers, create online money pots, set recurring payments, and block payment cards. Offers P2P money transfer services and provides a universal card linked to all accounts. Offers payment receipts, spending limits, and spending categories. The app is available on both Android and IOS platforms.
+애플페이, 삼성페이, QR코드 결제를 지원함. 은행계좌 관리, 계좌이체, 카드 정지 등의 서비스를 제공. p2p머니 이체 서비스, 모든 계좌에 연결된 통합 카드를 제공. 결제 영수증, 지출한도, 지출 카테고리 등을 제공. 
+Founded Year: 2013
+Funding: USD 160M
+
+
+
+Qonto: Neobank for SMEs & freelancers 중소기업, 프리랜서를 위한 네오뱅크(낮은 수수료 위해 온라인으로만 운영되는 은행)
+Qonto is a neobank for SMEs & freelancers. Its services are deposit accounts, financial management, debit cards for corporate expenses, payment solutions, and more. It also provides bookkeeping solutions, customized solutions for expenses, an app-based platform for digital banking, and more. App is available on iOS & Android devices.
+예금계좌, 재무관리, 직불카드 등의 서비스를 제공. 부기 솔루션, 지출 위한 맞춤형 솔루션, 앱 기반 플랫폼 제공
+Founded Year: 2017
+Funding: USD 151M
+
+
+Luko: App-based insurance platform for individuals 개인을 위한 앱 기반 보험 플랫폼
+Luko provides an app-based insurance platform for individuals. It offers quotes for non-occupant homeowner insurance, electric scooter insurance, building insurance, borrower insurance, and more. Provides AI-driven tools & devices to prevent water & fire damages and detect intruders. It also offers claims processing services. The applications can be accessed on iOS and Android devices.
+실거주자 아닌 주택보유자 보험, 전기 스쿠터 보험, 건물 보험 등에 대한 견적을 제공. 수해 및 화재 예방, 불법 침입자 감지 등의 기능을 하는 AI 주도의 도구와 디바이스를 제공. 
+Founded Year: 2016
+Funding: USD 85M
+
