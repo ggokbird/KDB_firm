@@ -1,0 +1,53 @@
+https://tracxn.com/explore/FinTech-Startups-in-Dublin
+
+
+ION Group: Treasury and trade management software for financial institutions and banks
+ION Group provides treasury & trade management software for financial institutions and banks. Its solutions include trading management suite, treasury management suite, market making and pricing application for capital markets, and more. It also provides corporates with solutions for treasury and commodities management.
+Founded Year: 1998
+Funding: USD 400M
+(Location: Dublin (Ireland), New York City (United States), London (United Kingdom)- 런던, 더블린 모두에 소재)
+
+Sysnet Global Solutions: Provides cyber-security and compliance management solution
+Sysnet global solutions provide web-based cyber-security and compliance management solution to improve security and manage overall risks in the processes. Sysnet.air, a compliance platform enable acquirers to manage their merchant's security and compliance requirements with features like PCI DSS compliance, Data breach protection, cyber-security solution, complex merchant compliance and other services. It serves companies including acquirers, international banks, merchants, ISOs and payment service providers across 48 countries world-wide. In Nov 2012, Sysnet Global Solutions acquires Panoptic Security, a compliance solution provider. In Mar 2014, Sysnet had acquired SaaS Markets, the Enterprise Cloud Marketplace provider.
+Founded Year: 1989
+Funding: USD 166M
+
+Future Finance: Online platform for student loans
+Future Finance is an online platform for student loans. Users can avail loans from ￡2,000-￡40,000. The loan rate is calculated based on the user's graduate earning potential and current financial situation. Utilizes an algorithm that looks at the user's current borrowing and expenses, repayment history and predicts future earnings relating to the user's studies, including the course and university
+Founded Year: 2014
+Funding: USD 155M
+
+Immedis: Cloud-based payroll management software for businesses
+Cloud-based payroll management software for businesses. It features solutions for employment tax management, reporting & analytics, data validation, staff management, process automation, compliance monitoring, etc. Also offers services for payroll payments & funding, and tax administration.
+Founded Year: 1996
+Funding: USD 78M
+
+Brightflag: AI-based legal spend management software for corporate lawyers
+Brightflag provides AI-based legal spend management software for corporate lawyers. It features solutions for e-billing, financial reporting, budgeting & forecasting, vendor management, and more. It offers financial data analysis, financial predictions, and insights based on analytics. It also offers integration with multiple software such as Tableau, Oracle, SAP, and more.
+Founded Year: 2014
+Funding: USD 40M
+
+CR2: Omnichannel banking solutions provider
+CR2 provides omnichannel banking solutions. The company offers BankWorld that enables financial institutions to offer banking products & services across multiple self-service channels. Features include a single point of information; omnichannel; multilingual; multicurrency and multiple authentication layers. It includes ATM software & ATM switch solutions, internet banking software and mobile banking software.
+Founded Year: 1997
+Funding: USD 31M
+
+CurrencyFair: Cross-border money transfer platform
+CurrencyFair is a cross-border money transfer platform. Users need to set up their account and deposit money by bank transfer. They enter the amount & currency they want to send and provide the recipient's details. Offers business account that can be used to pay overseas suppliers & foreign invoices and receive payments from international clients. The app is available for iOS and Android platforms.
+Founded Year: 2009
+Funding: USD 23M
+
+Corlytics: Regulatory and compliance risk management for financial firms
+Corlytics, for compliance, risk, and analytics, is a risk intelligence company which provides data analytics based suite of regulatory risk analytics and regulatory risk benchmarks for financial institutions globally. The suite has different benchmarks for different segments and services. The company helps in finding the root cause of regulatory fines and uncovering & predicting regulatory risk within the financial markets.
+Founded Year: 2013
+Funding: USD 18M
+
+AREX: Online marketplace for invoice financing
+Online marketplace for invoice financing. It enables small and medium-sized businesses to sell their unpaid invoices and finance their cash flow. It provides a stock exchange-like venue for trade receivable financing. Small and mid-sized companies post their B2B invoices to the platform, which are used as collateral to create contracts. The contract is published to the exchange where investors compete to participate in the contracts that fit their investment strategy. It allows investors to build complex trading strategies while keeping it super simple for the businesses to issue new contracts to the market.
+Founded Year: 2014
+Funding: USD 14M
+
+AccountsIQ: Cloud-based accounting and business management software for SMEs & enterprises
+AccountsIQ is a cloud-based accounting and business management software for SMEs & enterprises. It features solutions for accounts payable & receivable automation, sales & purchase order management, inventory management, cash flow management, income & expense monitoring, budgeting, tax returns, group data consolidation, digital banking integration, integrating other applications, Excel add-in, workflow approval, and more. Its pricing is available on a monthly subscription plan. Serves multiple industry verticals including retail, professional services, property management, construction, schools & academies, etc.
+Founded Year: 2004
+Funding: USD 13M
