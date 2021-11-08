@@ -1,0 +1,85 @@
+<베른>
+
+https://tracxn.com/explore/FinTech-Startups-in-Bern
+
+Last Updated: October 5, 2021
+
+neocredit.ch: Online platform for business loans 기업 대출을 위한 온라인 플랫폼
+Online platform for business loans. It offers business loans to users through peer-to-peer lending enabling multiple users to invest in a loan product. It provides multiple business loans including investment loans, cash requirement loans, working capital loans, inventory requirements loans, external growth loans, franchise and franchise installations loans, and more.
+사용자들이 대출상품에 투자할 수 있도록 해 P2P대출 통한 기업 대출을 제공. 투자자금대출, 현금요건대출, 운용자금대출, 재고요건대출, 외형성대출, 프랜차이즈 및 가맹점 할부대출 등을 포함한 복수사업자대출을 제공.
+Founded Year: 2018
+Funding: USD 11M
+
+
+Avance Pay: Ticket Payment & Transaction Services 티켓 지불, 매매 서비스
+Avance Pay AG, a fast growing High Tech company specialized on innovative Mobile Payment and Mobile Ticketing solutions, Avance Pay offers fast, secure and contactless payment and transaction services addressing mainly the key players of the ticketing industries.
+모바일 결제, 모바일 티켓팅 솔루션 전문 회사로, 신속하고 안전한 비대면 결제 및 거래 서비스를 제공함. 
+Founded Year: 2011
+Funding: USD 2M
+
+
+---------------------------
+
+<취리히>
+
+https://tracxn.com/explore/FinTech-Startups-in-Zurich
+
+Last Updated: September 10, 2021
+
+
+Numbrs: Account-linked expense management platform focused on individuals  개인 대상 계좌 연동 지출 관리 플랫폼
+Numbrs is an account-linked expense management platform focused on individuals. Enables the users to link multiple bank accounts to the platform to track and manage their income and expenses. Automatically categoriezs the expenses and income of the user. Users can also set saving goals and financial goals. Allows users to transfer money to SEPA countries. App is available for iOS and Android devices.
+플랫폼에 다수의 은행 계좌를 연동해 수입 및 지출을 자동으로 카테고리화해 기록하고 관리할 수 있도록 함.  이를 통해 이용자들은 저축 및 재정목표를 수립하고 SEPA(EU 단일 은행결제시스템) 국가로의 이체 실행할 수 있음.
+Founded Year: 1999
+Funding: USD 230M
+
+dacadoo: AI-based digital health engagement platform  AI기반 디지털 헬스 플랫폼
+AI-based digital health engagement platform. It is a global technology company and an innovative business partner that is driving the digital transformation in healthcare. It provides a solution to insurance companies and their clients for pricing management of health and life insurance and customer engagement to life and health insurers.
+의료 디지털화를 선도한느 회사로, 보험회사와 고객에게 의료 및 생명보험 관리의 가격 책정 및 참여에 대한 솔루션 제공
+
+Founded Year: 2010
+Funding: USD 71M 
+
+
+	
+BRD: Mobile only crypto wallet 모바일 암호화폐 지갑
+Breadwallet is a mobile-only cryptocurrency wallet. Users can buy, sell and store tokens in the wallet. Supports multiple digital assets including Bitcoin and Ethereum tokens. The app is available for iOS and Android platforms.
+사용자들은 BRD를 통해 토큰 매매 가능. 비트코인, 이더리움 포함한 다수의 디지털 자산 지원.
+Founded Year: 2015
+Funding: USD 56M
+
+neon: Virtual prepaid card provider
+Virtual prepaid card provider. It provides a mobile app to manage card transactions. It offers a login code or Touch ID to access the account. It allows users to authorize payments with a separate transaction PIN. Users can manage payroll account, pay bills, and transfer money using the card. The application is available on Android and iOS platforms.
+Founded Year: 2017
+Funding: USD 26M
+
+Loanboox: Online lending marketplace
+Loanboox is a capital market platform for cantons, towns and cities, municipalities and institutional investors. A borrower can apply for a loan by submitting the required documents on the platform. The minimum financing volume in the financing request is CHF 0.5 million. Investors can register on the platform and invest in loans & bonds.
+Founded Year: 2015
+Funding: USD 23M
+
+Additiv: Loan life cycle management software
+Additiv provides loan life cycle management software to banks and financial institutions. It offers services such as loan origination, loan servicing, mortgage module, credit exchange, and more. It also provides Digital Finance Solution for hybrid wealth management and wealth decumulation.
+Founded Year: 1998
+Funding: USD 21M
+
+	
+Knip: Insurance management and comparison platform
+Knip provides an app based insurance management platform for consumers. It features tools for communication with experts, insurance comparison & optimization, home content inventory, claims filing, etc. Also offers an online health insurance comparison platform. Its insurance partners include Atupri, Basler, Das, Dextra, etc. The app is available for Android and IOS platforms.
+Founded Year: 2013
+Funding: USD 21M
+
+Lend: Online P2P lending platform for personal and business loans
+LEND provides an online P2P lending platform for personal and business loans. The platform uses Swiss banks to transfer money and uses Swiss currency. LEND charges a fee for arranging the loan, managing the associated documentation, loan payment processing, and providing support to its members. Investors earn substantial returns and borrowers benefit from low-interest rates.
+Founded Year: 2015
+Funding: USD 17M 
+
+Yova: Impact investment platform
+Yova provides impact investment solutions for investors. It enables users to create strategies and invest. It offers impact investment strategies for long term returns. It helps in investment in equities, stocks, government bonds, and more. It offers tools for portfolio management, rebalancing, and portfolio monitoring.
+Founded Year: 2017
+Funding: USD 16M
+
+Imburse Payments: API-based payments solutions for businesses
+API-based payments solutions for businesses. It features solutions for accepting payments through cash, credit cards, alternative payment methods, vouchers, and more. It offers solutions for payment collections and payouts. It also offers an integrated platform for payments and reporting.
+Founded Year: 2017
+Funding: USD 14M

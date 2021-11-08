@@ -1,0 +1,62 @@
+Qontigo: Financial Intelligence tools provider 
+Qontigo provides financial intelligence tools for investment management. It offers multiple products such as Axioma for quantitative risk analytics & portfolio construction; STOXX & DAX for tradable indices, news & research. It features investment strategies & analytics tools for issuers, capital owners and asset managers.
+투자 관리를 위한 금융 정보 도구를 제공. 양적 리스크 분석과 포트폴리오 구성을 위한 Axioma, 거래 가능한 지수, 뉴스와 리서치를 위한 SOXX & DAX 등의 상품을 제공. 발행자, 자본 소유자, 자산 관리자를 위한 투자 전략 및 분석 도구를 제공함.
+2019
+Funding USD 720M
+
+
+
+Clark: Insurance management platform for individuals
+Clark provides an insurance management platform for individuals. It helps users in managing policies for personal liability, household, automobile, disability, health, life, retirement, etc. It offers advice and recommendations for buying insurance based on consumer requirements. It also offers a platform for real estate financing.
+개인 부채, 가계, 건강, 은퇴 등을 관리할 수 있도록 도움. 고객 요구에 기반해 보험 가입을 위한 조언 및 추천 서비스 제공. 또한 부동산 금융 플랫폼도 제공함.
+2015
+USD 129M 
+Wilhelm-Leuschner-Straße 17-19
+DE Hessen Frankfurt am Main 60329
+Series A: €13.2 M 
+Series B: $29 M
+Series C: €69 M
+
+
+Traxpay: Working capital management for businesses
+Traxpay provides working capital management for businesses. It features solutions for dynamic discounting, supply chain financing, invoice management, cist management, payment processing, and more. It enables the transformation of financial B2B relationships by connecting buyers, suppliers, and their banks with AR/AP tools that deliver reduced risk, digitalization, and transparency.
+동적 할인, 공급망 파이낸싱, 송장 관리, 고객 관리, 결제 처리 등을 위한 솔루션을 제공. 이를 통해 수요자, 공급자, 은행을 디지털화 및 투명성을 제공하는 AR/AP 도구로 연결해 재무 B2B 관계를 전환할 수 있음.
+2009
+USD 19M
+
+
+Thinksurance: Diversified software solutions for insurance distribution
+Thinksurance offers a platform for insurance distribution. It provides products for brokers, associations, agencies, among others. The software features tools for quoting policies, risk analysis, issuing policies, analyzing, documentation, and reporting. Assists distributors and insurers in digitizing the sale process. Uses data analysis & AI technology in improving the bidding process and assessing risk.
+중개자, 협회, 기관 등을 대상으로 리스크 분석, 증권 발행 및 분석, 문서화 및 보고를 위한 도구 제공. 보험사가 판매 프로세스를 디지털화할 수 있도록 지원함. 입찰 프로세스 및 리스크 평가 개선에 데이터 분석 및 AI기술을 사용함.
+2016
+USD 15M 
+
+
+CrowdDesk: Online capital raising solutions
+Crowddesk provides online capital raising solutions for startups and companies. It enables businesses to pitch investors and raise & manage capital. It helps users to raise capital for real estate and other projects. It offers a funding-as-a-service solution for fundraising and transaction management.
+스타트업 비롯한 기업 대상 온라인 자본 모금 솔루션 제공. 이를 통해 기업은 투자자를 유치하고 자본을 조달 및 관리할 수 있음. 사용자들이 부동산 및 기타 프로젝트를 위한 자본을 조달하는 것을 도우며, 기금 모금 및 거래 관리를 위한 서비스형 자금 지원 솔루션을 제공함.
+2015
+USD 10M
+
+
+Finanzguru: Personal finance and bill management tool
+Finanzguru is a mobile app for personal finance management focussed on bill management. Users need to link their bank to let the app automatically identify recurring bills. Offers bill payment reminders, and payment facilitation in a few clicks. By analyzing the earnings, expenses, and bills, provides tips for savings on the bills. Has partnered with Deutsche Bank for offering the service.
+2015
+USD 6M
+
+
+Awamo: Microfinance management solution provider
+Awamo GmbH is a fintech startup with operations in Frankfurt/Main (Germany) and Kampala (Uganda). They offer a comprehensive, mobile and easy-to-use microfinance management solution for microfinance institutions (MFIs) in emerging markets. It features reliable biometric identification/authentication, which is fully designed for mobile use and completely digitizes all stages of credit-, risk and portfolio management for MFIs. It also opens up the market for low-income borrowers by providing MFIs with suitable digital solutions to capture borrower data, monitor MFI operations in real-time, and generate credit reports. This dramatically decreases transaction cost, default risk and consequently interest rates.
+2015	
+USD 2M
+
+
+Savedroid: Mobile app for automatic savings
+Savedroid is a mobile app for automatic saving, allows users to save money for chosen rules; when triggered the money is sent directly to the savedroid account. Savedroid rounds up and puts money into account for achieving various goals, like jogging, logging in to your mobile for some specific number of times in a day etc.
+2015
+USD 1M
+
+
+------------------------8개
+
+
