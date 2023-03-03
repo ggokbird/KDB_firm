@@ -1,0 +1,7 @@
+pip install -r requirements.txt --trusted-host pypi.org --trusted-host files.pythonhosted.org
+
+pip --trusted-host pypi.org --trusted-host files.pythonhosted.org install async_generator-1.10-py3-none-any.whl
+
+(base) C:\Users\221016>python -m pip install --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org --upgrade pip
+
+pip install --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org --install 
