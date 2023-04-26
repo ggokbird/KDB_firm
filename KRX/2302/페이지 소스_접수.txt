@@ -1,0 +1,2054 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>접수</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="/css/default_kr.css?v=20230421101406" type="text/css">
+		<script type="text/javascript" src="/js/ezApprovalG/lang/ezapprovalG_KO.js?v=20230425191814" ></script>
+		<script type="text/javascript" src="/js/jquery/jquery-1.11.3.min.js?v=20230113130708"></script>
+		<script type="text/javascript" src="/js/XmlHttpRequest.js?v=20230422194308"></script>
+		<script type="text/javascript" src="/js/mouseeffect.js?v=20230206141718"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/conn_WHWP.js?v=20230421173836"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/Recvdocnumber_WHWP.js?v=20230113130708"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/recevG_Susin_Cross_WHWP.js?v=20230331180716"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/ezRecevG_Susin_WHWP.js?v=20230421173836"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/appandbody.js?v=20230113130708"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/ezRecevG_WHWP.js?v=20230313174834"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/getDocAttach_Cross.js?v=20230421133430"></script>
+		<script type="text/javascript" src="/js/escapenew.js?v=20230113130708"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/CheckLines_Cross.js?v=20230304172812"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/AutoAprLine_Cross.js?v=20230416092142"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/SendMailApprove.js?v=20230425150148"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/nonElecRec.js?v=20230411140522"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/AprCategory_Cross.js?v=20230418134150"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/DefaultCabinet.js?v=20230414201528"></script>
+		<script type="text/javascript">
+		    var pWriterDeptID;
+		    var pDocID = "00000000000000006669";
+		    var pFormHref = new String("");
+		    var pFormID = new String();
+		    var zFormID = new String();
+		    var pUserID = "221016";
+		    var pHasAttachYN = new String("N");
+		    var pHasOpinionYN = new String("N");
+		    var CurrentDate
+		    var flag = false;
+		    var fieldflag = false;
+		    var xmlhttp = createXMLHttpRequest();	
+		    var xmldoc = createXmlDom();
+		    var xmluserInfo = createXmlDom();
+		    var SignCount = 0;
+		    var hapyuiCount = 0;
+		    var gongramCount = 0;
+		    var SignInfo = "";
+		    var SignInfoFlag = true;
+		    var pDraftFlag; 
+		    var pSuSinFlag; 
+		    var pChamJoFlag;
+		    var pSusinSN;   
+		    var pDocType;   
+		    var pDocState;  
+		    var pOrgDocID;  
+		    var pOrgHtml;
+		    var IsSkipDrafter 
+		    var badForm = false;
+		    var g_docnumber = "";
+		    var docAccess = false;
+		    var pCurSelRow;
+		    var pSusinDocURL = "";
+		    var pOrg_orgDocID = "00000000000000005597";
+		    var chkOK = false;
+		    var isReDraft = "";
+		    var LastSignNo;
+		    var AppendFileAttach = "";
+		    var AppenAprDocAttachList = "";
+		    var btnSendDraftEnable = "true";
+		    var gPublic = "";
+		    var s_nCallCnt = false; 
+		    var sCompanyID   = "0000";
+		    var CurAprType = "";
+		    var NextAprType = "";
+		    var arr_userinfo = new Array();
+		    arr_userinfo[0]  = "user";								
+		    arr_userinfo[1]  = "221016";							
+		    arr_userinfo[2]  = "민동재";
+		    arr_userinfo[3]  = "사원";
+		    arr_userinfo[4]  = "1ba0";
+		    arr_userinfo[5]  = "데이터사업팀";
+		    arr_userinfo[6]  = "J2";
+		    arr_userinfo[8]  = "goguma@krx.co.kr";             
+		    arr_userinfo[9]  = sCompanyID;
+		    arr_userinfo[11]  = "민동재";
+		    arr_userinfo[12]  = "민동재";
+		    arr_userinfo[13]  = "사원";
+		    arr_userinfo[14]  = "사원";
+		    arr_userinfo[15]  = "데이터사업팀";
+		    arr_userinfo[16]  = "데이터사업팀";		
+		    var pCompanyID = "0000";
+		    var companyID = "0000";
+		    var pSummery = "", pSpecialRecordCode = "", pPublicityCode = "", pPublicityYN = "", pLimitRange = "", pPageNum = "1";
+		    var cabinetID = "";
+		    var TaskCode = "";
+		    var DocNumCode = "";
+		    var SummaryFlag = false;
+		    var pDocTitle = "";
+		    var pDocNumCode, pOrgDocNumCode, pDocNo;
+		    var maxwidth = 659;							
+		    var KuyjeType = "002";
+		    var signDateFormat = ".";
+		    var isSplit = "N";
+		    var SplitKind = "FIX";
+		    var sihangURL = "/upload_approvalG/S907000/form/2006000001.hwp";
+		    var pReadPC = false;
+		    var arrDelFiles = new Array();
+		    var g_DraftFlag = "SUSIN";
+		    var g_RetFlag = "";
+		    var SignType = new Array();
+		    var SignName = new Array();
+		    var SignContent = new Array();
+		    var isExtDoc = "N";   
+		    var pGubun;
+		    var pUse_Editor = "KUKUDOCS";
+		    var g_szUserID = arr_userinfo[8];
+		    var g_senderinfo = "0000" + ", " + "데이터사업팀" + ", " + "사원";
+		    var approvalFlag  = "G";
+		    var ext = "hwp";
+		    var nonElecRec = "";
+		    var nonElecRecInfoXml = "", nonSepAttachLVXml = "", g_szSCListXml = "", sepAttachCheckYN = "";
+		    var dirPath = "/fileroot/0/files/upload_approvalG/";
+		    var useReceiveDocNo = "NO";
+		    var orgCompanyID = "";
+		    var docNumZeroCnt = "5";
+		    var rtnSignInfo = [];
+		    var SaveHtml = "";
+		    var useWebHWP = "YES";
+		    var imgCheck = true;
+			//원문정보공개
+			var useOpenGov = "NO";
+			var basis = "", reason = "", listOpenFlag = "", fileOpenFlagList = "", limitDate="";
+			
+			var useRedraftOpinionKeep = "";
+			
+			var useExternalMailServer = "YES";
+			
+			//문서유통 재배부요청 처리하기 위해 추가. 2020-05-14 홍대표.
+			var pSusinAdmin = "YES";
+		    
+	        // 대용량첨부 관련
+	        var bigAttachDownloadPeriod = "2023/04/24 ~ 2023/05/08";
+	        var bigAttachDownloadDay = "14";
+	        var bigSizeAttachDownloadLimitCount = "0";
+
+	        var formURL = "";
+
+			var nonElecRecType = "";
+
+            var nonElecDocSn;
+			var fromChkCategory;
+
+		    function process_AfterOpen() {
+		        try {
+		            if (pFormHref == "") {
+		                // SetBtnStateFalse();
+		                GetAprDocFormID();
+		                setAttachInfo(pDocID, "APR", lstAttachLink);
+		                getDocInfo();
+		            } else {
+		                if (nonElecRec === "Y") {
+							getDocInfoNonElec();
+						}
+						else if (pDraftFlag == "REDRAFT") {
+		                    var len;
+		                    var pInformationContent;
+		                    var Ans;
+		
+		                    // SetBtnStateTrue();
+		                    len = pFormHref.lastIndexOf("/");
+		                    pDocID = pFormHref.substr(len + 1, 20);
+		                    GetAprDocFormID();
+		                    setAttachInfo(pDocID, "APR", lstAttachLink);
+		                    getDocInfo();
+		
+		                    if (pHasOpinionYN == "Y") {
+		                        if (pAprState == "006")
+		                            pInformationContent = "반려의견 정보가 있습니다. <br> 의견 정보를 보시겠습니까?";
+		                        else
+		                            pInformationContent = "의견 정보가 있습니다. <br> 의견 정보를 보시겠습니까?";
+		
+		                        OpenInformationUI(pInformationContent, process_AfterOpen_Complete);
+		                    }
+		
+		                }
+		                else if (pDraftFlag == "SUSIN" || pDraftFlag == "GONGRAM") {
+		                    var len;
+		                    len = pFormHref.lastIndexOf("/");
+		
+		                    GetAprDocFormID();
+		                    setAttachInfo(pDocID, "APR", lstAttachLink);
+		                    getDocInfo();
+		
+		                    if (g_DraftFlag == "REDRAFT") {
+// 		                        setMenuBar("btnAssign", false);
+// 		                        setMenuBar("btnDistribute", false);
+		                    }
+
+		                    if (pOrg_orgDocID == "") {
+		                        setMenuBar("btnReturn", false);
+		                    }
+		
+		                    if (g_RetFlag == "Y") {
+		                        btnReturn_onclick();
+		                    }
+		                    else {
+		                        if (pHasOpinionYN == "Y") {
+		                            var pInformationContent;
+		                            var Ans;
+		
+		                            pInformationContent = "의견 정보가 있습니다. <br> 의견 정보를 보시겠습니까?";
+		                            OpenInformationUI(pInformationContent, process_AfterOpen_Complete);
+		                        }
+		                    }
+		                }
+		                else if (pDraftFlag == "HAPYUI") {
+		                    var len;
+		
+		                    len = pFormHref.lastIndexOf("/");
+		                    ClearDocCellInfo();
+		                    setClearSusinCellInfo();
+		                    pOrgDocID = pFormHref.substr(len + 1, 20);
+		                    pDocID = pOrgDocID;
+		                    GetAprDocFormID();
+		                    setAttachInfo(pDocID, "APR", lstAttachLink);
+		                    getDocInfo();
+		
+		                    if (pHasOpinionYN == "Y") {
+		                        var pInformationContent;
+		                        var Ans;
+		
+		                        pInformationContent = "의견 정보가 있습니다. <br> 의견 정보를 보시겠습니까?";
+		                        OpenInformationUI(pInformationContent, process_AfterOpen_Complete);
+		                    }
+		                }
+		                else {
+		                    // SetBtnStateTrue();
+		                    pDraftFlag = "DRAFT";
+		
+		                    if (pFormHref != "PC") {
+		                        var len;
+		                        len = pFormHref.lastIndexOf("/");
+		                        pFormID = pFormHref.substr(len + 1, 10);
+		                    }
+		
+		                    if (pDocID == "") {
+		                        if (pReadPC) {
+		                            ClearDocCellInfo();
+		                            setClearSusinCellInfo();
+		                        }
+		                        pDocID = createNewDoc();
+		                    }
+		                }
+// 		                SignCheck();
+		            }
+		        }
+		        catch (e) {
+		            alert("process_AfterOpen : " + e.description);
+		        }
+		    }
+		    
+		    function process_AfterOpen_Complete(Ans) {
+		        DivPopUpHidden();
+		        if (Ans) {
+		            //openOpinionUI("Display");
+		        	openOpinionUI_New("");
+		        }
+		    }
+		
+		
+		    function setAutoProperty() {
+		        try {
+		            getDraftUserInfo();
+		            SetAutoPropertyValue();
+		        }
+		        catch (e) {
+		            alert("setAutoProperty : " + e.description);
+		        }
+		    }
+		
+		    window.onresize = function () {
+	       		document.getElementById("messageWHWPEditor").style.height = document.documentElement.clientHeight - 165 + "px";
+	       		var mHeight = document.documentElement.clientHeight - 106 - document.getElementById("messageWHWPEditor").offsetTop + "px";
+	       		message.Resize(mHeight);
+	        }
+		    
+		    function window_onload() {
+				var chkReceivedDoc = 0;
+				
+		    	//접수된 문서인지 확인하기
+		    	$.ajax({
+		    		type : "POST",
+		    		dataType : "text",
+		    		async : false,
+		    		url : "/ezApprovalG/isReceivedDoc.do",
+		    		data : {
+		    			docID : pDocID
+		    		},
+		    		success : function(result) {
+		    			chkReceivedDoc = result;
+		    		}
+		    	});
+		    	
+		    	if (chkReceivedDoc != 0) {
+		        	alert("다른 사용자에 의해 이미 접수된 문서입니다.");
+		        	window.close();
+		    	} else {
+		    		window_onload2();
+		    	}
+		    	
+				// 일반첨부, 대용량첨부파일 관련 가이드 메세지 추가
+				setAttachGuideText();
+		    }
+		
+			function window_onload2() {
+			    try {
+			        IsSkipDrafter = "FALSE"
+			        // SetBtnStateTrue();
+			        
+			        if (nonElecRec == "Y") {
+						g_DraftFlag = "SUSIN"
+						pSusinDocURL = formURL;
+						pFormHref = formURL;
+						pDocType = "003";
+						pAprState = "011"
+						pDraftFlag = "SUSIN";
+						pSusinSN = 1;
+						let len = pFormHref.lastIndexOf("/");
+						pFormID = pFormHref.substr(len + 1, 10);
+						pDocID = createNewDocforNonElec();
+	                	document.getElementById("btnAddSepAttach").style.display = "none";
+			        } else {
+                        getReceiveDocInfo();
+                    }
+			        
+			        window.onresize();
+			    }
+			    catch (e) {
+			        alert("문서를 로딩중에 에러가 발생하였습니다." + e.description);
+				    //hideProgress();
+				}
+			}
+			
+			function Editor_Complete() {
+				showLoadingProgress();
+				
+				if (pSusinDocURL != "") {
+		            if (pSusinDocURL == "PC") {
+		                //HwpCtrl.LoadFile("", false);
+		                pReadPC = true;
+	                    message.Open("", "", "", function (res) { FieldsAvailable(res.result) }, null);
+		            }
+		            else {
+		                //showProgress("문서를 로딩중입니다. 잠시만 기다려주십시오..");
+					    var URL;
+		                URL = document.location.protocol + "//" + document.location.hostname + ":" + location.port + "/ezApprovalG/downloadAttachForHwp.do?filePath=" + escape(pSusinDocURL);
+		                message.Open(URL, "", "", function (res) { FieldsAvailable(res.result) }, null);
+					}
+		        }
+		
+		        else {
+				    var URL;
+	                URL = document.location.protocol + "//" + document.location.hostname + ":" + location.port + "/ezApprovalG/downloadAttachForHwp.do?filePath=" + escape(pRelayURL);
+	                message.Open(URL, "", "", function (res) { FieldsAvailable(res.result) }, null);
+				}
+			}
+		
+			function FieldsAvailable(isTrue) {
+			    if (needDoubleFormFlag) {
+			    	getExtInfo();
+			        /* var tempFlag = getExtInfo();
+			        if (tempFlag) {
+			            setAutoProperty();
+			            process_AfterOpen();
+			            SetBtnStateTrue();
+			            //hideProgress();
+			        } else {
+			            //hideProgress();
+			            var pAlertContent = "문서를 여는 중에 에러가 발생하였습니다.";
+						OpenAlertUI(pAlertContent);
+						chkBtnConfirm("1");
+			
+						return;
+			        } */
+			    } else {
+			        if (pFormHref == "") {
+			            var isRelay = GetRelayDocInfo();
+			            if (isRelay) {
+			                try {
+			                    if (getNodeText(pRelayDocInfo.getElementsByTagName("isPKI").item(0)) == "Y") {
+			                        hideLoadingProgress();
+			
+			                        if (!getPasswdEnd()) {
+			                            var pAlertContent = "암호가 맞지 않습니다.<br> 확인해 주십시오.";
+			                            OpenAlertUI(pAlertContent);
+			                            chkBtnConfirm("1");
+			                        }
+			                        else {
+			                            var emlName = getNodeText(pRelayDocInfo.getElementsByTagName("emlURL").item(0));
+			                            //이부분이 타는지 체크해야함 탄다면 어떤 의미인지도 체크
+			                            if (!decodeUp(emlName)) {
+			                                //hideProgress();
+			                                chkBtnConfirm("1");
+			                                return;
+			                            }
+			                        }
+			                    }
+			                    
+			                    getExtInfo();
+			                    /* var tempFlag = getExtInfo();
+			                    if (tempFlag) {
+			                        setAutoProperty();
+			                        process_AfterOpen();
+			                        SetBtnStateTrue();
+			                        //hideProgress();
+			                    }
+			                    else {
+			                        document.getElementById("btnRefresh").style.display = "";
+			                        if (!needDoubleFormFlag) {
+			                            //hideProgress();
+			                            var pAlertContent = "문서를 여는 중에 에러가 발생하였습니다.";
+			                            OpenAlertUI(pAlertContent);
+			                            chkBtnConfirm("1");
+			                            return;
+			                        }
+			                    } */
+			                } catch (e) {
+			                    document.getElementById("btnRefresh").style.display = "";
+			                }
+			            }
+			            else {
+			                hideLoadingProgress();
+			                chkBtnConfirm("1");
+			                document.getElementById("btnRefresh").style.display = "";
+			                return;
+			            }
+			        }
+			    }
+			    isClean(true, "END", pDocID);
+			    FieldsAvailable_complate(isTrue);
+			}
+
+			function FieldsAvailable_complate(isTrue) {
+			    pGubun = "11";
+			    if (isTrue) {
+			
+			        SetReceiptNumber();
+			        hideLoadingProgress();
+			        setMenuBar("btnEdit", false);
+			
+			        setAutoProperty();
+			        process_AfterOpen();
+			        setFirstDrafter();
+					connInit();
+			
+			        if (SignCount < 1) { // 수신사인칸이 없음
+			            pGubun = "12";
+			            btntotaldocinfo.style.display = "none";
+			            btnSendDraft.style.display = "none";
+			            setNodeText(btnRJunkyul.childNodes[0], "편철");
+
+						setBtnEnable();
+			        } else {
+	                    pGubun = "11";
+						
+						setBtnEnable();
+	                }
+			
+			        getGongRamDocInfo();
+			
+			        var g_SepAttachLVXml = "";
+			        g_SepAttachLVXml = GetDocumentElement("sepattachlvxml", true);
+			
+			        if (!g_SepAttachLVXml)
+			            g_SepAttachLVXml = "";
+
+			        if(g_SepAttachLVXml != ""){
+						SetDocumentElement("sepattachlvxml", SetSepAttParamXmlNull(g_SepAttachLVXml));
+					}
+
+			        if (pReadPC) {
+			            var DocumentInfo = createXmlDom();
+			            DocumentInfo = loadXMLString(message.GetDocumentInfo());
+			            if (DocumentInfo.getElementsByTagName("TITLE").length > 0) {
+			                if (getNodeText(DocumentInfo.getElementsByTagName("TITLE").item(0)) == "")
+			                    pFormID = getNodeText(DocumentInfo.getElementsByTagName("TITLE").item(0));
+			            }
+			        }
+			    }
+			    else {
+			    	hideLoadingProgress();
+			        var pAlertContent = "잘못된 양식입니다. 사용하실 수 없습니다.";
+			        OpenAlertUI(pAlertContent);
+			        message.Clear();
+			    }
+			    //HwpCtrl.SetImgReg();
+			    
+			    message.EditMode(0);
+				message.SetViewProperties(2, 100);
+				
+		        //2018-10-15 반송 후 배부된 문서의 접수번호 초기화
+				//2021-01-28 문서번호 초기화시 @dp-@YY-@nn으로 수정
+		        if (pDraftFlag == "SUSIN" && nonElecRec == "Y" && !message.GetFieldText("receiptnumber")) {
+		        	message.PutFieldText("receiptnumber", "@dp-@YY-@nn");
+		        }
+		        
+		        //message.MoveToField("doctitle");
+		        message.ScrollPosInfo(0, 0);
+		        
+		        if(useExternalMailServer == "NO") {
+			    	$("#btnMail").css("display","");
+			    }
+			}
+		
+			function btnSetAprLine_onclick() {
+			    var ret;
+			    if (SignCount < 1) {
+			        var pAlertContent = "이 문서는 결재선을 지정할 수 없습니다.";
+			        OpenAlertUI(pAlertContent);
+			        return
+			    }
+			
+			    ret = openAprLineUI();
+			    if (ret[0] != "cancel" && ret[3] != "cancel") {
+			        btnSendDraftEnable = "true"
+			        IsSkipDrafter = "FALSE";
+			        btnSendDraft.Enable = "true";
+			        GetDraftAprLineInfo(ret);
+			    }
+			    else {
+			        if (ret[2] == "cancel") {
+			            var pAlertContent = "결재선이 지정되지 않았습니다.";
+			            OpenAlertUI(pAlertContent);
+			            return;
+			        }
+			    }
+			}
+		
+			function btnSetReceivLine_onclick() {
+			    try {
+			        var ret = openReceivUI();
+			        if (ret != "cancel") {
+			            setRecevInfo(ret);
+			        }
+			    }
+			    catch (e) {
+			        alert("btnSetReceivLine_onclick : " + e.description);
+			    }
+			}
+
+            var ingFlag = false;
+			function btnSendDraft_onclick() {
+                if (ingFlag) {
+                    return;
+                }
+				if (cabinetID === ""||cabinetID == null) {
+					cabinetID = getDefaultCabinetId();
+				}
+                
+	        	var deptCheckFlag = checkDeptAndCabinetId();
+	        	
+				if (deptCheckFlag == "3") {
+					alert("접수창의 부서정보가 '" + arr_userinfo[5] + "'부서로 되어있습니다. \n겸직부서를'" + arr_userinfo[5] + "'부서로 변경하시거나 접수창을 새로 띄워주시기바랍니다." );
+					return;
+				} else if (deptCheckFlag == "4") {
+					alert("접수창의 부서정보가 '" + arr_userinfo[5] + "'부서로 되어있습니다. \n사용자의 부서가 변경되거나 겸직이 삭제되었으니 접수창을 새로 띄워주시기바랍니다.");
+					return;
+				} else if (deptCheckFlag == "2") {
+					//alert("타부서의 철정보로 설정되어있습니다. \n'" + arr_userinfo[5] + "'부서의 철로 변경해주시기바랍니다.");
+					cabinetID = getDefaultCabinetId(arr_userinfo[5]);
+				}	
+			
+			    try {
+			        if (btnSendDraftEnable == "false") {
+			            var pAlertContent = "결재선을 확인해주십시오.";
+			            OpenAlertUI(pAlertContent);
+			            return;
+			        }
+			
+			        if (!checkLines())
+			            return;
+
+					if (!checkAprCategory(pDocID)) {
+						return;
+					}
+
+			        try {
+			            var pSusinNextSN = 0;
+			
+			
+			            if (pSusinSN)
+			                pSusinNextSN = parseInt(pSusinSN, 10) + 1;
+			            else
+			                pSusinNextSN = 1;
+			
+			            var fieldname = pSusinNextSN + "sign1";
+			            if (message.FieldExist(fieldname) && CheckDeptLinesXML == "") {
+			                var pInformationContent = "수신부서를 지정하지 않았습니다. 수신부서를 지정하시겠습니까?<br><br>" +
+										"수신부서를 지정하시려면 확인버튼을 눌러주시고, 지정할 필요가 없으면 취소를 눌러 주십시오.";
+			                OpenInformationUI(pInformationContent, btnSendDraft_onclick_Complete);
+			            } else {
+			            	TaskCode_Check();
+			            }
+			        }
+			        catch (e) {console.log(e);}
+				} catch (e) {
+				    alert("btnSendDraft_onclick : " + e);
+			    }
+			}
+			    
+			function TaskCode_Check() {
+		        if (cabinetID == "") {
+		        	if (nonElecRec != "Y") {
+			            btnSetTaskCode_onclick();
+		        	} else {
+			            TaskCode_Save();
+		        	}
+		        } else {
+		            TaskCode_Save();
+		        }
+		    }
+			    
+			function TaskCode_Save() {
+				if (cabinetID == "") {
+		            var pAlertContent = "기록물철을 지정하셔야 합니다.";
+		            OpenAlertUI(pAlertContent);
+		            return;
+		        }
+		
+		        var g_SepAttachLVXml = "";
+		        g_SepAttachLVXml = GetDocumentElement("sepattachlvxml", true);
+		        if (!g_SepAttachLVXml)
+		            g_SepAttachLVXml = "";
+		
+		        if (!CheckSepAttParamXmlNull(g_SepAttachLVXml)) {
+		            var pAlertContent = "분리첨부를 모두 편철하여 주십시오.";
+		            OpenAlertUI(pAlertContent);
+		            return;
+		        }
+		        
+		        /* 2020-03-31 홍승비 - 재기안 시 반송의견 유지여부 컨피그 추가 */
+		        if (g_DraftFlag == "REDRAFT" && useRedraftOpinionKeep != "YES") {
+		            delOpinionInfo();
+		        }
+		
+		        if (message.FieldExist("doctitle"))
+		            pDocTitle = trim(message.GetFieldText("doctitle"));
+		        else
+		            pDocTitle = "결재문서";
+		            
+		        if (pDocTitle == "") {
+		            var pAlertContent = "문서 제목을 입력해 주십시오.";
+		            OpenAlertUI(pAlertContent);
+		            return;
+		        } else {
+		        	if (CheckUsePassword()) {
+		                chk_Passwd();
+		            } else {
+		                check_skipdraft();
+		            }
+		        }
+			}
+			
+			function chk_Passwd_Complete(chkpass) {
+				DivPopUpHidden();
+				if (chkpass == "False") {
+                    var pAlertContent = "결재 암호가 일치하지 않습니다.";
+		            OpenAlertUI(pAlertContent);
+		            return;
+                } else if (chkpass == "cancel" || chkpass == undefined) {
+		            var pAlertContent = "[접수]처리가 취소되었습니다.";
+		            OpenAlertUI(pAlertContent);
+		            return;
+		        }
+		        check_skipdraft();
+			 }
+			
+			 function check_skipdraft() {
+				 if (IsSkipDrafter == "FALSE") {
+		                var ret;
+		                var parameter = new Array();
+		                parameter[0] = pDocID;
+		
+		                if (SignCount < 1) {
+		                    ret = "NAME";
+		                    openSignUI_Complete("NAME");
+		                }
+		                else {
+		                    openSignUI(parameter);
+		                }
+				 } else {
+					 GetHTML(saveSuSinDocInfo);
+				 }
+			 }
+			 
+			 function saveSuSinDocInfo(html) {
+		     	pOrgHtml = html;
+	          	var rtnval = true;
+	              //mht는 G일때만 수신채번하게 되잇는데
+                rtnval = getRecvDocNumber(arr_userinfo[4], docNumZeroCnt);
+                if (!rtnval) {
+                    UndoSignInfo(rtnSignInfo);
+                    
+                    var pAlertContent = "[접수 문서번호]를 가져오지 못했습니다!";
+                    OpenAlertUI(pAlertContent);
+
+                    return;
+                }
+	
+	            if (LastSignSN != 1) {
+	            	var rtnVal = ExcuteInfo("LAST_APR_BEFORE")
+	                if (!rtnVal) {
+	                    return;
+	                }
+	            }
+	
+                if (pDraftFlag == "SUSIN" || pDraftFlag == "HAPYUI" || pSusinSN != "0") {
+                    var RtnVal;
+                    var pAlertContent;
+                    RtnVal = setSusinUpdataDocID();
+
+                    if (RtnVal == "TRUE") {
+                        RtnVal = ExcuteInfo("DRAFTSAVE_BEFORE")
+                        if (!RtnVal) {
+                           return;
+                        }
+
+                        GetHTML(Before_SaveDraftDocInfo);
+                    } else {
+	                      UndoSignInfo(rtnSignInfo);
+	
+	                      if (LastSignSN == 1) {
+	                          rollbackDocNumber(arr_userinfo[4], "receipt", pDocID);
+                              setSusinRollbackDocID();
+	                          
+	                          RtnVal = ExcuteInfo("END_FAIL")
+	                          if (!RtnVal) {
+	                              return;
+	                          }
+	                      }
+	                      
+	                      GetHTML(before_SaveFile);
+	
+	                    //   SetBtnStateTrue();
+	                      btnSendDraft.Enable = "true";
+	
+	                      pAlertContent = "[접수] 처리를 하지 못했습니다.";
+	                      OpenAlertUI(pAlertContent);
+	                      return;
+	                  }
+	              } else {
+	                  var RtnVal = ExcuteInfo("DRAFTSAVE_BEFORE")
+	                  var pAlertContent;
+	
+	                  if (!RtnVal) {
+	                      return;
+	                  }
+	
+	                  RtnVal = SaveDraftDocInfo();
+	                  if (RtnVal == "TRUE") {
+	                      RtnVal = ExcuteInfo("DRAFTSAVE_AFTER")
+	                      if (!RtnVal) {
+	                          return;
+	                      }
+	
+	
+	                      if (LastSignSN == 1) {
+	                          RtnVal = ExcuteInfo("DOCNUM_END")
+	                          if (!RtnVal) {
+	                              return;
+	                          }
+	                      }
+	                      
+							/* 2022-08-16 홍승비 - 부서수신함에서 수신문 접수기안(또는 전결) 시, 기안 시와 동일하게 결재선 변경이력 남기도록 수정 */
+							UpdateLineHistory();
+	
+	                      pAlertContent = "수신문서를 접수 하였습니다.";
+	                      OpenAlertUI(pAlertContent);
+	                      chkOK = true;
+	                      window.close();
+	                  } else {
+	                      UndoSignInfo(rtnSignInfo);
+	
+	
+	                      if (LastSignSN == 1) {
+	                          RtnVal = ExcuteInfo("END_FAIL")
+	                          if (!RtnVal) {
+		  			            return;
+		  			        }
+	                      }
+	                    //   SetBtnStateTrue();
+	                      pAlertContent = "[접수] 처리를 하지 못했습니다.";
+	                      OpenAlertUI(pAlertContent);
+	                      return;
+	                  }
+                  }
+              }
+          
+           function Before_SaveDraftDocInfo(html) {
+        	   SaveHtml = html;
+        	   var RtnVal = "";
+        	   RtnVal = SaveDraftDocInfo();
+        	   
+        	   if (RtnVal == "TRUE") {
+                   RtnVal = ExcuteInfo("DRAFTSAVE_AFTER")
+                   if (!RtnVal) {
+                      return;
+                   }
+
+                   if (LastSignSN == 1) {
+                      RtnVal = ExcuteInfo("DOCNUM_END")
+                      if (!RtnVal) {
+                          return;
+                      }
+
+                      RtnVal = ExcuteInfo("LAST_END_AFTER")
+                      if (!RtnVal) {
+                          return;
+                      }
+					  if (nonElecRec != "Y") {
+						  SendMailToDrafter();
+						  setEndDocApprovalMailToFormRecipient(pOrgDocID);
+					  }
+
+                    } else {
+					   if (nonElecRec != "Y") {
+						   sendAlertMail("APR", "1", "RECEV_END");
+					   }
+				   }
+
+                  if (LastSignSN == 1) {
+                     pAlertContent = "수신문서를 접수완료 하였습니다.";
+                  } else {
+                     pAlertContent = "수신문서를 접수 하였습니다.";
+                  }
+                  
+	                //중계문서 접수 시 재배부의견은 삭제처리 2020-05-15 홍대표
+	                delOpinionInfoAll3();
+	                
+	                UpdateLineHistory();
+	                
+                    OpenAlertUI(pAlertContent, OpenAlertUI_Close_Complete);
+                    chkOK = true;
+               } else {
+                    UndoSignInfo(rtnSignInfo);
+                	
+                    if (LastSignSN == 1) {
+                        rollbackDocNumber(arr_userinfo[4], "receipt", pDocID);
+                        setSusinRollbackDocID();
+                        
+                        RtnVal = ExcuteInfo("END_FAIL")
+                        if (!RtnVal) {
+                            return;
+                        }
+                    }
+                    
+                    GetHTML(before_SaveFile);
+                    
+                    pAlertContent = "[접수] 처리를 하지 못했습니다.";
+                    OpenAlertUI(pAlertContent);
+                    return;
+                }
+           }
+		        	
+		   function openSignUI_Complete(ret) {
+			   DivPopUpHidden();
+			   
+			   if (ret == "cancel" || ret == undefined) {
+                   var pAlertContent = "[접수]처리가 취소되었습니다.";
+                   OpenAlertUI(pAlertContent);
+                   return;
+               }
+
+               if (getLastAprLine() == false) {
+                   var pAlertContent = "동시에 접수를 진행하는 사용자가 있어 결재선이 초기화 되었습니다.<br>" +
+										"결재선을 다시 지정해 주시기 바랍니다.";
+                   OpenAlertUI(pAlertContent);
+                   try {
+                      btnSetAprLine_onclick();
+                   } catch (e) {console.log(e);}
+					return;
+               }
+               
+               if (LastSignSN == 1) {
+                   var rtnVal;
+                   rtnVal = ExcuteInfo("DOCNUM_BEFORE")
+                   if (!rtnVal) {
+                       return;
+                   }
+               }
+               
+               if (LastSignSN == 1) {
+                   var rtnVal;
+                   rtnVal = ExcuteInfo("DOCNUM_AFTER")
+                   if (!rtnVal) {
+                       return;
+                   }
+               }
+               
+               if (LastSignSN == 1) {
+                   var rtnVal = ExcuteInfo("LAST_SEND_BEFORE")
+                   if (!rtnVal) {
+                       return;
+                   }
+               }
+               
+               if (SignCount >= 1) {
+				   if (LastSignSN == 1) {
+					   var rtnVal = ExcuteInfo("LAST_SIGN_BEFORE")
+					   if (!rtnVal) {
+						   return;
+					   }
+				   }
+
+                   SendDraftMappingSign(ret);
+
+				   if (LastSignSN == 1) {
+					   var rtnVal = ExcuteInfo("LAST_SIGN_AFTER")
+					   if (!rtnVal) {
+						   return;
+					   }
+				   }
+               }
+               
+               GetHTML(saveSuSinDocInfo);
+		   }
+			    
+		  function check_btnSendDraft() {
+		        DivPopUpHidden();
+		  		btnApprovalInfo();
+		  }
+		  
+		  function btnSendDraft_onclick_Complete(Ans) {
+			  if (Ans) {
+                    btnSetReceivLine_onclick();
+			  }
+				  
+			  TaskCode_Check();
+		  }
+		
+			function getLastAprLine() {
+		        try {
+		        	var result = "";
+		            
+		            $.ajax({
+		        		type : "POST",
+		        		dataType : "text",
+		        		async : false,
+		        		url : "/ezApprovalG/aprLineRequest.do",
+		        		data : {
+		        				docID    : pDocID, 
+		        				userID 	 : pUserID,
+		        				formID   : pFormID,
+		        				mode     : "",
+								docState : pDocState
+		        				},
+		        		success: function(xml){
+		        			result = loadXMLString(xml);
+		        		}        			
+		        	});
+		            
+		            var NodeList = SelectNodes(result, "LISTVIEWDATA/ROWS/ROW");
+		            if (NodeList.length > 0) {
+		                var bResult = CheckFirstDrafter(result);
+		                return bResult;
+		            }
+		
+		            return false;
+		        }
+		        catch (e) {
+		            return false;
+		            alert("getLastAprLine :: " + e.description);
+		        }
+		    }
+		
+			  function CheckFirstDrafter(APRLINE) {
+			      var AprLineRow = SelectNodes(APRLINE, "LISTVIEWDATA/ROWS/ROW");
+			      var CurListLen = AprLineRow.length;
+			      var i;
+			      var AprLineTotalLen;
+			      var pCheckUserID = "";
+			
+			      for (var i = 0 ; i < CurListLen; i++) {
+			          if (i == CurListLen - 1) {
+			              pCheckUserID = trim(getNodeText(GetChildNodes(AprLineRow[i])[0].getElementsByTagName("DATA4")[0]));
+
+			              if (pCheckUserID == pUserID) {
+			                  return true;
+			              } else {
+			                  return false;
+			              }
+			              break;
+			          }
+			      }
+			      return true;
+			  }
+		
+			  function btnFileAttach_onclick() {
+			      var ret = openFileAttachUI();
+			  }
+			
+			  function btnAprDocAttach_onclick() {
+			      var ret = openAaprDocAttachUI();
+			  }
+		
+			  function btnOpinion_onclick() {
+			      //var ret = openOpinionUI("N");
+				  openOpinionUI_New("");
+			  }
+			
+			  function btnSave_onclick() {
+			      HwpCtrl.SetDocumentInfo(pFormID);
+			      HwpCtrl.SaveFile("");
+			  }
+			
+			  function btnPrint_onclick() {
+				  message.PrintDocument();
+			  }
+			
+			  function btnClose_onclick() {
+			      window.close();
+			  }
+		
+			  function window_onbeforeunload() {
+			      try {
+			          window.opener.openergetDocInfo();
+			          if (!chkOK) {
+			
+			              if (isReDraft == "N")
+			                  delDocInfo();
+			          }
+			      }
+			      catch (e) {console.log(e);}
+			
+			      try {
+			          window.opener.Refresh_Window();
+			      }
+			      catch (e) {console.log(e);}
+			
+			      //사용하지 않는게 좋을듯 엑티브엑스를 이용하여 템프파일 생성 후 지우는거 
+// 			      DeleteLocalFiles();
+			  }
+		
+			  function DeleteLocalFiles() {
+			      var ezUtil = new ActiveXObject("EzUtil.MiscFunc");
+			
+			      for (var i = 0 ; i < arrDelFiles.length ; i++) {
+			          ezUtil.UseUTF8 = true;
+			          ezUtil.DeleteFile(arrDelFiles[i]);
+			      }
+			
+			      ezUtil = null;
+			  }
+		
+			  var ezreceivedistributeui_cross_dialogArguments = new Array();
+			  function btnDistribute_onclick() {
+	        	  var deptCheckFlag = checkDeptAndCabinetId();
+	        	  
+				  if (deptCheckFlag == "3") {
+				  	  alert("접수창의 부서정보가 '" + arr_userinfo[5] + "'부서로 되어있습니다. \n겸직부서를'" + arr_userinfo[5] + "'부서로 변경하시거나 접수창을 새로 띄워주시기바랍니다." );
+			  		  return;
+				  } else if (deptCheckFlag == "4") {
+				  	  alert("접수창의 부서정보가 '" + arr_userinfo[5] + "'부서로 되어있습니다. \n사용자의 부서가 변경되거나 겸직이 삭제되었으니 접수창을 새로 띄워주시기바랍니다.");
+				  	  return;
+			  	  } else if (deptCheckFlag == "2") {
+				  	  //alert("타부서의 철정보로 설정되어있습니다. \n'" + arr_userinfo[5] + "'부서의 철로 변경해주시기바랍니다.");
+					  cabinetID = getDefaultCabinetId(arr_userinfo[5]);
+				  }  
+			  
+			      var parameter = new Array();
+			      parameter[0] = pDocID;
+			      parameter[1] = pSusinSN;
+			      parameter[2] = arr_userinfo[4];
+			      parameter[3] = pAprState;
+			      parameter[4] = getNodeText(RECEIPTDEPTID);
+			
+			      var url = "/ezApprovalG/ezReceiveDistributeUI.do";
+			      /* var feature = "status:no;dialogWidth:800px;dialogHeight:600px;edge:sunken;scroll:no"
+			      var ret = window.showModalDialog(url, parameter, feature);
+			      if (ret == "true") {
+			          var pAlertContent = "배부 부서를 지정하였습니다.";
+			          OpenAlertUI(pAlertContent);
+			          btnClose_onclick();
+			      } */
+			      ezreceivedistributeui_cross_dialogArguments[0] = parameter;
+			      ezreceivedistributeui_cross_dialogArguments[1] = btnDistribute_onclick_Complete;
+			
+			      DivPopUpShow(845, 635, url);
+			  }
+			  
+			  function btnDistribute_onclick_Complete(ret) {
+				  DivPopUpHidden();
+				  if (ret == "true") {
+			          var pAlertContent = "배부 부서를 지정하였습니다.";
+			          OpenAlertUI(pAlertContent, btnClose_onclick);
+			      }
+			  }
+			  
+			  var ezreceiveassignui_cross_dialogArguments = new Array();
+			  function btnAssign_onclick() {
+	        	  var deptCheckFlag = checkDeptAndCabinetId();
+	        	
+				  if (deptCheckFlag == "3") {
+					  alert("접수창의 부서정보가 '" + arr_userinfo[5] + "'부서로 되어있습니다. \n겸직부서를'" + arr_userinfo[5] + "'부서로 변경하시거나 접수창을 새로 띄워주시기바랍니다." );
+					  return;
+				  } else if (deptCheckFlag == "4") {
+					  alert("접수창의 부서정보가 '" + arr_userinfo[5] + "'부서로 되어있습니다. \n사용자의 부서가 변경되거나 겸직이 삭제되었으니 접수창을 새로 띄워주시기바랍니다.");
+					  return;
+				  }  
+			  
+			      var parameter = new Array();
+			      parameter[0] = pDocID;
+			      parameter[1] = pSusinSN;
+			      parameter[2] = pAprState;
+			
+				  var url = "/ezApprovalG/ezReceiveAssignUI.do";
+			      /* var feature = "status:no;dialogWidth:800px;dialogHeight:600px;edge:sunken;scroll:no"
+			      var ret = window.showModalDialog(url, parameter, feature);
+			      if (ret == "OK") {
+			          var pAlertContent = "사용자 지정처리 하였습니다.";
+			        OpenAlertUI(pAlertContent);
+			        btnClose_onclick();
+			        return;
+			    } */
+			      ezreceiveassignui_cross_dialogArguments[0] = parameter;
+		          ezreceiveassignui_cross_dialogArguments[1] = btnAssign_onclick_Complete;
+		
+		          DivPopUpShow(845, 634, url);
+			}
+			  
+			function btnAssign_onclick_Complete(ret) {
+				DivPopUpHidden();
+				if (ret == "OK") {
+					var pAlertContent = "사용자 지정처리 하였습니다.";
+					OpenAlertUI(pAlertContent, btnClose_onclick);
+				}
+			}
+		
+			var pDocSN = "";
+			function btnReturn_onclick() {
+	        	var deptCheckFlag = checkDeptAndCabinetId();
+	        	
+				if (deptCheckFlag == "3") {
+					alert("접수창의 부서정보가 '" + arr_userinfo[5] + "'부서로 되어있습니다. \n겸직부서를'" + arr_userinfo[5] + "'부서로 변경하시거나 접수창을 새로 띄워주시기바랍니다." );
+					return;
+				} else if (deptCheckFlag == "4") {
+					alert("접수창의 부서정보가 '" + arr_userinfo[5] + "'부서로 되어있습니다. \n사용자의 부서가 변경되거나 겸직이 삭제되었으니 접수창을 새로 띄워주시기바랍니다.");
+					return;
+				} else if (deptCheckFlag == "2") {
+					//alert("타부서의 철정보로 설정되어있습니다. \n'" + arr_userinfo[5] + "'부서의 철로 변경해주시기바랍니다.");
+					cabinetID = getDefaultCabinetId(arr_userinfo[5]);
+				}	
+			
+			    if (message.FieldExist("receiptnumber")) {
+			        var fieldValue = trim(message.GetFieldText("receiptnumber"));
+			        if (fieldValue != "" && fieldValue.replace("@", "") == fieldValue) {
+			            var tmpDocSN = fieldValue.substr(fieldValue.lastIndexOf("-") + 1);
+			            if (!isNaN(tmpDocSN))
+			                pDocSN = tmpDocSN;
+			        }
+			    }
+			    
+			    /* var parameter = new Array();
+			    parameter[0] = pDocID;
+			    parameter[1] = "HeSong";
+			    parameter[2] = KuyjeType;
+			    parameter[3] = "";
+			    
+			    parameter[98] = companyID;
+			
+			    if (pDocSN != "")
+			        parameter[4] = "Y";
+			    else
+			        parameter[4] = "N";
+			
+			    //양식 확장자 가져오는 값 전송. 중간에 값 껴들수 있어서 그냥 99로 생성
+			    parameter[99] = "hwp";
+			    
+			    var url = "/ezApprovalG/aprOpinion.do";
+			    var feature = "status:no;dialogWidth:530px;dialogHeight:520px;edge:sunken;scroll:no;help:no"
+			    var ret = window.showModalDialog(url, parameter, feature); */
+			    
+			    openOpinionUI_New("HeSong", btnReturn_onclick_Complete);
+			}
+			
+			function btnReturn_onclick_Complete(ret) {
+				DivPopUpHidden();
+				
+			    var hesongok = true;
+				if (ret != "cancel" && ret != undefined) {
+					var ret2 = ExcuteInfo("HESONG_BEFORE");
+					if (!ret2) {
+						return;
+					}
+
+			        setButtonReceiveTrue();
+			
+			        if (pDocSN != "")
+			            hesongok = setCabinetHeSong(pDocSN);
+			
+			        if (hesongok) {
+						var writerID = GetDocInfoData("APR", "writerid");
+						var writerName = GetDocInfoData("APR", "writername");
+						var docTitle = GetDocInfoData("APR", "doctitle");
+		            	SendMailToDrafter_Hesong(writerID, writerName, docTitle);
+						
+			            hesongok = setHeSongDocInfo();
+			            if (hesongok) {
+			                ExcuteInfo("HESONG_AFTER")
+			            } else {
+			                ExcuteInfo("HESONG_FAIL")
+						}
+			        }
+			    }
+			}
+		
+			var modeflag = true;
+			function btnEdit_onclick() {
+			    if (modeflag) {
+			        modeflag = false;
+			        chkBtnConfirm("1");
+			
+			        beforeHtml = HwpCtrl.GetCloneData("", "HWP");;
+			        HwpCtrl.ChangeMode(2);
+			
+			        setNodeText(btnEdit.childNodes[0], "보기모드");
+			      }
+			      else {
+			          var pInformationContent = "편집된 내용을 적용하시겠습니까?";
+			          var Ans = OpenInformationUI(pInformationContent);
+			
+			          HwpCtrl.ChangeMode(3);
+			          setNodeText(btnEdit.childNodes[0], "수정");
+				    if (Ans) {
+				    }
+				    else {
+				        HwpCtrl.SetCloneData(beforeHtml, "", "HWP");
+				    }
+				    modeflag = true;
+				    chkBtnConfirm("2");
+			    }
+			}
+		
+			function btnRJunkyul_onclick() {
+	        	var deptCheckFlag = checkDeptAndCabinetId();
+	        	
+				if (deptCheckFlag == "3") {
+					alert("접수창의 부서정보가 '" + arr_userinfo[5] + "'부서로 되어있습니다. \n겸직부서를'" + arr_userinfo[5] + "'부서로 변경하시거나 접수창을 새로 띄워주시기바랍니다." );
+					return;
+				} else if (deptCheckFlag == "4") {
+					alert("접수창의 부서정보가 '" + arr_userinfo[5] + "'부서로 되어있습니다. \n사용자의 부서가 변경되거나 겸직이 삭제되었으니 접수창을 새로 띄워주시기바랍니다.");
+					return;
+				} else if (deptCheckFlag == "2") {
+					//alert("타부서의 철정보로 설정되어있습니다. \n'" + arr_userinfo[5] + "'부서의 철로 변경해주시기바랍니다.");
+					cabinetID = getDefaultCabinetId(arr_userinfo[5]);
+				}	
+			
+			    var Resultxml;
+			    var UserID = "221016";
+			    var DisplayName =  "민동재";
+			    var DepID = "1ba0";
+			    var DeptName = "데이터사업팀";
+			    var Position =  "사원";
+			    var CompanyID = "0000";
+			    var d = new Date();
+			    var RecieveDay = d.getFullYear() + "." + (d.getMonth() + 1) + "." + d.getDate();
+			
+			    Resultxml = "<LISTVIEWDATA><HEADERS>";
+			    Resultxml = Resultxml + "<HEADER><NAME>번호</NAME><WIDTH>30</WIDTH></HEADER>";
+			    Resultxml = Resultxml + "<HEADER><NAME>이름</NAME><WIDTH>50</WIDTH></HEADER>";
+			    Resultxml = Resultxml + "<HEADER><NAME>직위</NAME><WIDTH>60</WIDTH></HEADER>";
+			    Resultxml = Resultxml + "<HEADER><NAME>부서</NAME><WIDTH>80</WIDTH></HEADER>";
+			    Resultxml = Resultxml + "<HEADER><NAME>결재방법</NAME><WIDTH>80</WIDTH></HEADER>";
+			    Resultxml = Resultxml + "<HEADER><NAME>결재상태</NAME><WIDTH>80</WIDTH></HEADER>";
+			    Resultxml = Resultxml + "<HEADER><NAME>결재일</NAME><WIDTH>80</WIDTH></HEADER>";
+			    Resultxml = Resultxml + "<HEADER><NAME>수신일</NAME><WIDTH>80</WIDTH></HEADER>";
+			    Resultxml = Resultxml + "</HEADERS><ROWS><ROW>";
+			    Resultxml = Resultxml + "<COLUMN>1</COLUMN>";
+			    Resultxml = Resultxml + "<COLUMN>" + MakeXMLString(DisplayName) + "</COLUMN>";
+			    Resultxml = Resultxml + "<COLUMN>" + MakeXMLString(Position) + "</COLUMN>";
+			
+			    Resultxml = Resultxml + "<COLUMN>" + MakeXMLString(DeptName) + "</COLUMN>";
+			    Resultxml = Resultxml + "<COLUMN>전결</COLUMN>";
+			    Resultxml = Resultxml + "<COLUMN>진행</COLUMN>";
+			    Resultxml = Resultxml + "<DATA name='ProcessDate'>" + "" + "</DATA>";
+			    Resultxml = Resultxml + "<DATA name='ReceivedDate'>" + RecieveDay + "</DATA>";
+			    Resultxml = Resultxml + "<DATA name='DocID'>" + pDocID + "</DATA>";
+			    Resultxml = Resultxml + "<DATA name='AprMemberID'>" + UserID + "</DATA>";
+			    Resultxml = Resultxml + "<DATA name='AprmemberIsDeptYN'>N</DATA>";
+			    Resultxml = Resultxml + "<DATA name='AprMemberDeptID'>" + DepID + "</DATA>";
+			    Resultxml = Resultxml + "<DATA name='ReasonDoNotApprov'></DATA>";
+			    Resultxml = Resultxml + "<DATA name='isProposerYN'>N</DATA>";
+			    Resultxml = Resultxml + "<DATA name='isBriefUserYN'>N</DATA>";
+			    Resultxml = Resultxml + "<DATA name='isCompanyID'>" + CompanyID + "</DATA>";
+			
+			    Resultxml = Resultxml + "<DATA name='AprType'>" + strAprType4 + "</DATA>";
+			    Resultxml = Resultxml + "<DATA name='AprState'>" + strAprState2 + "</DATA>";
+			    Resultxml = Resultxml + "<DATA name='PMemberName'>" + MakeXMLString(arr_userinfo[11]) + "</DATA>";
+			    Resultxml = Resultxml + "<DATA name='SMemberName'>" + MakeXMLString(arr_userinfo[12]) + "</DATA>";
+			    Resultxml = Resultxml + "<DATA name='PMemberDeptName'>" + MakeXMLString(arr_userinfo[15]) + "</DATA>";
+			    Resultxml = Resultxml + "<DATA name='SMemberDeptName'>" + MakeXMLString(arr_userinfo[16]) + "</DATA>";
+			    Resultxml = Resultxml + "<DATA name='PMemberJobTitle'>" + MakeXMLString(arr_userinfo[13]) + "</DATA>";
+			    Resultxml = Resultxml + "<DATA name='SMemberJobTitle'>" + MakeXMLString(arr_userinfo[14]) + "</DATA>";
+			
+			    Resultxml = Resultxml + "</ROW></ROWS></LISTVIEWDATA>";
+			
+			    $.ajax({
+            		type : "POST",
+            		dataType : "text",
+            		async : false,
+            		url : "/ezApprovalG/aprLineSave.do",
+            		data : {
+            				ret    : Resultxml
+            				},
+            		success : function(result){
+            			if (result == 'TRUE') {
+	            			var retvalue = new Array();
+	    		            retvalue[0] = Resultxml;
+	    		            retvalue[1] = "NONE";
+	    		            retvalue[2] = "R";
+	    		            retvalue[3] = "";
+	    		
+	    		            if (approvalFlag == "S") {
+	    	                    SGetDraftAprLineInfo(retvalue);
+	                        } else {
+	    	                    GetDraftAprLineInfo(retvalue);
+	                        }
+	    		            btnSendDraftEnable = "true";
+	    		            CurAprType = "전결";
+	    		            LastSignSN = "1";
+	    		            btnSendDraft_onclick();
+            			} else {
+	            			var pAlertContent = "결재선 지정시 오류가 발생했습니다.";
+	    		            OpenAlertUI(pAlertContent);
+            			}
+            		}, 	error : function() {
+            			var pAlertContent = "결재선 지정시 오류가 발생했습니다.";
+	    		        OpenAlertUI(pAlertContent);
+            			}
+            	});
+			}
+		
+			function btnMail_onclick() {
+// 			    window.open("/myoffice/ezEmail/mail_write.aspx?DocHref=" + pFormHref + "&cmd=docsend&DocID=" + pDocID + "&TARGET=APPROVALG", "", "height = " + window.screen.availHeight * 0.8 + ", width = 890px, status = no, toolbar=no, menubar=no,location=no, resizable=1" + GetOpenPosition(890, window.screen.availHeight * 0.8));
+		        window.open("/ezEmail/mailWrite.do?docHref=" + pFormHref + "&cmd=docsend&docID=" + pDocID + "&TARGET=APPROVALG", "", "height = " + window.screen.availHeight * 0.8 + ", width = 890px, status = no, toolbar=no, menubar=no,location=no, resizable=1" + GetOpenPosition(890, window.screen.availHeight * 0.8));
+			}
+		
+			var tempSecurity = "";
+			var tempKeep = "";
+			var tempUrgent = "N";
+			var tempPublic = "Y";
+			var tempKeyword = "";
+			var tempItemCode = "";
+			var tempItemName = "";
+			var tempdocnumcode = "분류";
+			var tempSecurityDate = "";
+		
+			function btnDocInfo_onclick() {
+			    var parameter = new Array();
+			    parameter[0] = tempSecurity;
+			    parameter[1] = tempUrgent;
+			    parameter[2] = pSummery;
+			    parameter[3] = pSpecialRecordCode;
+			    parameter[4] = pPublicityCode;
+			    parameter[5] = pLimitRange;
+			    parameter[6] = pPageNum;
+			    parameter[7] = tempSecurityDate;
+			
+			    var url = "/myoffice/ezApprovalG/ezDocInfo/ezDocInfoG.aspx";
+			    var feature = "status:no;dialogWidth:430px;dialogHeight:625px;help:no;scroll:no;edge:sunken;";
+			    var RtnVal = window.showModalDialog(url, parameter, feature);
+			
+			    tempSecurity = RtnVal[0];
+			    tempUrgent = RtnVal[1];
+			    pSummery = RtnVal[2];
+			    pSpecialRecordCode = RtnVal[3];
+			    pPublicityCode = RtnVal[4];
+			    pLimitRange = RtnVal[5];
+			    pPageNum = RtnVal[6];
+			    tempSecurityDate = RtnVal[7];
+			
+			    SummaryFlag = true;
+			}
+		
+			function btnSendAround_onclick() {
+			    var para = new Array();
+			    para[0] = pDocID;
+			    var url = "/myoffice/ezApprovalG/ReceivUI/AprGongRamLine.aspx";
+			    var feature = "dialogWidth:557px;dialogHeight:535px;scroll:no;resizable:yes;status:no;help:no;edge:sunken";
+			    var rtn = window.showModalDialog(url, para, feature);
+			    if (rtn == "OK") {
+			        var pAlertContent = "문서를 공람 발송하였습니다.";
+			        OpenAlertUI(pAlertContent);
+			        JiJungBeBuDisable();
+			    }
+			}
+		
+			function btnReAssign_onclick() {
+			    //var ret = openOpinionUI("BanSong");
+			    var ret = openOpinionUI_New("BanSong");
+			    if (ret != "cancel" && ret != undefined) {
+			        var xmlpara = createXmlDom();
+			        var xmlhttp = createXMLHttpRequest();
+			        var objNode;
+			        createNodeInsert(xmlpara, objNode, "PARAMETER");
+			        createNodeAndInsertText(xmlpara, objNode, "pDocID", pDocID);
+			        createNodeAndInsertText(xmlpara, objNode, "pReceivSN", pSusinSN);
+			        createNodeAndInsertText(xmlpara, objNode, "pProcessorID", pUserID);
+			
+			
+			        xmlhttp.open("Post", "/myoffice/ezApprovalG/ReceivUI/aspx/setReJijung.aspx", false);
+			        xmlhttp.send(xmlpara);
+			
+			        if (getNodeText(loadXMLString(xmlhttp.responseText)) == "TRUE") {
+			            var pAlertContent = "재지정을 요청하였습니다.";
+			            OpenAlertUI(pAlertContent);
+			            btnClose_onclick();
+			        }
+			    }
+			}
+		
+			function btnReDistribute_onclick() {
+	        	var deptCheckFlag = checkDeptAndCabinetId();
+	        	
+				if (deptCheckFlag == "3") {
+					alert("접수창의 부서정보가 '" + arr_userinfo[5] + "'부서로 되어있습니다. \n겸직부서를'" + arr_userinfo[5] + "'부서로 변경하시거나 접수창을 새로 띄워주시기바랍니다." );
+					return;
+				} else if (deptCheckFlag == "4") {
+					alert("접수창의 부서정보가 '" + arr_userinfo[5] + "'부서로 되어있습니다. \n사용자의 부서가 변경되거나 겸직이 삭제되었으니 접수창을 새로 띄워주시기바랍니다.");
+					return;
+				} else if (deptCheckFlag == "2") {
+					//alert("타부서의 철정보로 설정되어있습니다. \n'" + arr_userinfo[5] + "'부서의 철로 변경해주시기바랍니다.");
+					cabinetID = getDefaultCabinetId(arr_userinfo[5]);
+				}
+			
+			    openOpinionUI_New("ReBebu", btnReDistribute_onclick_complete);
+			}
+			
+	        function btnReDistribute_onclick_complete(ret) {
+				DivPopUpHidden();
+
+				if (!ret || ret === "cancel") {
+					return;
+				}
+
+	        	$.ajax({
+                    type : "POST",
+                    dataType : "text",
+                    async : false,
+                    url : "/ezApprovalG/setReBebu.do",
+                    data : {
+	       		            docID : pDocID,
+	       		            receiveSN : pSusinSN,
+	       		         	deptID : arr_userinfo[4],
+                    },
+                    success : function(text){
+						result = text;
+						if (result == "TRUE") {
+							delOpinionInfoAll2();
+							var pAlertContent = "재배부를 요청하였습니다.";
+							OpenAlertUI(pAlertContent, btnClose_onclick);
+						}
+                    },
+					error : function() {
+						var pAlertContent = "재배부를 요청하는 도중 오류가 발생했습니다.";
+						OpenAlertUI(pAlertContent);
+						return;
+					}
+            	});
+	        }
+		
+			function JiJungBeBuDisable() {
+			    btnAssign.style.display = "none";
+			    btnDistribute.style.display = "none";
+			    btnReturn.style.display = "none";
+			}
+		
+			function getGongRamDocInfo() {
+				try {
+		        	var result = "";
+		        	
+		        	$.ajax({
+		        		type : "POST",
+		        		dataType : "text",
+		        		async : false,
+		        		url : "/ezApprovalG/gongRamDocInfo.do",
+		        		data : {
+		        			docID : pDocID
+		        		},
+		        		success: function(xml){
+		        			result = loadXMLString(xml);
+		        		}
+		        	});
+		        	
+		            var pGongRamDocID = getNodeText(GetChildNodes(result)[0]);
+		            if (pGongRamDocID != "NONE" && pGongRamDocID != "" && pGongRamDocID.length == 20)
+		                JiJungBeBuDisable();
+		        }
+		        catch (e) {
+		            alert("getGongRamDocInfo :: " + e.description);
+		        }
+			}
+		
+		
+			function SetReceiptNumber() {
+			    if (pSusinSN > 1) {
+			        if (message.FieldExist("receiptnumber")) {
+			            var ReceiptNumber = trim(message.GetFieldText("receiptnumber"));
+			
+			            if (ReceiptNumber != "") {
+			
+			                if (g_DraftFlag == "SUSIN") {
+			                	message.PutFieldText("receiptnumber", "");
+			                }
+			            }
+			        }
+			    }
+			}
+		
+		    var ezapprovalinfo_dialogArguments = new Array();
+			function btnApprovalInfo(ini) {
+	        	var deptCheckFlag = checkDeptAndCabinetId();
+
+				if (deptCheckFlag == "3") {
+					alert("접수창의 부서정보가 '" + arr_userinfo[5] + "'부서로 되어있습니다. \n겸직부서를'" + arr_userinfo[5] + "'부서로 변경하시거나 접수창을 새로 띄워주시기바랍니다." );
+					return;
+				} else if (deptCheckFlag == "4") {
+					alert("접수창의 부서정보가 '" + arr_userinfo[5] + "'부서로 되어있습니다. \n사용자의 부서가 변경되거나 겸직이 삭제되었으니 접수창을 새로 띄워주시기바랍니다.");
+					return;
+				}	
+			
+			    var onlydocinfiview = false;
+			    var parameter = new Array();
+				var chkReceivedDoc = 0;
+		    	var url;
+		    	var ret;
+		    	var feature;
+		    	
+		    	//접수된 문서인지 확인하기
+		    	$.ajax({
+		    		type : "POST",
+		    		dataType : "text",
+		    		async : false,
+		    		url : "/ezApprovalG/isReceivedDoc.do",
+		    		data : {
+		    			docID : pDocID
+		    		},
+		    		success : function(result) {
+		    			chkReceivedDoc = result;
+		    		}
+		    	});
+		    	
+			    parameter[0] = pDocID;
+			    parameter[1] = pFormID;
+			    parameter[2] = SignCount;
+			    parameter[3] = SignInfo;
+			    parameter[4] = hapyuiCount;
+			    parameter[5] = g_DraftFlag;
+			    parameter[6] = pSuSinFlag;
+			    parameter[7] = pChamJoFlag;
+			    parameter[8] = gongramCount;
+			    parameter[9] = false;
+			    parameter[10] = pDocType;
+			    parameter[11] = "";
+			    parameter[12] = "RECV";
+			    parameter[28] = onlydocinfiview;
+			    parameter[30] = cabinetID;
+			    parameter[31] = tempSecurity;
+			    parameter[32] = tempUrgent;
+			    parameter[33] = pSummery;
+			    parameter[34] = pSpecialRecordCode;
+			    parameter[35] = pPublicityCode;
+			    parameter[36] = pLimitRange;
+			    parameter[37] = pPageNum;
+			    parameter[38] = tempSecurityDate;
+			    parameter[39] = SummaryFlag;
+			    parameter[45] = pPublicityYN;
+			    parameter[46] = nonElecRec;
+			    
+			    if (nonElecRec == "Y") {
+			    	if (pGubun == "11") {
+			        	parameter[47] = cabinetID;
+		        	} else {
+			        	parameter[47] = "nonElecRecTempCabinet";
+		        	}
+			        parameter[48] = nonElecRecInfoXml; // 기록물 기본등록 정보
+			        parameter[49] = nonSepAttachLVXml; // 분첨
+			        parameter[50] = g_szSCListXml; // 특수목록
+			        parameter[51] = sepAttachCheckYN; // 분첨 확인여부
+
+					if (message.FieldExist("nonElecRec_Mod")) {
+						nonElecRecType = "mod";
+					}
+			        parameter[65] = nonElecRecType; // 종이문서 타입(등록/접수)
+		        }
+			    
+			    if (useOpenGov == "YES") {
+			        parameter[52] = basis;
+			        parameter[53] = reason;
+			        parameter[54] = listOpenFlag;
+			        parameter[55] = fileOpenFlagList;
+			        parameter[56] = limitDate;
+			    }
+			    
+			    if (tempItemCode != "") {
+			        tempdocnumcode = tempItemCode;
+			    }
+			    
+			    parameter[61] = tempKeyword;
+
+		        ezapprovalinfo_dialogArguments[0] = parameter;
+		        ezapprovalinfo_dialogArguments[1] = btnApprovalInfo_Complete;
+			    
+			    if (chkReceivedDoc != 0) {
+		        	alert("다른 사용자에 의해 이미 접수된 문서입니다.");
+		        	window.close();
+		        } else {
+					if(ini!=null && ini =='4'){
+						fromChkCategory = "Y";
+					}
+		        	var OpenWin = window.open("/ezApprovalG/ezApprovalInfo.do?initFlag=1&guBun=" + pGubun + "&orgCompanyID=" + orgCompanyID + "&docType=" + pDocType + "&ext=" + "hwp" + "&fromChkCategory="+fromChkCategory, "ezApprovalInfo", GetOpenWindowfeature(1250, 792));
+		        	try { OpenWin.focus(); } catch (e) {console.log(e);}
+					  
+		        }
+			        
+			        
+			    }
+			 
+		    function btnApprovalInfo_Complete(ret) {
+		    
+		    	if (ret != undefined && ret[0] == "OK") {
+		            try {
+		            	//message.EditMode(2);
+		                if (pGubun != "5" && pGubun != "7" && pGubun != "10" && pGubun != "12") {
+		                    if (ret[1] != false) {
+		                    	$.ajax({
+		                    		type : "POST",
+		                    		dataType : "text",
+		                    		async : false,
+		                    		url : "/ezApprovalG/aprLineSave.do",
+		                    		data : {
+		                    				ret    : ret[1]
+		                    				},
+		                    		success : function(result){
+		                    		}
+		                    	});
+		                    }
+		
+		                }
+		                if (ret[1] != false) {
+		                    btnSendDraftEnable = "true";
+
+		                    if (approvalFlag == "S") {
+			                    SGetDraftAprLineInfo(ret);
+		                    } else {
+			                    GetDraftAprLineInfo(ret);
+// 		                    	New_DrawAutoLine(ret, pDraftFlag);//자동결재선으로 변경
+		                    }
+		                    
+		                    IsSkipDrafter = "FALSE";
+		                }
+		
+		                if (pGubun != "11" && pGubun != "12") {
+		                	$.ajax({
+		                		type : "POST",
+		                		dataType : "text",
+		                		async : false,
+		                		url : "/ezApprovalG/aprDeptSave.do",
+		                		data : {
+		                				aprDeptInfo : ret[2]
+		                				},
+		                		success : function(result){
+		                			
+		                		}
+		                	});
+		                	
+		                    btnReceivLineEnable = false;
+		                    setRecevInfo(ret[3]);
+		                }
+		
+		                if (pGubun != "5" && pGubun != "6" && pGubun != "7" && pGubun != "8" && pGubun != "9" && pGubun != "10") {
+			                var g_SelCabXml = ret[4];
+			                var xmlCab = createXmlDom();
+			                xmlCab = loadXMLString(g_SelCabXml);
+			                cabinetID = SelectSingleNodeValueNew(xmlCab, "CABINETINFO/CABINET/CABINETID");
+			                TaskCode = SelectSingleNodeValueNew(xmlCab, "CABINETINFO/CABINET/TASKCODE");
+			            }
+
+						tempKeyword = ret[6]; 				//2021-03-10 박기범 - 키워드 추가
+		                tempSecurity = ret[7];
+		                tempUrgent = ret[8];
+		                pSummery = ret[9];
+		                pPublicityCode = ret[11];
+		                tempSecurityDate = ret[14];
+		                
+		                if (approvalFlag == "G") {
+			                pSpecialRecordCode = ret[10];
+			                pLimitRange = ret[12];
+			                pPageNum = ret[13];
+			                pPublicityYN = ret[21];
+			                tempPublic = ret[21];
+			                /*2018-04-05 김은석 수정 건설공사 공개여부*/
+// 			                setPublicFlag();
+			                setPublicFlag2();
+			                
+			                if (nonElecRec == "Y") {
+				            	nonElecRecInfoXml = ret[23];
+				            	nonSepAttachLVXml = ret[24];
+				            	g_szSCListXml =  ret[25];
+				            	sepAttachCheckYN = ret[26];
+				            	setNonElecRecInfo_whwp(nonElecRecInfoXml);
+				            }
+			                
+			             	// 접수문서의 경우 원문공개 대상은 아니지만 결재 진행시 오류 발생으로 데이터는 넣도록 수정
+			                if (useOpenGov == "YES") {
+	                            $.ajax({
+	                                type : "POST",
+	                                dataType : "text",
+	                                async : false,
+	                                url : "/ezApprovalG/openGovInfoSave.do",
+	                                data : {
+	                                    openGovListFlag : ret[27],
+	                                    fileOpenFlagList : ret[28],
+	                                    basis : ret[29],
+	                                    reason : ret[30],
+	                                    publicity : ret[11],
+	                                    docID : pDocID,
+	                                    limitDate : ret[31]
+	                                }
+	                            });
+
+	                            listOpenFlag = ret[27];
+	                            fileOpenFlagList = ret[28];
+	                            basis = ret[29];
+	                            reason = ret[30];
+	                            limitDate = ret[31];
+							}
+		                } else {
+		                	tempKeep = ret[16];
+		                	tempItemName = ret[17];
+		                	tempItemName2 = ret[18];
+		                	pPageNum = "1";
+		                	pLimitRange = "1";
+		                	pSpecialRecordCode = "1";
+		                	tempPublic = ret[11];
+		                	SetDocOption(ret[20]);
+		                }
+		                
+		                
+		                SummaryFlag = true;
+		                message.EditMode(3);
+		            } catch (e) {
+		                alert("저장시 오류 발생");
+		            }    
+		    	}
+		    }
+			 
+			function ReplaceString(Origin, Source, Target) {
+			    return Origin.split(Source).join(Target);
+			}
+			
+			function RefreshRecvDoc() {
+			    SetHref("DEL");
+			    window.location.reload(true);
+			}
+			
+			function insertApprovConn() {
+	        	$.ajax({
+            		type : "POST",
+            		dataType : "text",
+            		async : false,
+            		url : "/ezConn/insertApprovConn.do",
+            		data : {
+            				htmlPK : "",
+            				docID : pDocID,
+            				writerID : arr_userinfo[1],
+            				formID : pFormID
+            				},
+            		success : function(data) {
+            		}
+            	});
+	        }
+			
+			function updateApprovConn() {
+		    	$.ajax({
+            		type : "POST",
+            		dataType : "text",
+            		async : false,
+            		url : "/ezConn/updateApprovConn.do",
+            		data : {
+            				docID : pDocID,
+            				formID : pFormID
+            				},
+            		success : function(data) {
+            		}
+            	});
+		    }
+	        
+	        function ezNotieSetting() {
+	        }
+			
+			function GetObject() {
+				i_icd2.SetDocumentDisp(window.document);
+                i_icd2.xmlURL = "http://" + document.location.hostname + ":" + location.port + "/ezNewPortal/componentListTransfer.do";
+                i_icd2.CheckVersion();
+                var nCount = i_icd2.nNeedDownload;
+
+                if (nCount) {
+                    if_Progress.StartOn();
+                } else {
+                    finish_download();
+                }
+			}
+	
+			function finish_download() {
+				OfficeBugPatch();
+			}
+			
+			function OfficeBugPatch() {
+			}
+			
+			function btnDel_onclick() {
+				if (nonElecRec == "Y") {
+					if (confirm("삭제하시겠습니까 ?")) {
+						RemoveSusinNonElecRecDoc(pDocID);
+					}
+				}
+			}
+			
+			/* 2019-01-02 천성준 #14647
+			     결재암호 사용유무 조회 (Y / N)
+			*/
+			function CheckUsePassword() {
+				var result = "";
+				$.ajax({
+					type : "POST",
+					dataType : "text",
+					async : false,
+					url : "/ezApprovalG/getApprovalPWD.do",
+					success: function(text) {
+						result = text;
+					}        			
+				});
+				
+				if (result != "N") {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			
+	    	function checkDeptAndCabinetId() {
+	    		var result;
+            	$.ajax({
+            		type : "POST",
+            		dataType : "text",
+            		async : false,
+            		url : "/ezApprovalG/checkDeptAndCabinetId.do",
+            		data : {
+            				orgDeptId : arr_userinfo[4],
+            				orgCabinetId : cabinetID
+            				},
+            		success : function(text){
+            			result = text;
+            		}
+            	});
+            	return result;
+	    	}
+	    	
+	    	function GetHTML(callback) {
+                ingFlag = true;
+	            message.GetTextFile("HWP", "", function (data) { ingFlag = false; callback(data); });
+	        }
+	    	
+	    	// 일반첨부, 대용량첨부파일 관련 가이드 메세지 추가
+	    	function setAttachGuideText() {
+	    		// 대용량첨부의 자동삭제 기능, 저장만료기한 사용하지 않음
+                var attachGuideText =  "<td align='left' style='width:50%; font-size:11px; font-weight:normal; color:#666666; padding-left:10px; padding-top:0px; padding-bottom:0px; margin:0px; border-bottom:1px solid #dadada;border-left:1px solid #dadada; border-right:none; border-top: none; height:20px; line-height:20px;'>";
+                
+                if(bigSizeAttachDownloadLimitCount > 0) {
+                	attachGuideText += strLangHSBAt06 + " <span style='color:#FF0000 ;'>" + bigSizeAttachDownloadLimitCount + strLangHSBAt09 + "</span> " + strLangHSBAt10;
+                }
+                
+                attachGuideText += "<td align='right' style='width:50%; font-size:11px; font-weight:normal; color:#666666; padding-right:10px; padding-top:0px; padding-bottom:0px; margin:0px; border-bottom:1px solid #dadada;border-right:1px solid #dadada; border-left:none; border-top: none; height:20px; line-height:20px;'>";
+                attachGuideText += "</td>";
+/*                 
+                var attachGuideText =  "<td align='left' style='width:50%; font-size:11px; font-weight:normal; color:#666666; padding-left:10px; padding-top:0px; padding-bottom:0px; margin:0px; border-bottom:1px solid #dadada;border-left:1px solid #dadada; border-right:none; border-top: none; background:#fffcfa; height:20px; line-height:20px;'>";
+                attachGuideText += strLangHSBAt05 + "<span style='color:#FF0000 ;'>" + bigAttachDownloadPeriod + "</span></td>";
+                attachGuideText += "<td align='right' style='width:50%; font-size:11px; font-weight:normal; color:#666666; padding-right:10px; padding-top:0px; padding-bottom:0px; margin:0px; border-bottom:1px solid #dadada;border-right:1px solid #dadada; border-left:none; border-top: none; background:#fffcfa; height:20px; line-height:20px;'>";
+                attachGuideText += strLangHSBAt06 + "<span style='color:#FF0000 ;'>" + bigAttachDownloadDay + strLangHSBAt07 + "</span>" + strLangHSBAt08;
+                 */
+                 
+                 if (bigSizeAttachDownloadLimitCount > 0) {
+                	 document.getElementById("apprAttachGuideTR").innerHTML = attachGuideText;
+                 }
+                 else {
+                	 document.getElementById("apprAttachGuideTR").style.display = "none";
+                 }
+	    	}
+			
+	    	function connInit() {
+				var keywordXml = loadXMLString(GetDocumentElement("CONNROOT", true));
+				var connNodes = SelectNodes(keywordXml, "CONNROOT/conn");
+
+				if (connNodes.length>0) {
+// 					if (g_DraftFlag === "REDRAFT") {
+// 						OpenAlertUI("연동문서는 다시 접수할 수 없습니다.<br/>문서보기 창으로 이동합니다.", function() {
+// 							var url = "/ezApprovalG/ezviewAprWHWP.do" +
+// 								"?docID=" + pDocID +
+// 								"&docHref=" + pFormHref +
+// 								"&opinionFlag=Y" +
+// 								"&docState=" + pDocState +
+// 								"&listSusin=" + arr_userinfo[1] +
+// 								"&oDoc=" + pOrgDocID +
+// 								"&isOpinion=OPINION_SHOW" +
+// 								"&listType=1" +
+// 								"&CallBackType=" +
+// 								"&ext=mht" +
+// 								"&orgCompanyID=" + orgCompanyID;
+
+// 							window.open(url, "_self");
+// 						});
+// 						return;
+// 					}
+					
+					setConnDefaultKey(pDraftFlag);
+
+					if (ConnExist(["conn;processidx;INIT", "conn;processtime;SUSIN", "query;qtype;UA"]) || ConnExist(["conn;processidx;INIT", "conn;processtime;SUSIN", "query;qtype;UA_EX"])) {
+						document.querySelector("#btnConn").style.display = "";
+					}
+
+					setTimeout(function() {
+						ExcuteInfo("INIT");
+					}, 0);
+				}
+			}
+		</script>
+	</head>
+	
+	<body class="popup popup_" onload="window_onload()" onbeforeunload="return window_onbeforeunload()">
+	    <table class="layout">
+	        <tr>
+	            <td height="51">
+	                <div id="menu">
+						
+						<ul >
+	                        <li id="btntotaldocinfo"><span onclick="return btnApprovalInfo()">결재정보</span></li>
+	                        <span style="display: none">
+	                            <li id="btnSetAprLine"><span onclick="return btnSetAprLine_onclick()">결재선지정</span></li>
+	                        </span>
+	                        <span style="display: none">
+	                            <li id="btnSetReceivLine" style="display: none"><span onclick="return btnSetReceivLine_onclick()">수신자지정</span></li>
+	                        </span>
+	                        <li id="btnSendDraft" class="important"><span onclick="return btnSendDraft_onclick()">결재올림</span></li>
+	                        <li id="btnRJunkyul" style="display:none;"><span onclick="return btnRJunkyul_onclick()">접수자전결</span></li>
+	                        <li id="btnSendAround" style="display: none"><span onclick="return btnSendAround_onclick()">공람발송</span></li>
+	                        <span style="display: none">
+	                            <li id="btnSetTaskCode"><span onclick="btnSetTaskCode_onclick()">기록물철</span></li>
+	                        </span>
+	                        <span style="display: none">
+	                            <li id="btnDocInfo"><span onclick="return btnDocInfo_onclick()">문서정보</span></li>
+	                        </span>
+	                        <li id="btnAssign" style="display: none"><span onclick="return btnAssign_onclick()">지정</span></li>
+	                        <li id="btnReAssign" style="display: none"><span onclick="return btnReAssign_onclick()">재지정요청</span></li>
+	                        <li id="btnDistribute" style="display: none"><span onclick="return btnDistribute_onclick()">배부</span></li>
+	                        <li id="btnReDistribute" style="display: none"><span onclick="return btnReDistribute_onclick()">재배부요청</span></li>
+	                        <li id="btnReqReSend" style="display: none"><span onclick="return btnReqReSend_onclick()">재전송요청</span></li>
+	                        <li id="btnOpinion"><span onclick="return btnOpinion_onclick()">의견</span></li>
+	                        <li id="btnFileAttach" style="display: none"><span onclick="return btnFileAttach_onclick()">첨부</span></li>
+	                        <li id="btnAprDocAttach" style="display: none"><span onclick="return btnAprDocAttach_onclick()">관련근거</span></li>
+	                        <li id="btnAddSepAttach" style="display: none"><span onclick="btnAddSepAttach_onclick()">분리첨부</span></li>
+	                        
+		                        
+		                        
+			                        <li id="btnReturn" class="important" style="display: none"><span onclick="return btnReturn_onclick()">반송</span></li>
+		                        
+	                        
+	                        <li id="btnEdit" style="display: none"><span onclick="return btnEdit_onclick()">수정</span></li>
+	                        <li id="btnPrint"><span class="icon16 popup_icon16_print" onclick="return btnPrint_onclick()"></span></li>
+	                        
+	                        <li id="btnHelper" style="display: none"><span onclick="return btnHelper_onclick()" style="display: none;">연동</span></li>
+	                        <li id="btnRefresh" style="display: none"><span onclick="return RefreshRecvDoc()">재접수</span></li>
+	                        <li id="btnCleanContract" style="display:none;"><span onClick="cleanContract(0)">청렴계약</span></li>
+	                    </ul>
+						<ul style="display:none">
+				        	<li><img src='/images/kr/cm/btn_newpopup.gif' title=새창으로열기 alt=새창으로열기 onclick='return parent.btn_newpopup()'></li>
+				        </ul>
+	                </div>
+	                <div id="close" >
+	                    <ul>
+	                        <li id="btnClose"><span onclick="return btnClose_onclick()"></span></li>
+	                    </ul>
+	                </div>
+	                <script type="text/javascript">
+	                    selToggleList(document.getElementById("menu"), "ul", "li", "0");
+	                    selToggleList(document.getElementById("close"), "ul", "li", "0");
+	                </script>
+	            </td>
+	        </tr>
+	        <tr>
+	            <td style="padding-bottom:7px;height:800px;" id="messageWHWPEditor">
+		    		<iframe id="message" class="withoutThisTableTheImageInTheLeftColumnDoesNotRepeatInFirefox"  src="/ezApprovalG/WHWPEditor.do" name="message" frameborder="0" style="padding:0; height:100%; width:100%; overflow:auto; margin-top:10px;"></iframe>
+	            </td>
+	        </tr>
+	        <tr>
+	            <td height="20">
+	                <table class="file" style="height:80px; width:100%; table-layout:fixed;">
+	                    <tr>
+	                        <!-- <th id="btn_Attach">첨부파일</th> -->
+	                        <th id="btn_Attach" style="width:40px;">첨부<br>파일</th>
+	                        <td style="vertical-align:top;">
+	                            <div id="lstAttachLink" style="height:70px;"></div>
+	                            <iframe id="ifrmDownload" name="ifrmDownload" src="about:blank" width="0" height="0" style="display: none;"></iframe>
+	                        </td>
+							<td class="pos2" style="width:50px;">
+								<a class="imgbtn imgbck" style="display:none;"><span style="height:24px;" onClick="attach_SelectAll()">모두선택</span></a>
+								<a class="imgbtn imgbck" style=""><span style="height:24px;" onClick="attach_Download()">저장</span></a><br/>
+							</td>
+							<th style="width:40px;">관련<br>근거</th>
+	                        <td style="vertical-align:top;">
+								<div id="lstAttachLinkDoc" style="height:70px;"></div>
+							</td>
+							<td class="pos2" style="width:50px;">
+								<a class="imgbtn imgbck" style="display:none;"><span style="height:24px;" onClick="attach_SelectAll()">모두선택</span></a>
+								<a class="imgbtn imgbck" style=""><span style="height:24px;" onClick="attach_Download()">저장</span></a><br/>
+							</td>
+	                    </tr>
+	                </table>
+	                
+					
+	                <table class="file" style="height: 0px;">
+	                    <tr id="apprAttachGuideTR"></tr>
+	                </table>
+	            </td>
+	        </tr>
+	    </table>
+	    <xml id="ATTACHINFO"></xml>
+	    <xml id="DOCINFO"></xml>
+	    <xml id="OPTIONINFO"></xml>
+	    <xml id="APRLINEINFO"></xml>
+	    <xml id="PREVNEXTDOCINFO"></xml>
+	    <xml id="CONNINFO"></xml>
+	    <div id="RECEIPTDEPTID" style="display: none"></div>
+	    <div id="AprMemberSN" style="display: none"></div>
+	    <div style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1000; background: none rgba(0,0,0,0.5); display: none;" id="mailPanel">&nbsp;</div>	
+		<div class="layerpopup"  style="z-index: 2000; position: absolute;display: none;" id="iFramePanel">
+			<iframe src="/blank_kr.htm" style="border:none;" id="iFrameLayer"></iframe>
+		</div>
+		<div style="width: 200px; height: 50px; border: 0px solid red; text-align: center; vertical-align: middle; display: none; z-index: 9000; position: absolute;" id="loadingLayer">
+	        <img src="/images/email/progress_img.gif" style="vertical-align: middle;" />
+	    </div>
+	</body>
+</html>

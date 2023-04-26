@@ -1,0 +1,40 @@
+; 이미지 파일 경로 설정
+결재정보_img := "path-to-결재정보-image-file"
+문서정보_img := "path-to-문서정보-image-file"
+선택_img := "path-to-선택-image-file"
+서무_img := "path-to-서무-image-file"
+확인1_img := "path-to-확인1-image-file"
+부서공개_img := "path-to-부서공개-image-file"
+확인2_img := "path-to-확인2-image-file"
+
+; 크롬 창이 활성 상태인지 확인
+IfWinActive, ahk_exe chrome.exe
+{
+    ; 각 버튼 클릭
+    ClickImage(결재정보_img)
+    ClickImage(문서정보_img)
+    ClickImage(선택_img)
+    ClickImage(서무_img)
+    Send {PgDn}
+    ClickImage(확인1_img)
+    ClickImage(부서공개_img)
+    Send {PgDn}
+    ClickImage(확인2_img)
+}
+
+; 이미지를 찾고 클릭하는 함수
+ClickImage(imagePath)
+{
+    CoordMode, Pixel, Screen
+    ImageSearch, foundX, foundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *20 %imagePath%
+    
+    if ErrorLevel
+    {
+        MsgBox, 이미지를 찾을 수 없습니다:`n%imagePath%
+    }
+    else
+    {
+        Click, %foundX%, %foundY%
+        Sleep, 500 ; 필요에 따라 대기 시간 조절
+    }
+}

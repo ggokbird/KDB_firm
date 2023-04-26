@@ -1,0 +1,2466 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html style="height:100%;">
+	<head>
+	    <title>문서관리</title>
+	    <style>
+	        .IMG_BTN {
+	            behavior: url("/css/include/ImgBtn.htc");
+	        }
+	
+	        .pagetd {
+	            padding-top: 6px;
+	        }
+	
+	        .pcol {
+	            padding-top: 6px;
+	        }
+	
+	        .Right_Point01 {
+	            font: bold;
+	            color: #6449fc;
+	        }
+	    </style>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="/css/default_kr.css?v=20230421143934" type="text/css">
+		<link rel="stylesheet" href="/css/Tab.css?v=20221221175640" type="text/css">
+		<link rel="stylesheet" href="/css/ezApproval/aprAllCont.css?v=20230325161838" type="text/css">
+		<script type="text/javascript" src="/js/ezApprovalG/lang/ezapprovalG_KO.js?v=20230410194134"></script>
+		<script type="text/javascript" src="/js/jquery/jquery-1.11.3.min.js?v=20221102171900"></script>
+		<script type="text/javascript" src="/js/XmlHttpRequest.js?v=20230423131824"></script>
+		<script type="text/javascript" src="/js/mouseeffect.js?v=20230212125102"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/CabRoleInfo_Cross.js?v=20230212125102"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/ezCabinet_Cross.js?v=20230424214206"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/CabinetInfo_Cross.js?v=20230318101022"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/MiscFunc_Cross.js?v=20230318101022"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/getContainerInfoCB_Cross.js?v=20230401110136"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/SendOffer_Cross.js?v=20230228133748"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/ListView_list.js?v=20230421143934"></script>
+		<script type="text/javascript" src="/js/Common.js?v=20230212125102"></script>
+		<script type="text/javascript" src="/js/jquery/jquery.js?v=20221102171900"></script>
+		<script type="text/javascript" src="/js/ezApprovalG/AprAllCont.js?v=20230325161838"></script>
+		<!-- <script type="text/javascript" src="/js/jquery/jquery-ui.js?v=20221102171900"></script>
+		<link rel="stylesheet" href="/js/jquery/jquery-ui.css?v=20221102171900">
+		<link rel="stylesheet" href="/js/jquery/jquery-ui.min.css?v=20221102171900"> -->   
+		<script type="text/javascript" id="clientEventHandlersJS">
+				var OrderOption = "";
+		        var OrderCell = "";        
+		        var g_sFlag = "m01";
+		        var g_uFlag = "m01";
+		        var labelcolor = "gray";
+		        var xmlhttp = createXMLHttpRequest();
+		        var xmldoc = createXmlDom();
+		        var ContainerID, condition, DocID, jobState, pURL, FormID, DocDeptYN, SelDept, DelListYN, deptName;
+		        var g_tagSelectsub = "1";
+		        var NodeList, nowblock, totalPage, block, p_page, p_nowblock, Init_Flag, DocList_Flag, DocTitle, AdminYN;
+		        var DeptAdminYN;
+			    var contFlag = "END";
+		        var pSusinManagerFlag = "user";
+		        var pChackYN, WriterID;
+		        var docdir = "";
+			    var pEndDocHref = "";
+		        var szRoleInfo = "c=0;k=0;g=0;a=1;i=1;n=0;l=0;w=0;m=0;h=0;";
+		        var UserID = "221016";
+		        var CompanyID = "0000";
+		        var DeptID = "1ba0";
+		        var deptName = "데이터사업팀";
+		        var PageSize, Block_Size, curpage, ListView, NodeList2, NodeListLen;
+		        var arr_userinfo = new Array();
+		        arr_userinfo[0] = "user";
+			    arr_userinfo[0]  = "user";
+			    arr_userinfo[1]  = "221016";
+			    arr_userinfo[2]  = "민동재";
+			    arr_userinfo[3]  = "사원";
+			    arr_userinfo[4]  = "1ba0";
+			    arr_userinfo[5]  = "데이터사업팀";
+			    arr_userinfo[6]  = "J2";
+			    arr_userinfo[8]  = "goguma@krx.co.kr";
+		        arr_userinfo[9] = CompanyID;
+			    arr_userinfo[10] = "YES";
+			    arr_userinfo[11]  = "민동재";
+			    arr_userinfo[12]  = "민동재";
+			    arr_userinfo[13]  = "사원";
+			    arr_userinfo[14]  = "사원";
+			    arr_userinfo[15]  = "데이터사업팀";
+			    arr_userinfo[16]  = "데이터사업팀";
+			    var CompanyID = "0000";
+		        var g_DeptInfo = "";
+			    var USE_OCS = "NO";
+			    var Udomain = "goguma@krx.co.kr";
+		        var UserLang = "1";
+		        var g_DeliveryXmlhttp = createXMLHttpRequest();
+			    var pOpenYaer = "2012";
+		        var vWriterID;
+		        var ext= "";
+		        var useWebHWP = "YES";
+				var WriterID = null;
+				var WriterDeptID = null;
+		        var shareDeptId = "";
+		        var isCabinetToRecordFirst = true; // 기록물철등록부에서 기록물보기 메뉴로 최초 진입했는지 판단하기 위한 변수
+		        var isDetail = false;
+
+				var aprAllColor = "0.7:0.5:0.8";
+		        
+		        document.onselectstart = function () { return false; };
+		
+		        window.onload = function () {
+		            var toDay = new Date();
+		            var toDayYear = parseInt(toDay.getFullYear());
+		            var minusYear = parseInt(toDay.getFullYear()) - parseInt(pOpenYaer);
+		            for (var i = toDayYear; i >= toDayYear - minusYear ; i--) {
+		                AddOption(rec_year, i, i);
+		                AddOption(cab_year, i, i);
+		                AddOption(del_year, i, i);
+		            }
+		
+		            var height = parseInt(divList.style.height.replace('px', '')) + 200;
+		            var reheight = window.innerHeight - parseInt(height);
+		        //    document.getElementById('div_AprLine').style.height = reheight + "px";
+				document.getElementById('div_AprLine').style.height = "175px";  // 추가(조기완)
+		
+		            if (navigator.userAgent.indexOf('Firefox') != -1) {
+		                document.body.style.MozUserSelect = 'none';
+		                document.body.style.WebkitUserSelect = 'none';
+		                document.body.style.khtmlUserSelect = 'none';
+		                document.body.style.oUserSelect = 'none';
+		                document.body.style.UserSelect = 'none';
+		            }
+		            try {
+		                DocList_Flag = "";
+		                pChackYN = "FALSE";
+		
+		                PageSize = 10;
+		                Block_Size = 10;
+		
+		                initUserRoleinfo();
+		                DocDeptYN = IsDocDept(DeptID);
+		                jobState = "APPROVAL";
+		
+		                LoadList();
+		            }
+		            catch (e) {console.log(e);}
+		            
+		            settingResize();
+					if(g_sFlag=='d007'){
+						document.getElementById("trRecSubMenu").style.display="";
+						document.getElementById("tbtnTotalSave").style.display="";
+					}
+		        };
+		        
+		        var isPeriodYear = true;
+		        function LoadList() {
+		        	listLoading(true); //20201211 조진호 - 리스트 출력 시 시간이 오래 걸릴 수 있어 로딩바 추가
+
+					var tempFlag = g_sFlag.indexOf("d0") === 0 ? "d000" : g_sFlag;
+		        	
+		            switch (tempFlag) {
+		                case "m01":
+		                    RecordList_onclick();
+		                    break;
+		                case "m02":
+		                	PageSize = 20;
+		                    isPeriodYear = false;
+		                    CabinetList_onclick();
+		                    break;
+		                case "m03":
+		                    idistbox_onclick();
+		                    break;
+		                case "m05":
+		                    ReceiptList_onclick();
+		                    break;
+		                case "m06":
+		                    SendList_onclick();
+		                    break;
+		                case "m07":
+		                	PageSize = 20;
+		                    isPeriodYear = false;
+		                    DelayEndYRequest_onclick();
+		                    break;
+		                case "m08":
+		                	PageSize = 20;
+		                    isPeriodYear = false;
+		                    ArrTargetList_onclick();
+		                    break;
+		                case "m09":
+		                    isPeriodYear = false;
+		                    CabGiveList_onclick();
+		                    break;
+		                case "m10":
+		                    ToggleAdminMenu();
+		                    break;
+		                case "UNTREATED":
+		                    untreatedList_onclick();
+		                    break;
+		                case "docShare":
+		      		        DeptID = shareDeptId;
+		                    RecordList_onclick();
+		                    break;
+		                case "m12":
+		                    OutReceiptList_onclick();
+		                    break;
+		                case "m13":
+		                    OutSendList_onclick();
+		                    break;
+		                case "m14":
+		                    idistbox_onclick();
+		                    break;
+		                case "m15":
+		                	$("#tDocInfo").css("display","");
+		                	gongramList_onclick();
+		                    break;
+						case "d000":
+							RecordList_onclick();
+							break;
+		                default:
+		                    RecordList_onclick();
+		                    break;
+		            }
+		        }
+
+				function checkRecordAll() {
+					return (g_sFlag === "m12" || g_sFlag === "m13") && szRoleInfo.indexOf("i=1;") > -1 && DeptID === arr_userinfo[4];
+				}
+		
+		        var SelYearFlag = false;
+		        function onSelect_Year() {
+		        	listLoading(true); //20201211 조진호 - 리스트 출력 시 시간이 오래 걸릴 수 있어 로딩바 추가
+		            SelYearFlag = true;
+
+					var tempDeptID = DeptID;
+					if (checkRecordAll()) {
+						tempDeptID = "ALL";
+					}
+
+		            if (GetSelectVal("rec_year") != "ALL" || GetSelectVal("cab_year") != "ALL" || GetSelectVal("del_year") != "ALL") {
+		
+		                //hideProgress();
+		                //showProgress();
+		
+		                if (DocList_Flag == "CABINET") {
+		                    g_CabSearchParamXml = "<SEARCHPARAM><DEPTCODE>" + DeptID + "</DEPTCODE><TITLE></TITLE><TASKCODE></TASKCODE><SPRODUCEY>" + GetSelectVal("cab_year") + "</SPRODUCEY><EPRODUCEY>" + GetSelectVal("cab_year") + "</EPRODUCEY><SENDY></SENDY><EENDY></EENDY><RECTYPECODE></RECTYPECODE><KEEPPERIOD></KEEPPERIOD><KEEPMETHOD></KEEPMETHOD><KEEPPLACE></KEEPPLACE><CHARGER></CHARGER><TRANSEXPIRE/><TRANSFLAG/><RECEIVEDCAB/><GIVECAB/></SEARCHPARAM>";
+		                    GetCaninetList();
+		                }
+		                else if (DocList_Flag == "RECORD") {
+		                    g_RecSearchParamXml = "<SEARCHPARAM><DEPTCODE>" + tempDeptID + "</DEPTCODE><TITLE></TITLE><REGTYPE></REGTYPE><SREGDATE>" + GetSelectVal("rec_year") + "-01-01 00:00:00</SREGDATE><EREGDATE>" + GetSelectVal("rec_year") + "-12-31 23:59:59</EREGDATE><CHARGER></CHARGER><SC></SC><TRANSEXPIRE/><DRAFTER></DRAFTER><CABTITLE></CABTITLE></SEARCHPARAM>";
+		                    GetRecordList();
+		                }
+		                else {
+		                    g_DeliverySearchParamXml = "<SEARCHPARAM><DEPTCODE></DEPTCODE><DEPTCODE2>" + DeptID + "</DEPTCODE2><TITLE></TITLE><SREGDATE>" + GetSelectVal("del_year") + "-01-01 00:00:00</SREGDATE><EREGDATE>" + GetSelectVal("del_year") + "-12-31 23:59:59</EREGDATE><DEBENTURER></DEBENTURER></SEARCHPARAM>";
+		                    GetDocDeliveryList(g_DeliverySearchParamXml);
+		                }
+		            }
+		            else {
+		                g_RecSearchParamXml = "";
+		                g_CabSearchParamXml = "";
+		                g_DeliverySearchParamXml = "";
+		
+		                var nowyear = new Date().getFullYear();
+		                var nowmonth = new Date().getMonth() + 1;
+		                var nowday = new Date().getDate();
+		
+		                if (nowmonth < 10)
+		                    nowmonth = "0" + nowmonth;
+		
+		                if (nowday < 10)
+		                    nowday = "0" + nowday;
+		
+		                if (DocList_Flag == "CABINET") {
+		                    if (isPeriodYear)
+		                        g_CabSearchParamXml = "<SEARCHPARAM><DEPTCODE>" + DeptID + "</DEPTCODE><TITLE></TITLE><TASKCODE></TASKCODE><SPRODUCEY>" + (nowyear - 1) + "-" + nowmonth + "-" + nowday + " 00:00:00</SPRODUCEY><EPRODUCEY>" + nowyear + "-" + nowmonth + "-" + nowday + " 23:59:59</EPRODUCEY><SENDY></SENDY><EENDY></EENDY><RECTYPECODE></RECTYPECODE><KEEPPERIOD></KEEPPERIOD><KEEPMETHOD></KEEPMETHOD><KEEPPLACE></KEEPPLACE><CHARGER></CHARGER><TRANSEXPIRE/><TRANSFLAG/><RECEIVEDCAB/><GIVECAB/></SEARCHPARAM>";
+		                    GetCaninetList();
+		                }
+		                else if (DocList_Flag == "RECORD") {
+		                    g_RecSearchParamXml = "<SEARCHPARAM><DEPTCODE>" + tempDeptID + "</DEPTCODE><TITLE></TITLE><REGTYPE></REGTYPE><SREGDATE>" + (nowyear - 1) + "-" + nowmonth + "-" + nowday + " 00:00:00</SREGDATE><EREGDATE>" + nowyear + "-" + nowmonth + "-" + nowday + " 23:59:59</EREGDATE><CHARGER></CHARGER><SC></SC><TRANSEXPIRE/><DRAFTER></DRAFTER><CABTITLE></CABTITLE></SEARCHPARAM>";
+		                    GetRecordList();
+		                }
+		                else {
+		                    g_DeliverySearchParamXml = "<SEARCHPARAM><DEPTCODE></DEPTCODE><DEPTCODE2>" + DeptID + "</DEPTCODE2><TITLE></TITLE><SREGDATE>" + (nowyear - 1) + "-" + nowmonth + "-" + nowday + " 00:00:00</SREGDATE><EREGDATE>" + nowyear + "-" + nowmonth + "-" + nowday + " 23:59:59</EREGDATE><DEBENTURER></DEBENTURER></SEARCHPARAM>";
+		                    GetDocDeliveryList(g_DeliverySearchParamXml);
+		                }
+		            }
+		            
+		            //listLoading(false);	// 20201211 조진호 로딩바 display:none
+		        }
+		
+		        function btnAddJob_onclick() {
+		            var parameter = "";
+		            var url = "../ezDocInfo/ezSubTitle_Cross.aspx?id=" + escape(UserID);
+		            var feature = "status:no;dialogWidth:270px;dialogHeight:250px;help:no;scroll:no;edge:sunken";
+		            feature = feature + GetShowModalPosition(270, 250);
+		            var RtnVal = window.showModalDialog(url, parameter, feature);
+		
+		            if (RtnVal[0] == "OK") {
+		                arr_userinfo[4] = RtnVal[1];
+		                arr_userinfo[5] = RtnVal[2];
+		                arr_userinfo[3] = RtnVal[3];
+		
+		                arr_userinfo[13] = RtnVal[6];
+		                arr_userinfo[14] = RtnVal[7];
+		                arr_userinfo[15] = RtnVal[4];
+		                arr_userinfo[16] = RtnVal[5];
+		
+		                DeptID = RtnVal[1];
+		                ChangeCookies();
+		
+		                window.parent.frames.left.document.location.href = "/myoffice/ezApprovalG/left_approval_Cross.aspx?listType=1";
+		                LoadList();
+		            }
+		        }
+		        function ChangeCookies() {
+		            $.ajax({
+		        		type : "POST",
+		        		async : false,
+		        		url : "/ezApprovalG/ChangeUserInfo.do",
+		        		data : {
+		        				deptID : arr_userinfo[4],
+		        				deptName  : arr_userinfo[5],
+		        				deptName2 : arr_userinfo[14],
+		        				position  : arr_userinfo[3],
+		        				position2 : arr_userinfo[16],
+		        				companyID : CompanyID,
+		        				companyName : "KRX",
+		        				companyName2 : "KRX"
+		        				},
+		        		success: function(xml){
+		        		}        			
+		        	});
+		        }
+		        function lvtDetail_SelChange() {
+		        }
+		        function lvtDoclist_onclick() {
+		        }
+		        function lvtDoclist_onSel_DBclick() {
+		            if (DocList_Flag == "CABINET") {
+		                btnViewCabInfo_onclick();
+		            }else if(g_sFlag == "UNTREATED"){
+		            	ichangeS_onclick();
+		            }
+		            else {
+		                ViewDoc_onclick();
+		            }
+		        }
+		        function lvtDetail_onclick() {
+		        }
+/*			    function lvtDetail_onSel_DBclick() {
+			        var DocList = new ListView();
+			        DocList.LoadFromID("SubDocList");
+			        var selRow = DocList.GetSelectedRows();
+			        var tr = selRow[0];
+			        if (tr != null && typeof (selRow.length) != "undefined" && selRow.length > 0) {
+			            if (jobState == "APPROVAL" || jobState == "CIRCUL") {
+			                if (tr.getAttribute("DATA5") == "Y") {
+			                    var heigth = window.screen.availHeight;
+			                    var width = window.screen.availWidth;
+			                    var left = (parseInt(width) - 1155) / 2;
+			                    var top = (parseInt(heigth) - 460) / 2;
+			                    window.open("/ezApprovalG/ezLineInfo.do?docID=" + tr.getAttribute("DATA3") + "&deptID=" + encodeURI(tr.getAttribute("DATA4")) + "&docState=012", "", "height=460px,width=1155px, left=" + left + "px, top=" + top + ", status = no, toolbar=no, menubar=no,location=no, resizable=1");
+			                } else {
+			                	var heigth = window.screen.availHeight;
+					            var width = window.screen.availWidth;
+					            var left = (parseInt(width) - 600) / 2;
+					            var top = (parseInt(heigth) - 450) / 2;
+					            window.open("/ezCommon/showPersonInfo.do?id=" + GetAttribute(tr, "DATA4") + "&dept=" + GetAttribute(tr, "DATA6"), "", "height=450px,width=420px, status = no, toolbar=no, menubar=no,location=no, resizable=1, left=" + left + "px, top=" + top);
+			                }
+			            } else if (jobState == "RECIPENT") {
+			                var heigth = window.screen.availHeight;
+			                var width = window.screen.availWidth;
+			                var left = (parseInt(width) - 540) / 2;
+			                var top = (parseInt(heigth) - 220) / 2;
+			
+			                var isExtYN = tr.getAttribute("DATA3");
+			                
+			                if (isExtYN.toUpperCase() == "Y") {
+			                	left = (parseInt(width) - 1155) / 2;
+						        top = (parseInt(heigth) - 460) / 2;
+			                    var url = "/ezApprovalG/ezReceiptHistoryInfo.do?docID=" + DocID + "&deptID=" + encodeURI(tr.getAttribute("DATA1"));
+// 			                    var feature = "status:no;dialogWidth:555px;dialogHeight:240px;help:no;scroll:no;edge:sunken";
+// 			                    feature = feature + GetShowModalPosition(555, 240);
+// 			                    var ret = window.showModalDialog(url, "", feature);
+			                    var ret = window.open(url, "", "height=460px,width=855px, left=" + left + "px, top=" + top + ", status = no, toolbar=no, menubar=no,location=no, resizable=1");
+			                } else {
+			                	left = (parseInt(width) - 1155) / 2;
+						        top = (parseInt(heigth) - 460) / 2;
+			                    window.open("/ezApprovalG/ezLineInfo.do?docID=" + DocID + "&deptID=" + escape(tr.getAttribute("DATA1")) + "&docState=011" + "&aprState=" + escape(tr.getAttribute("DATA4")), "", "height=460px,width=1155px, left=" + left + "px, top=" + top + ", status = no, toolbar=no, menubar=no,location=no, resizable=1");
+			                }
+			            } else if (jobState == "ATTACH") {
+			            	var AttachfilenameA1 = tr.cells[1].innerHTML;
+			            	
+		                    if (AttachfilenameA1 != null) {
+		                        var AttachfilenameN1 = AttachfilenameA1.lastIndexOf(".");
+		                        var AttachfilenameA2 = AttachfilenameA1.substr(AttachfilenameN1, AttachfilenameA1.length);
+		                        var AttachUrlA1 = GetAttribute(tr,"DATA1");
+		                        var AttachUrlN1 = AttachUrlA1.lastIndexOf(".");
+		                        var AttachUrlA2 = AttachUrlA1.substr(AttachUrlN1, AttachUrlA1.length);
+		                        AttachUrl = encodeURIComponent(GetAttribute(tr,"DATA1"));
+		                     
+		                        if (AttachfilenameN1 < 0) {
+		                            Attachfilename = encodeURIComponent(tr.cells[1].innerText + AttachUrlA2);
+		                        } else {
+		                        	if (AttachUrlA2 == ".mht") {
+			                            Attachfilename = encodeURIComponent(tr.cells[1].innerText + AttachUrlA2);
+		                        	} else {
+			                            Attachfilename = encodeURIComponent(tr.cells[1].innerText);
+		                        	}
+		                        }
+
+		                        if (AttachUrl != "null") {
+//		                             if (GetAttribute(tr,"data4") == "file")
+//		                                 window.open(document.location.protocol + "//" + document.location.hostname + "/approvalG/downloadAttach.do?type=APPROVAL&docID=" + GetAttribute(tr, "data3") + "&docStatus=" + tempINGFlag + "&docAttachSn=" + GetAttribute(tr,"data2"));
+//		                             else
+									//2018-09-12 천성준 - 전자결재 결재문서리스트 하단 첨부탭에서 첨부파일이 문서첨부일경우 문서보기로 열수있게
+									try {
+										if (GetAttribute(tr,"data4") == strLangCSJ01 || GetAttribute(tr,"data4") == "Document") {
+		                                	var tempStr = AttachUrlA1.split("/");
+		                                    var docID = tempStr[tempStr.length - 1].replace(AttachUrlA2, '');
+		                                    var openLocation;
+		                                    
+		                                    if (AttachUrlA2.lastIndexOf(".ezd") === AttachUrlA2.length - 5) {
+		                                    	docID = docID.substr(0, docID.lastIndexOf("."));
+		                                    	AttachUrlA2 = "." + getOriginalFileExtension(AttachUrlA1)
+		                                    }
+		                                    
+		                                    if (AttachUrlA2 == ".hwp") {
+												if(useWebHWP == "NO") {
+													if (isIE()) {
+														openLocation = "/ezApprovalG/ezViewEnd_HWP.do";
+													} else {
+														var pAlertContent = "한글양식은 IE에서만 볼 수 있습니다.";
+														alert(pAlertContent);
+														return;
+													}
+												} else {
+													openLocation = "/ezApprovalG/ezViewEnd_WHWP.do";
+												}
+		                                    } else {
+		                                    	openLocation = "/ezApprovalG/contDocView.do";
+		                                    }
+		                                    openLocation += "?docID=" + docID + "&docHref=" + AttachUrl + "&formID=&orgDocID=";
+		                                    openwindow(openLocation, "", 880, 570);
+										} else {
+		                                    window.open("/ezApprovalG/downloadAttach.do?fileName=" + Attachfilename + "&filePath=" + AttachUrl, "_self");
+		                                }
+									} catch(e) {
+										console.log(e);
+									}
+		                        }
+		                    }
+			            }
+			        }
+			    }*/
+ 		        function lvtDetail_onSel_DBclick() {
+		            var DocList = new ListView();
+		            DocList.LoadFromID("SubDocList");
+		            var selRow = DocList.GetSelectedRows();
+		            var tr = selRow[0];
+		            if (tr != null && typeof (selRow.length) != "undefined" && selRow.length > 0) {
+		                // if (jobState == "ATTACH") {
+		                //     return;
+						//
+		                //     var para = "";
+		                //     var url = tr.getAttribute("DATA1");
+		                //     var feature;
+		                //     feature = window.open(url);
+						//
+		                // }
+		                // else
+							if (jobState == "RECIPENT") {
+		                	var heigth = window.screen.availHeight;
+			                var width = window.screen.availWidth;
+			                var left = (parseInt(width) - 540) / 2;
+			                var top = (parseInt(heigth) - 220) / 2;
+			
+			                var isExtYN = tr.getAttribute("DATA3");
+			                
+			                if (isExtYN.toUpperCase() == "Y") {
+			                	left = (parseInt(width) - 1155) / 2;
+						        top = (parseInt(heigth) - 460) / 2;
+			                    var url = "/ezApprovalG/ezReceiptHistoryInfo.do?docID=" + DocID + "&deptID=" + encodeURI(tr.getAttribute("DATA1"));
+// 			                    var feature = "status:no;dialogWidth:555px;dialogHeight:240px;help:no;scroll:no;edge:sunken";
+// 			                    feature = feature + GetShowModalPosition(555, 240);
+// 			                    var ret = window.showModalDialog(url, "", feature);
+			                    var ret = window.open(url, "", "height=271px,width=855px, left=" + left + "px, top=" + top + ", status = no, toolbar=no, menubar=no,location=no, resizable=1");
+			                } else {
+			                	left = (parseInt(width) - 1155) / 2;
+						        top = (parseInt(heigth) - 496) / 2;
+			                    window.open("/ezApprovalG/ezLineInfo.do?docID=" + DocID + "&deptID=" + escape(tr.getAttribute("DATA1")) + "&docState=011" + "&aprState=" + escape(tr.getAttribute("DATA4")), "", "height=496px,width=1155px, left=" + left + "px, top=" + top + ", status = no, toolbar=no, menubar=no,location=no, resizable=1");
+			                }
+// 		                    OpenReceiptHistory();
+		                }
+		                else if (jobState == "APPROVAL") {
+		                    openUserInfo();
+		                }
+						else if (jobState == "ATTACH") {
+							var AttachfilenameA1 = tr.cells[1].innerHTML;
+
+							if (AttachfilenameA1 != null) {
+								var AttachfilenameN1 = AttachfilenameA1.lastIndexOf(".");
+								var AttachfilenameA2 = AttachfilenameA1.substr(AttachfilenameN1, AttachfilenameA1.length);
+								var AttachUrlA1 = GetAttribute(tr,"DATA1");
+								var AttachUrlN1 = AttachUrlA1.lastIndexOf(".");
+								var AttachUrlA2 = AttachUrlA1.substr(AttachUrlN1, AttachUrlA1.length);
+								AttachUrl = encodeURIComponent(GetAttribute(tr,"DATA1"));
+
+								if (AttachfilenameN1 < 0) {
+									Attachfilename = encodeURIComponent(tr.cells[1].innerText + AttachUrlA2);
+								} else {
+									if (AttachUrlA2 == ".mht") {
+										Attachfilename = encodeURIComponent(tr.cells[1].innerText + AttachUrlA2);
+									} else {
+										Attachfilename = encodeURIComponent(tr.cells[1].innerText);
+									}
+								}
+
+								if (AttachUrl != "null") {
+//		                             if (GetAttribute(tr,"data4") == "file")
+//		                                 window.open(document.location.protocol + "//" + document.location.hostname + "/approvalG/downloadAttach.do?type=APPROVAL&docID=" + GetAttribute(tr, "data3") + "&docStatus=" + tempINGFlag + "&docAttachSn=" + GetAttribute(tr,"data2"));
+//		                             else
+									//2018-09-12 천성준 - 전자결재 결재문서리스트 하단 첨부탭에서 첨부파일이 문서첨부일경우 문서보기로 열수있게
+									try {
+										if (GetAttribute(tr,"data4") == strLangCSJ01 || GetAttribute(tr,"data4") == "Document") {
+											var tempStr = AttachUrlA1.split("/");
+											if(tempStr[tempStr.length - 1].indexOf("Lycan_") > -1){
+												var migFlag = "Y";
+												//FilePath.substring(FilePath.indexOf("Lycan") + 6, FilePath.indexOf(".pdf")
+												var docID = getmigdocid(tempStr[tempStr.length - 1].substring(tempStr[tempStr.length - 1].indexOf("Lycan") + 6, tempStr[tempStr.length - 1].indexOf(".pdf")));
+											}else{
+												var docID = tempStr[tempStr.length - 1].replace(AttachUrlA2, '');
+											}
+
+											var openLocation;
+											if(migFlag !="Y"){
+
+												if (AttachUrlA2 == ".hwp") {
+													if(useWebHWP == "NO") {
+														if (isIE()) {
+															openLocation = "/ezApprovalG/ezViewEnd_HWP.do";
+														} else {
+															var pAlertContent = "한글양식은 IE에서만 볼 수 있습니다.";
+															alert(pAlertContent);
+															return;
+														}
+													} else {
+														openLocation = "/ezApprovalG/ezViewEnd_WHWP.do";
+													}
+												} else {
+													openLocation = "/ezApprovalG/contDocView.do";
+												}
+												openLocation += "?docID=" + docID + "&docHref=" + AttachUrl + "&formID=&orgDocID=";
+												openwindow(openLocation, "", 880, 570);
+
+											}else{
+												//마이그레이션문서 열람
+
+												if (isAprAll(docID)=='Y') { // 일괄기안 문서를 여는 경우
+													openLocation = "/ezApprovalG/ezViewEndAll_WHWP.do"+  "?docID=" + docID + "&docHref=" + AttachUrl + "&formID=&orgDocID=&fromDocAttach=Y";
+												} else {
+													openLocation = "/ezApprovalG/contDocView.do"+ "?docID=" + docID + "&docHref=" + AttachUrl + "&formID=&orgDocID=&fromDocAttach=Y";
+												}
+
+												openwindow(openLocation, "", 880, 570);
+											}
+										} else {
+											window.open("/ezApprovalG/downloadAttach.do?fileName=" + Attachfilename + "&filePath=" + AttachUrl, "_self");
+										}
+									} catch(e) {
+										console.log(e);
+									}
+								}
+							}
+						}
+		            }
+		        }
+ 		        
+		    function idistbox_onclick() {
+		        document.getElementById("imgTitle").innerHTML = g_sFlag === "m03" ? "기록물배부대장" : "대외배부대장";
+		        document.getElementById("imgTitle").style.display = "";
+		        SwapSubMenuDisplay("0");
+		
+		        pChackYN == "FALSE";
+		        DocList_Flag = "Delivery";
+		        try {
+		            if (trSubInfoTab) {
+		                document.getElementById("trSubInfoTab").style.display = "";
+		                document.getElementById("divList").style.height = "489px;";
+		                //PageSize = 10;
+		                Block_Size = 10;
+		            }
+		        } catch (e) {console.log(e);}
+		
+		        var nowyear = new Date().getFullYear();
+		        var nowmonth = new Date().getMonth() + 1;
+		        var nowday = new Date().getDate();
+		
+		        if (nowmonth < 10)
+		            nowmonth = "0" + nowmonth;
+		
+		        if (nowday < 10)
+		            nowday = "0" + nowday;
+		
+		        g_DeliverySearchParamXml = "<SEARCHPARAM><DEPTCODE></DEPTCODE><DEPTCODE2>" + DeptID + "</DEPTCODE2><TITLE></TITLE><SREGDATE>" + (nowyear - 1) + "-" + nowmonth + "-" + nowday + " 00:00:00</SREGDATE><EREGDATE>" + nowyear + "-" + nowmonth + "-" + nowday + " 23:59:59</EREGDATE><DEBENTURER></DEBENTURER></SEARCHPARAM>";
+		
+		        GetDocDeliveryList(g_DeliverySearchParamXml);
+		    }
+		    function ichange_onclick() {
+		        SendOffer(UserID);
+			}
+			function ichangeS_onclick() {
+		        var DocList = new ListView();
+				DocList.LoadFromID("DocList");
+				
+				var selRows = DocList.GetSelectedRows();
+		        if (selRows.length === 0) {
+		            var pAlertContent = "문서를 선택해주십시오.";
+		            alert(pAlertContent);
+		            return;
+				}
+
+				var selRow = selRows[0];
+				
+				var docID = GetAttribute(selRow, "DATA1");
+				var docHref = GetAttribute(selRow, "DATA2");
+				var ext = docHref.substr(docHref.lastIndexOf(".") + 1);
+				var recordID = GetAttribute(selRow, "DATA6");
+
+                var url = null;
+                if (ext === "mht") {
+                    url = "/ezApprovalG/ezConvSihang.do" +
+                        "?docID=" + encodeURIComponent(docID) +
+                        "&docHref=" + encodeURIComponent(docHref) +
+                        "&orgCompanyID=" + CompanyID +
+                        "&recordID=" + recordID;
+                } else if (ext === "hwp") {
+                    if (useWebHWP === "NO") {
+                        if (!isIE()) {
+                            var pAlertContent = "한글양식은 IE에서만 볼 수 있습니다.";
+                            alert(pAlertContent);
+                            return;
+                        }
+
+                        url = "/ezApprovalG/ezConvSihang_HWP.do" +
+                            "?docID=" + encodeURIComponent(docID) +
+                            "&docHref=" + encodeURIComponent(docHref) +
+                            "&orgCompanyID=" + CompanyID +
+                            "&recordID=" + recordID;
+                    } else {
+                        url = "/ezApprovalG/ezConvSihang_WHWP.do" +
+                            "?docID=" + encodeURIComponent(docID) +
+                            "&docHref=" + encodeURIComponent(docHref) +
+                            "&orgCompanyID=" + CompanyID +
+                            "&recordID=" + recordID;
+                    }
+                }
+					
+				window.open(url, "enforce", GetOpenWindowfeature(window.screen.availHeight - 50, window.screen.availWidth / 2));
+			}
+		    function Approval_onclick() {
+		        jobState = "APPROVAL";
+		        getDataInfo();
+		    }
+		    function Attach_onclick() {
+		        jobState = "ATTACH";
+		        getDataInfo();
+		    }
+		    function Recipent_onclick() {
+		        jobState = "RECIPENT";
+		        getDataInfo();
+		    }
+		    function Opinion_onclick() {
+		        jobState = "OPINION";
+		        getDataInfo();
+		    }
+		    function MM_swapImagesub(nSel, e) {
+		        if (nSel != g_tagSelectsub) {
+		            g_tagSelectsub = nSel;
+		            var Event = e ? e : window.event;
+		            var Element = Event.target ? Event.target : Event.srcElement;
+		
+		            Element.src = "/images/tab_appsub" + nSel + ".gif";
+		//             Element.height = "23";
+		
+		            var i;
+		            for (i = 1 ; i <= 4; i++) {
+		                if (g_tagSelectsub != i) {
+		                    var str = "tagsub" + i + ".src" + "=" + "\"/images/tab_appsub" + i + "a.gif\"";
+		                    eval(str);
+		//                     var str = "tagsub" + i + ".height" + "=" + "23";
+		//                     eval(str);
+		                }
+		            }
+		        }
+		    }
+		    function GetUserRole() {
+		        if (AdminYN == "TRUE")
+		            return "Admin";
+		        else if (g_bRecAdmin)
+		            return "DeptAdmin";
+		        else
+		            return "User";
+		    }
+		
+		    function InitSubMenu(MenuType) {
+// 		        if (g_sFlag == "m01" || g_sFlag.indexOf("d0") === 0)
+// 		            document.getElementById("tdichange_Rec").style.display = "";
+// 		        else
+// 		            document.getElementById("tdichange_Rec").style.display = "none";
+
+// 				if (g_sFlag == "d003" || g_sFlag == "d004")
+				if (g_sFlag == "d003")
+					document.getElementById("tdSusin").style.display = "";
+
+		        switch (MenuType) {
+		            case "0":
+		                document.getElementById("trCabSubMenu").style.display = "";
+		                document.getElementById("trRecSubMenu").style.display = "none";
+		
+		                //document.getElementById("Radio2").style.display = "none";11
+		                //document.getElementById("searchwriter").style.display = "none";
+		                document.getElementById('rad2').style.display = "none";
+		
+		                if (g_bDeptCharger || g_bRecAdmin || AdminYN == "TRUE") {
+		                    if (ListTypeFlag != "8" && ListTypeFlag != "9" && ListTypeFlag != "10")
+		                        document.getElementById("tdRegCabinet").style.display = "";
+		                    else
+		                        document.getElementById("tdRegCabinet").style.display = "none";
+		
+		                    if (ListTypeFlag != "9")
+		                        document.getElementById("tdNewVol").style.display = "none";
+		                    else
+		                        document.getElementById("tdNewVol").style.display = "none";
+		                    
+		                    // btnCabDel 업무관리자, 기록물관리자만 사용
+		                    document.getElementById("tdBtnCabDel").style.display = "";
+		                }
+		                else {
+		                    document.getElementById("tdRegCabinet").style.display = "none";
+		                    document.getElementById("tdNewVol").style.display = "none";
+		                }
+		
+		                if (ListTypeFlag != "9") {
+		                    if (g_bDeptCharger || g_bRecAdmin || AdminYN == "TRUE")
+		                        document.getElementById("tdModifyCab").style.display = "";
+		                    else
+		                        document.getElementById("tdModifyCab").style.display = "none";
+		
+		                    if (g_bRecAdmin || AdminYN == "TRUE") {
+		                        document.getElementById("tdViewCabHist").style.display = "";
+		                        document.getElementById("tdSetCharger").style.display = "";
+		                    }
+		                    else {
+		                        document.getElementById("tdViewCabHist").style.display = "none";
+		                        document.getElementById("tdSetCharger").style.display = "none";
+		                    }
+		
+		                    document.getElementById("tdbtnViewRecList").style.display = "";
+// 		                    document.getElementById("tbar1").style.display = "";
+		
+		                }
+		                else {
+		                    document.getElementById("tdModifyCab").style.display = "none";
+		                    document.getElementById("tdViewCabHist").style.display = "none";
+		                    document.getElementById("tdSetCharger").style.display = "none";
+		                    document.getElementById("tdbtnViewRecList").style.display = "none";
+// 		                    document.getElementById("tbar1").style.display = "none";
+		
+		                }
+		
+		                if (ListTypeFlag == "8" && (g_bDeptCharger || g_bRecAdmin || AdminYN == "TRUE") && g_sFlag != "m09") {
+		                	//2018-12-21 천성준 정리대상목록에 데이터가 없을 때, 편철확인 편철확인취소 버튼이 표출되는 현상 때문에 주석처리 (버튼의 표출여부는 리스트 데이터가 무엇이 선택 되었는지에 따라 표출됨.)
+// 		                    document.getElementById("tdbtnEndProduce").style.display = "";
+// 		                    document.getElementById("tdbtnCancelEndProd").style.display = "";
+		                }
+		                else {
+		                    document.getElementById("tdbtnEndProduce").style.display = "none";
+		                    document.getElementById("tdbtnCancelEndProd").style.display = "none";
+		                }
+		
+		                if (ListTypeFlag == "10" && (g_bDeptCharger || g_bRecAdmin || AdminYN == "TRUE")) {
+		                    document.getElementById("tdReqDelayEndY").style.display = "";
+		                    document.getElementById("CancelDelayEndY").style.display = "";
+		                }
+		                else {
+		                    document.getElementById("tdReqDelayEndY").style.display = "none";
+		                    document.getElementById("CancelDelayEndY").style.display = "none";
+		                }
+		                break;
+		
+		            case "1":
+		                document.getElementById("trCabSubMenu").style.display = "none";
+		                document.getElementById("trRecSubMenu").style.display = "";
+
+		
+		                if (ListTypeFlag == "0")
+		                    document.getElementById("tdCabSelect").style.display = "none";
+		                else
+		                    document.getElementById("tdCabSelect").style.display = "none";
+		
+		                if (g_bDeptCharger || g_bRecAdmin || AdminYN == "TRUE") {
+		                    document.getElementById("tdRegSepAtt").style.display = "none";
+		                    
+		                    // btnCabDel 업무관리자, 기록물관리자만 사용
+		                    document.getElementById("tdBtnCabDel").style.display = "";		                    
+		                }
+		                else {
+		                    document.getElementById("tdRegSepAtt").style.display = "none";
+		                }
+		
+// 		                if (g_bDeptCharger || g_bRecAdmin || AdminYN == "TRUE")
+// 		                    document.getElementById("tdModifyRec").style.display = "";
+// 		                else
+// 		                    document.getElementById("tdModifyRec").style.display = "";
+		
+		                if (g_bRecAdmin || AdminYN == "TRUE") {
+		                    document.getElementById("tdVeiwRecHist").style.display = "none";
+		                    document.getElementById("tdbtnViewRecReadHist").style.display = "none";
+		                    CheckBtnSetRecRole();
+		                } else {
+		                    document.getElementById("tdVeiwRecHist").style.display = "none";
+		                    document.getElementById("tdbtnViewRecReadHist").style.display = "none";
+		                    document.getElementById("tdbtnSetRecRole").style.display = "none";
+		                }
+		                break;
+		        }
+	        	if(g_sFlag == "d007")
+		        	$("#trRecSubMenu li").each(function(i,item){
+		        	    if(item.id != "tdDocListPrint")
+		        	        item.style.display = "none";
+		        	});
+		    }
+		
+		    function CheckBtnSetRecRole() {
+		        if (g_bRecAdmin || AdminYN == "TRUE") {
+		            if (AdminYN != "TRUE") {
+		                var tmpAuthChk = false;
+		                var tmpChkDeptID = DeptID;
+		
+		                if (g_RecSearchParamXml != "") {
+		                    var tmpXMLDOM = createXmlDom();
+		                    tmpXMLDOM = loadXMLString(g_RecSearchParamXml);
+		                    var deptcdoenode = SelectSingleNodeNew(tmpXMLDOM, "SEARCHPARAM/DEPTCODE");
+		                    if (deptcdoenode.length > 0)
+		                        tmpChkDeptID = getNodeText(deptcdoenode);
+		                }
+
+		                if ("1ba0" == tmpChkDeptID) 
+		                    tmpAuthChk = true;
+		
+		                if (g_DeptInfo != "") {
+		                    var tmpArrDeptInfo = g_DeptInfo.split(";");
+		
+		                    for (var n = 0 ; n < tmpArrDeptInfo.length ; n++) {
+		                        if (tmpArrDeptInfo[n].split(":")[0] == tmpChkDeptID)
+		                            tmpAuthChk = true;
+		                    }
+		                }
+		
+		                if (tmpAuthChk)
+		                    document.getElementById("tdbtnSetRecRole").style.display = "none";
+		                else
+		                    document.getElementById("tdbtnSetRecRole").style.display = "none";
+		            }
+		            else {
+		                document.getElementById("tdbtnSetRecRole").style.display = "none";
+		            }
+		        }
+		        else {
+		            document.getElementById("tdbtnSetRecRole").style.display = "none";
+		        }
+		    }
+		    function SwapSubMenuDisplay(flag) {
+		        if (flag == "0") {
+		            document.getElementById("trCabSubMenu").style.display = "none";
+		            document.getElementById("trRecSubMenu").style.display = "none";
+		            document.getElementById("trDeliveryMenu").style.display = "";
+		        }
+		    }
+		    function ArrTargetList_onclick() {
+		        document.getElementById("imgTitle").innerHTML = "정리대상목록";
+		        document.getElementById("imgTitle").style.display = "";
+		        SwapSubMenuDisplay("1");
+		
+		        InitGlobals("CABINET", "8", "0");
+		        if (g_bRecAdmin || AdminYN == "TRUE") {
+		        }
+		        else {
+		            g_CabSearchParamXml = "<SEARCHPARAM><CHARGER>'" + UserID + "'</CHARGER></SEARCHPARAM>";
+		        }
+		        GetCaninetList();
+		    }
+		    function DelayEndYRequest_onclick() {
+		        document.getElementById("imgTitle").innerHTML = "종료연기신청";
+		        document.getElementById("imgTitle").style.display = "";
+		        SwapSubMenuDisplay("1");
+		
+		        InitGlobals("CABINET", "10", "0");
+		
+		        GetCaninetList();
+		    }
+		    function CabGiveList_onclick() {
+		        document.getElementById("imgTitle").innerHTML = "인계목록";
+		        document.getElementById("imgTitle").style.display = "";
+		        SwapSubMenuDisplay("1");
+		
+		        InitGlobals("CABINET", "9", "0");
+		
+		        GetCaninetList();
+		    }
+		    function CabinetList_onclick() {
+		        document.getElementById("imgTitle").innerHTML = "기록물철등록부";
+		        document.getElementById("imgTitle").style.display = "";
+		
+		        SwapSubMenuDisplay("1");
+		
+		        InitGlobals("CABINET", "0", "0");
+		
+		        GetCaninetList();
+			}
+			function untreatedList_onclick() {
+		        document.getElementById("imgTitle").innerHTML = "발송대기";  /*발송의뢰*/
+		        document.getElementById("imgTitle").style.display = "";
+		        SwapSubMenuDisplay("1");
+		        InitGlobals("RECORD", "23", "1");
+		        GetRecordList();
+			}
+		
+		    var regcabinet_cross_dialogArguments = new Array();
+		    function btnRegCabinet_onclick() {
+		        var para = new Array();
+		        para[0] = "0";
+		        var url = "/ezApprovalG/regCabinet.do";
+		
+		        regcabinet_cross_dialogArguments[0] = para;
+		        regcabinet_cross_dialogArguments[1] = btnRegCabinet_onclick_Complete;
+		
+		        var OpenWin;
+		
+		        if (UserLang == "1")
+		            OpenWin = window.open(url, "RegCabinet_Cross", GetOpenWindowfeature(900, 607));
+		        else
+		            OpenWin = window.open(url, "RegCabinet_Cross", GetOpenWindowfeature(905, 607));
+		
+		        try { OpenWin.focus(); } catch (e) {console.log(e);}
+		    }
+		    function btnRegCabinet_onclick_Complete(rtn) {
+		        if (rtn[0] == "TRUE")
+		            GetCaninetList();
+		    }
+		    function btnNewVolume_onclick() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selnode = DocList.GetSelectedRows();
+		
+		        if (selnode.length != 0) {
+		            var tr = selnode[0];
+		            var rtn = NewVolume(tr.getAttribute("DATA1"), tr.getAttribute("DATA2"), "OPEN", btnNewVolume_onclick_Complete);
+		        }
+		        else {
+		            OpenAlertUI("선택된 기록물 철이 없습니다.");
+		        }
+		    }
+		
+		    function btnNewVolume_onclick_Complete(rtn) {
+		        if (rtn[0] != "FALSE") {
+		            AddNewVolume(temppCabClassNo, rtn[1]);
+		            GetCaninetList();
+		        }
+		    }
+		    var changecabinetinfo_cross_dialogArguments = new Array();
+		    function btnChangeCabinetInfo_onclick() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selRow = DocList.GetSelectedRows();
+		        if (selRow.length != 0) {
+		            var tr = selRow[0];
+		            var para = new Array();
+		            para[0] = tr.getAttribute("DATA1");
+		            para[1] = tr.getAttribute("DATA2");
+		            para[2] = arr_userinfo[1];
+		            para[3] = arr_userinfo[2];
+		            para[4] = g_bRecAdmin;
+		            para[5] = arr_userinfo[10];
+		            var url = "/ezApprovalG/changeCabinetInfo.do";
+		
+		            changecabinetinfo_cross_dialogArguments[0] = para;
+		            changecabinetinfo_cross_dialogArguments[1] = btnChangeCabinetInfo_onclick_Complete;
+		
+		            var OpenWin = window.open(url, "ChangeCabinetInfo_Cross", GetOpenWindowfeature(405, 390));
+		            try { OpenWin.focus(); } catch (e) {console.log(e);}
+		
+		           
+		        }
+		        else {
+		            OpenAlertUI("기록물철을 선택하세요.");
+		        }
+		    }
+		    function btnChangeCabinetInfo_onclick_Complete(rtn) {
+		        if (rtn[0] == "TRUE") {
+		            GetCaninetList();
+		        }
+		    }
+		    var settaskchrger_cross_dialogArguments = new Array();
+		    function btnSetTaskCharger_onclick() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selRow = DocList.GetSelectedRows();
+		        if (selRow.length != 0) {
+		            var tr = selRow[0];
+		            var para = new Array();
+		            para[0] = tr.getAttribute("DATA2");
+		            para[1] = DeptID;
+		
+		            var url = "/ezApprovalG/setTaskChrger.do";
+		
+		            settaskchrger_cross_dialogArguments[0] = para;
+		
+		            var OpenWin = window.open(url, "SetTaskChrger_Cross", GetOpenWindowfeature(790, 490));
+		            try { OpenWin.focus(); } catch (e) {console.log(e);}
+		        }
+		        else {
+		            OpenAlertUI("기록물철을 선택하세요.");
+		        }
+		    }
+		    function ReqDelayEndY_onclick() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selRow = DocList.GetSelectedRows();
+		        var len = selRow.length;
+		        var i;
+		
+		        if (len > 0) {
+		            var CabClassList = "";
+		            for (i = 0; i < len; i++) {
+		                if (CabClassList != "")
+		                    CabClassList += ",";
+		
+		                var tr = selRow[i];
+		                CabClassList += tr.getAttribute("DATA2");
+		            }
+		
+		            if (ReqDelayCabEndY(CabClassList, "Y") == "TRUE") {
+		                OpenAlertUI("종료연기신청이 완료되었습니다.");
+		                DelayEndYRequest_onclick();
+		            }
+		            else {
+		                OpenAlertUI("종료연도 연기신청에 실패하였습니다.");
+		            }
+		        }
+		        else {
+		            OpenAlertUI("기록물철을 선택하세요");
+		        }
+		    }
+		    function CancelDelayEndY_onclick() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selRow = DocList.GetSelectedRows();
+		        var len = selRow.length;
+		        var i;
+		
+		        if (len > 0) {
+		            var CabClassList = "";
+		            for (i = 0; i < len; i++) {
+		                if (CabClassList != "")
+		                    CabClassList += ",";
+		
+		                var tr = selRow[i];
+		                CabClassList += tr.getAttribute("DATA2");
+		            }
+		            if (ReqDelayCabEndY(CabClassList, "N") == "TRUE")
+		                DelayEndYRequest_onclick();
+		            else
+		                OpenAlertUI("종료연도 연기신청 취소에 실패하였습니다.");
+		        }
+		        else {
+		            OpenAlertUI("기록물철을 선택하세요");
+		        }
+		    }
+		    function ReqDelayCabEndY(CabClassList, Flag) {
+		    	var result = "";
+		    	
+		        $.ajax({
+		    		type : "POST",
+		    		dataType : "text",
+		    		async : false,
+		    		url : "/ezApprovalG/reqDelayCabEndY.do",
+		    		data : {
+		    				companyID : CompanyID,
+		    				cabClassList  : CabClassList,
+		    				flag : Flag
+		    				},
+		    		success: function(xml){
+		    			result = loadXMLString(xml);
+		    		}, error:function () {
+		    			return "FALSE";
+		    		}  			
+		    	});
+		        
+		        var dataNodes = GetChildNodes(result);
+		        return getNodeText(dataNodes[0]);
+		    }
+		    
+		    var endcabproduce_cross_dialogArguments = new Array();
+		    function btnEndProduce_onclick() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selRow = DocList.GetSelectedRows();
+		
+		        if (selRow.length != 0) {
+		            var tr = selRow[0];
+		            var para = new Array();
+		            para[0] = tr.getAttribute("DATA1");
+		            para[1] = tr.getAttribute("DATA2");
+		
+		            var url = "/ezApprovalG/endCabProduce.do";
+		
+		            endcabproduce_cross_dialogArguments[0] = para;
+		            endcabproduce_cross_dialogArguments[1] = btnEndProduce_onclick_Complete;
+		
+		            var OpenWin = window.open(url, "EndCabProduce_Cross", GetOpenWindowfeature(400, 280));
+		            try { OpenWin.focus(); } catch (e) {console.log(e);}
+		        }
+		        else {
+		            OpenAlertUI("기록물철을 선택하세요.");
+		        }
+		    }
+		    function btnEndProduce_onclick_Complete(rtn) {
+		        if (rtn[0] == "TRUE") {
+		            GetCaninetList();
+		        }
+		    }
+		    function btnCancelEndProd_onclick() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selRow = DocList.GetSelectedRows();
+		        if (selRow.length != 0) {
+		            var tr = selRow[0];
+		            bCon = OpenInformationUI("편철확인을 취소하시겠습니까?", btnCancelEndProd_onclick_Complete);
+		        }
+		        else {
+		            OpenAlertUI("기록물철을 선택하세요.");
+		        }
+		    }
+		    function btnCancelEndProd_onclick_Complete(bCon) {
+		        if (bCon) {
+		            var DocList = new ListView();
+		            DocList.LoadFromID("DocList");
+		            var selRow = DocList.GetSelectedRows();
+		            var tr = selRow[0];
+		
+		            if (EndCabProduce(tr.getAttribute("DATA2"), "", "1")) {
+		                GetCaninetList();
+		            }
+		            else {
+		                OpenAlertUI("편철확인취소에 실패하였습니다.");
+		            }
+		        }
+		    }
+		    function btnViewRecList_onclick() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selRow = DocList.GetSelectedRows();
+		        
+		        /* 2022-07-20 홍승비 - 기록물보기 버튼 클릭 시, 이전 기록물의 검색조건이 남아있는 오류 수정 (검색조건 초기화) */
+				g_RecSearchParamXml = "";
+				isCabinetToRecordFirst = true; // 최초 진입 플래그 true로 변경
+		        
+		        if (selRow.length != 0) {
+		        	SwapSubMenuDisplay("1");
+			        InitGlobals("RECORD", "0", "1");
+			            
+		        	g_SelCabXml = "<CABINETINFO><CABINET>";
+		        	
+		        	/* 2022-07-22 홍승비 - 선택한 기록물철의 생산년도를 체크 */
+		        	if (typeof(isCabinetToRecordFirst) != "undefined" && isCabinetToRecordFirst == true && typeof(g_sFlag) != "undefined" && g_sFlag == "m02") {
+			        	var cabinetClassNo = selRow[0].getAttribute("DATA2");
+			        	cabProduceY = getProduceYear(cabinetClassNo); // 전역변수인 cabProduceY에 생산년도를 저장
+		        	}
+		        	
+		        	for(var i = 0; i < selRow.length; i++) {
+		        		g_SelCabXml += "<CABINETID><![CDATA[" + selRow[i].getAttribute("DATA1") + "]]></CABINETID>";
+		        	}
+		        	
+		        	g_SelCabXml += "</CABINET></CABINETINFO>";
+		            
+		            GetRecordList();
+		            $("#tdViewCabList").show();
+		        }
+		        else {
+		            OpenAlertUI("기록물철을 선택하세요.");
+		        }
+		    }
+		
+		    var ezapropinion_cross_dialogArguments = new Array();
+		    function OpenInformationUI(pInformationContent, CompleteFunction) {
+		        var parameter = pInformationContent;
+		        var url = "/ezApprovalG/ezAprOpinion.do";
+		
+		        if (CrossYN()) {
+		            ezapropinion_cross_dialogArguments[0] = parameter;
+		            if (CompleteFunction != undefined)
+		                ezapropinion_cross_dialogArguments[1] = CompleteFunction;
+		            else
+		                ezapropinion_cross_dialogArguments[1] = OpenInformationUI_Complete;
+		            DivPopUpShow(330, 205, url);
+		        }
+		        else {
+		            var feature = "status:no;dialogWidth:330px;dialogHeight:205px;help:no;scroll:no;edge:sunken";
+		            feature = feature + GetShowModalPosition(330, 205);
+		            var RtnVal = window.showModalDialog(url, parameter, feature);
+		        }
+		        return RtnVal;
+		    }
+		
+		    function OpenInformationUI_Complete() {
+		        DivPopUpHidden();
+		    }
+		
+		    function gongramList_onclick() {
+		        document.getElementById("imgTitle").innerHTML = "보낸공람";
+		        document.getElementById("imgTitle").style.display = "";
+		        SwapSubMenuDisplay("1");
+		        InitGlobals("RECORD", "15", "1");
+		        GetRecordList();
+		    }
+		    
+		    function RecordList_onclick() {
+		        document.getElementById("imgTitle").innerHTML = "등록대장";
+		        document.getElementById("imgTitle").style.display = "";
+		        SwapSubMenuDisplay("1");
+		        InitGlobals("RECORD", "0", "1");
+		        GetRecordList();
+		    }
+		        function btnRegRecord_onclick() {
+		            var para = new Array();
+		            para[0] = g_SelCabXml;
+		            para[1] = ListTypeFlag;
+		
+		            if (CrossYN()) {
+		                var url = "/ezApprovalG/regRecord.do?SelCabXml=" + g_SelCabXml + "&TypeFlag=" + ListTypeFlag;
+		
+		                var wWeight = "";
+		                var wHeight = "";
+		
+		                var heigth = window.screen.availHeight;
+		                var width = window.screen.availWidth;
+		
+		                var left = "";
+		                var top = "";
+		
+		                if ("1" == "1") { 
+			                wWeight = 1100;
+			                wHeight = 820;
+			                left = (width - wWeight) / 2;
+			                top = (heigth - wHeight) / 2;
+		                } else { 
+			                wWeight = 1100;
+			                wHeight = 820;
+			                left = (width - wWeight) / 2;
+			                top = (heigth - wHeight) / 2;
+		                } 
+		                if (url != "")
+		                    var ret = window.open(url, "", "toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0,height=" + wHeight + ",width=" + wWeight + ",top=" + top + ",left = " + left);
+		                    GetRecordList();
+		            }
+		            else {
+		                var url = "/ezApprovalG/regRecord.do";
+		
+		                if ("1" == "1")
+		              { 
+		                var feature = "dialogWidth:755px;dialogHeight:570px;scroll:no;resizable:no;status:no; help:no;edge:sunken";
+		                }
+		              else
+		              { 
+		                var feature = "dialogWidth:825px;dialogHeight:570px;scroll:no;resizable:no;status:no; help:no;edge:sunken";
+		                } 
+		                if (url != "")
+		                    var rtn = window.showModalDialog(url, para, feature);
+		
+		                if (rtn[0] == "TRUE") {
+		                   GetRecordList();
+		                }
+		            }
+		        }
+		    var regsepattach_cross_dialogArguments = new Array();
+		    function btnRegAttach_onclick() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selRow = DocList.GetSelectedRows();
+		        if (selRow.length != 0) {
+		            var tr = selRow[0];
+		            var para = new Array();
+		            para[0] = "0";
+		            para[1] = tr.getAttribute("DATA6");
+		            para[2] = tr.getAttribute("DATA7");
+		            para[3] = "";
+		
+		            var url = "/ezApprovalG/regSepAttach.do";
+		
+		            regsepattach_cross_dialogArguments[0] = para;
+		            regsepattach_cross_dialogArguments[1] = btnRegAttach_onclick_Complete;
+		
+		            var OpenWin = window.open(url, "schedule_select_attendant", GetOpenWindowfeature(880, 615));
+		            try { OpenWin.focus(); } catch (e) {console.log(e);}
+		        }
+		    }
+		
+		    function btnRegAttach_onclick_Complete(rtn) {
+		        if (rtn[0] == "TRUE") {
+		            GetRecordList();
+		        }
+		    }
+		
+		    var selectcabinet_cross_dialogArguments = new Array();
+		    function CabinetSelect_onclick() {
+		        DocList_Flag = "RECORD";
+		
+		        var para = new Array();
+		        var rtn;
+		        var url = "/ezApprovalG/selectCabinet.do?initFlag=0";
+		
+		        selectcabinet_cross_dialogArguments[0] = para;
+		        selectcabinet_cross_dialogArguments[1] = CabinetSelect_onclick_Complete;
+		
+		        var OpenWin = window.open(url, "selectCabinet", GetOpenWindowfeature(1000, 620));
+		        try { OpenWin.focus(); } catch (e) {console.log(e);}
+		    }
+		
+		    function CabinetSelect_onclick_Complete(rtn) {
+		        if (rtn[0] == "TRUE") {
+		            curpage = "1";
+		            g_SelCabXml = rtn[1];
+		            g_TransFlag = rtn[2];
+		            GetRecordList();
+		        }
+		    }
+		
+		    function btnChangeRecCabinet_onclick() {
+		        var rtn = new Array();
+		        rtn[0] = "FALSE";
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selRow = DocList.GetSelectedRows();
+		        if (selRow.length != 0) {
+		            var tr = selRow[0];
+		            var RecID = tr.getAttribute("DATA6");
+		            var CabID = tr.getAttribute("DATA7");
+		            var SepAttNo = tr.getAttribute("DATA8");
+		
+		            var para = new Array();
+		            var url = "/ezApprovalG/selectCabinet.do?initFlag=1";
+		
+		            selectcabinet_cross_dialogArguments[0] = para;
+		            selectcabinet_cross_dialogArguments[1] = btnChangeRecCabinet_onclick_Complete;
+		
+		            var OpenWin = window.open(url, "SelectCabinet_Cross", GetOpenWindowfeature(1020, 691));
+		            try { OpenWin.focus(); } catch (e) {console.log(e);}
+		
+		           
+		        }
+		        else {
+		            OpenAlertUI("기록물을 선택하세요.");
+		        }
+		    }
+		    var temparrCabInfo;
+		    function btnChangeRecCabinet_onclick_Complete(rtn) {
+		        if (rtn[0] == "TRUE") {
+		            var arrCabInfo = GetSelCabInfo(rtn[1], 0);
+		            temparrCabInfo = arrCabInfo;
+		           OpenInformationUI("현재기록물을 " + arrCabInfo[1] + "(" + arrCabInfo[4] + "권)" + "으로 이동하시겠습니까?", ChangeRecCabinetOpenUI);
+		        }
+		    }
+		
+		    function ChangeRecCabinetOpenUI(bConfirm) {
+		        if (bConfirm) {
+		            var DocList = new ListView();
+		            DocList.LoadFromID("DocList");
+		            var selRow = DocList.GetSelectedRows();
+		            var tr = selRow[0];
+		            var RecID = tr.getAttribute("DATA6");
+		            var CabID = tr.getAttribute("DATA7");
+		            var SepAttNo = tr.getAttribute("DATA8");
+		
+		            if (MoveRecord(RecID, SepAttNo, temparrCabInfo[0], "0")) {
+		                OpenAlertUI("기록물을 성공적으로 이동하였습니다.");
+		                GetRecordList();
+		            }
+		            else {
+		                OpenAlertUI("기록물을 이동하는데 실패하였습니다.");
+		            }
+		        }
+		    }
+		
+		    var ezapropinion_cross_dialogArguments = new Array();
+		    function OpenInformationUI(pInformationContent, CompleteFunction) {
+		        var parameter = pInformationContent;
+		        var url = "/ezApprovalG/ezAprOpinion.do";
+
+		        if (CrossYN()) {
+		            ezapropinion_cross_dialogArguments[0] = parameter;
+		            if (CompleteFunction != undefined)
+		                ezapropinion_cross_dialogArguments[1] = CompleteFunction;
+		            else
+		                ezapropinion_cross_dialogArguments[1] = OpenInformationUI_Complete;
+		            
+		            ezapropinion_cross_dialogArguments[2] = true;
+		            var OpenWin = window.open(url, "ezAPROPINION_Cross", GetOpenWindowfeature(330, 205));
+		            try { OpenWin.focus(); } catch (e) {console.log(e);}
+		        }
+		        else {
+		            var feature = "status:no;dialogWidth:350px;dialogHeight:205px;help:no;scroll:no;edge:sunken";
+		            feature = feature + GetShowModalPosition(350, 205);
+		            var RtnVal = window.showModalDialog(url, parameter, feature);
+		        }
+		        return RtnVal;
+		    }
+		
+		    function OpenInformationUI_Complete() {
+		        DivPopUpHidden();
+		    }
+		
+		    function GetSelCabInfo(pCabListXml, idx) {
+		        var len;
+		        var rtnArr = new Array();
+		        if (pCabListXml != "") {
+		            var CabListXml = createXmlDom();
+		            CabListXml = loadXMLString(pCabListXml);
+		
+		            var objCabs = SelectNodes(CabListXml, "CABINET");
+		            len = objCabs.length;
+		
+		            if (idx < len) {
+		                rtnArr[0] = getNodeText(SelectNodes(CabListXml, "CABINETID")[idx]);
+		                rtnArr[1] = getNodeText(SelectNodes(CabListXml, "CABINETNAME")[idx]);
+		                rtnArr[2] = getNodeText(SelectNodes(CabListXml, "RECTYPE")[idx]);
+		                rtnArr[3] = getNodeText(SelectNodes(CabListXml, "CABINETSN")[idx]);
+		                rtnArr[4] = getNodeText(SelectNodes(CabListXml, "CABINETVOLNO")[idx]);
+		            }
+		        }
+		        return rtnArr;
+		    }
+		    var changerecordinfo_cross_dialogArguments = new Array();
+		    function btnChangeRecInfo_onclick() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selRow = DocList.GetSelectedRows();
+		        if (selRow.length != 0) {
+		            var tr = selRow[0];
+		            var para = new Array();
+		            para[0] = tr.getAttribute("DATA6");
+		            para[1] = tr.getAttribute("DATA8");
+		            para[2] = arr_userinfo[1];
+		            para[3] = arr_userinfo[2];
+		            para[4] = g_bRecAdmin;
+		            para[5] = tr.getAttribute("DATA1");
+
+		            var url = "/ezApprovalG/changeRecordInfo.do";
+		
+		            changerecordinfo_cross_dialogArguments[0] = para;
+		            changerecordinfo_cross_dialogArguments[1] = btnChangeRecInfo_onclick_Complete;
+		
+		            var OpenWin = window.open(url, "ChangeRecordInfo_Cross", GetOpenWindowfeature(580, 461));
+		            try { OpenWin.focus(); } catch (e) {console.log(e);}
+		        }
+		        else {
+		            OpenAlertUI("기록물을 선택하세요.");
+		        }
+		    }
+		
+		    function btnChangeRecInfo_onclick_Complete(rtn) {
+		        if (rtn[0] == "TRUE") {
+					GetRecordListKRX();
+		        }
+		    }
+		    var viewrecreadhistory_cross_dialogArguments = new Array();
+		    function btnViewRecReadHist_onclick() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selRow = DocList.GetSelectedRows();
+		        if (selRow.length != 0) {
+		            var tr = selRow[0];
+		            var para = new Array();
+		            para[0] = tr.getAttribute("DATA1");
+		
+		            var url = "/ezApprovalG/viewRecReadHistory.do";
+		
+		            viewrecreadhistory_cross_dialogArguments[0] = para;
+		
+		            var OpenWin = window.open(url, "ViewRecReadHistory_Cross", GetOpenWindowfeature(615, 450));
+		            try { OpenWin.focus(); } catch (e) {console.log(e);}
+		        }
+		        else {
+		            OpenAlertUI("기록물을 선택하세요.");
+		        }
+		    }
+		
+		    //START
+		    var SendCard_Cross_dialogArguments = new Array();
+		    function btnCardSend_onclick() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selRow = DocList.GetSelectedRows();
+		        if (selRow.length != 0) {
+		            var tr = selRow[0];
+		            var para = new Array();
+		            para[0] = tr.getAttribute("DATA6");
+		            para[1] = tr.getAttribute("DATA8");
+		            para[2] = DeptID;
+		
+		            var url = "/myoffice/ezApprovalG/ezCabinet/SendCard_Cross.aspx";
+		            SendCard_Cross_dialogArguments[0] = para;
+		            SendCard_Cross_dialogArguments[1] = SendCard_Cross_Complete;
+		
+		            var feature = "dialogWidth:400px;dialogHeight:178px;scroll:no;resizable:no;status:no; help:no;edge:sunken";
+		
+		            var OpenWin = window.open(url, "SendCard_Cross", GetOpenWindowfeature(400, 400));
+		            try { OpenWin.focus(); } catch (e) {console.log(e);}
+		
+		        }
+		        else {
+		            OpenAlertUI("기록물을 선택하세요.");
+		        }
+		    }
+		
+		    function SendCard_Cross_Complete(Rtn)
+		    {
+		        if (Rtn[0] == "TRUE") {
+		            GetRecordList();
+		        }
+		    }
+		    //END
+		
+		    function ReceiptList_onclick() {
+		        document.getElementById("imgTitle").innerHTML = "기록물접수목록";
+		        document.getElementById("imgTitle").style.display = "";
+		        SwapSubMenuDisplay("1");
+		
+		        InitGlobals("RECORD", "10", "1");
+		        GetRecordList();
+		    }
+			function SendList_onclick() {
+				document.getElementById("imgTitle").innerHTML = "기록물발송목록";
+				document.getElementById("imgTitle").style.display = "";
+				SwapSubMenuDisplay("1");
+				InitGlobals("RECORD", "11", "1");
+				GetRecordList();
+			}
+		    function OutReceiptList_onclick() {
+		        document.getElementById("imgTitle").innerHTML = "대외접수목록";
+		        document.getElementById("imgTitle").style.display = "";
+		        SwapSubMenuDisplay("1");
+		
+		        InitGlobals("RECORD", "12", "1");
+		        GetRecordList();
+		    }
+		    function OutSendList_onclick() {
+		        document.getElementById("imgTitle").innerHTML = "대외발송목록";
+		        document.getElementById("imgTitle").style.display = "";
+		        SwapSubMenuDisplay("1");
+		        InitGlobals("RECORD", "13", "1");
+		        GetRecordList();
+		    }
+		    window.onunload = function () {
+		    };
+		    function GongRamDocInfo() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selRow = DocList.GetSelectedRows();
+		        if (selRow.length != 0) {
+		            var tr = selRow[0];
+		            var heigth = window.screen.availHeight;
+		            var width = window.screen.availWidth;
+		            var left = (parseInt(width) - 1155) / 2;
+		            var top = (parseInt(heigth) - 496) / 2;
+		            window.open("/ezApprovalG/ezLineInfo.do?docID=" + tr.getAttribute("DATA1") + "&pDeptID=&docState=015", "", "height=496px,width=1155px, left=" + left + "px, top=" + top + ", status = no, toolbar=no, menubar=no,location=no, resizable=1");
+		        }
+		    }
+		    var aprgongramline_cross_dialogArguments = new Array();
+		    function btnSendAround_onclick() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selRow = DocList.GetSelectedRows();
+		        if (selRow.length != 0) {
+		            var para = new Array();
+		            para[0] = DocID;
+		            var url = "/ezApprovalG/aprGongRamLine.do?type=END";
+		
+		            aprgongramline_cross_dialogArguments[0] = para;
+		            aprgongramline_cross_dialogArguments[1] = btnSendAround_onclick_Complete;
+		
+		            var OpenWin = window.open(url, "AprGongRamLine_Cross", GetOpenWindowfeature(1219, 807));
+		            try { OpenWin.focus(); } catch (e) {console.log(e);}
+		        }
+		    }
+		
+		    function btnSendAround_onclick_Complete(rtn) {
+		        if (rtn == "OK") {
+		            var pAlertContent = "문서를 공람 발송하였습니다.";
+		            OpenAlertUI(pAlertContent);
+		        }
+		    }
+		
+		    // START
+		    var ezSelectSusin_Cross_dialogArguments = new Array();
+		    function btnReSend_onclick() {
+		        if (UserID.toLowerCase() != WriterID.toLowerCase()) {
+		            var InformationString = "기안자만 재발송을 할 수 있습니다.";
+		            OpenAlertUI(InformationString);
+		            return;
+		        }
+		        if (CheckFormConnFlag(DocID)) {
+		            var InformationString = "연동 양식은 재발송하실 수 없습니다.";
+		            OpenAlertUI(InformationString);
+		            return;
+		        }
+		        var parameter = new Array();
+		        parameter[0] = DocID;
+		        parameter[1] = "";
+		
+		        ezSelectSusin_Cross_dialogArguments[0] = parameter;
+		        ezSelectSusin_Cross_dialogArguments[1] = btnReSend_onclick_Complete;
+		
+		        var url = "/ezApprovalG/ezSelectSusin.do";
+		        
+		        var OpenWin = window.open(url, "ezSelectSusin_Cross", GetOpenWindowfeature(750, 674));
+		        try { OpenWin.focus(); } catch (e) {console.log(e);}
+		
+		       
+		    }
+		    function btnReSend_onclick_Complete(rtn)
+		    {
+		        if (rtn[0] != "CANCEL") {
+		            var xmlhttp = createXMLHttpRequest();
+		            xmlhttp.open("POST", "/ezApprovalG/resendEndDoc.do", false);
+		            xmlhttp.send(rtn[1]);
+		        }
+		    	if (xmlhttp.status == 200) {
+		    		OpenAlertUI("재발송 완료");		    		
+		    		return;
+		    	} else {
+		    		alert(strLang223);
+		    	}
+		    }
+		    // END
+		
+		    var ezreceivedistributeui_cross_dialogArguments = new Array();
+		    function btnBaeBu_onclick() {
+		    	var DocList = new ListView();
+				DocList.LoadFromID("DocList");
+				
+				var selRows = DocList.GetSelectedRows();
+		        if (selRows.length === 0) {
+		            var pAlertContent = "문서를 선택해주십시오.";
+		            alert(pAlertContent);
+		            return;
+				}
+
+				var selRow = selRows[0];
+				
+				var DocID = GetAttribute(selRow, "DATA1");
+		        if (DocID == "") {
+		            var pAlertContent = "문서를 선택하세요.";
+		            OpenAlertUI(pAlertContent);
+		            return;
+		        }
+		        var xmlpara = createXmlDom();
+		        var objNode;
+		        createNodeInsert(xmlpara, objNode, "PARAMETER");
+		        createNodeAndInsertText(xmlpara, objNode, "DOCID", DocID);
+		
+		        xmlhttp.open("POST", "/ezApprovalG/getCheckEndHref.do", false);
+		        xmlhttp.send(xmlpara);
+		
+		        if (SelectSingleNodeValue(xmlhttp.responseXML, "RESULT") == "TRUE") {
+		            var pAlertContent = "수신완료처리된 문서입니다.<BR>추가이송 할 수 없습니다.";
+		            OpenAlertUI(pAlertContent);
+		            return;
+		        }
+		
+		        var parameter = new Array();
+		        parameter[0] = DocID;
+		        parameter[1] = "1";
+		        parameter[2] = arr_userinfo[4];
+		        parameter[3] = "011";
+		        parameter[4] = arr_userinfo[4];
+		
+		        var url = "/ezApprovalG/ezReceiveDistributeUI.do?mode=add&pdocid=" + DocID;
+		
+		        ezreceivedistributeui_cross_dialogArguments[0] = parameter;
+		        ezreceivedistributeui_cross_dialogArguments[1] = btnBaeBu_onclick_Complete;
+		
+		        var OpenWin = window.open(url, "ezReceiveDistributeUI_Cross", GetOpenWindowfeature(800, 600));
+		        try { OpenWin.focus(); } catch (e) {console.log(e);}
+		    }
+		
+		    function btnBaeBu_onclick_Complete(ret) {
+		        if (ret == "true") {
+		            var pAlertContent = "배부 부서를 지정하였습니다.";
+		            OpenAlertUI(pAlertContent);
+		        }
+		        idistbox_onclick();
+		    }
+		
+		    var pSaveDocID = ""; // 통합PC저장을 위한 전역변수
+		    function TotalSave_onclick() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var tr = DocList.GetSelectedRows();
+		
+		        if (tr.length == 0) {
+		            OpenAlertUI("문서를 선택하세요.");
+		        }
+		        else {
+		            if (DocList_Flag == "RECORD") {
+		                if (AdminYN != "TRUE" && (!g_bRecAdmin)) {
+		                    if (!HasRecReadRight(trim_Cross(tr[0].getAttribute("DATA6")), trim_Cross(tr[0].getAttribute("DATA8")), UserID)) {
+		                        OpenAlertUI(strLang580);
+		                        return "";
+		                    }
+		                }
+		                if (tr[0].getAttribute("DATA8") != "00") {
+		                    OpenAlertUI(strLang260);
+		                    return "";
+		                }
+		            }
+		            pSaveDocID = tr[0].getAttribute("DATA1");
+		        }
+		        
+		        /* 2021-10-21 홍승비 - 결재완료문서 통합 PC 저장 시 보안결재 확인동작 추가 */
+				if (tr[0].getAttribute("DATA14") != "" && tr[0].getAttribute("DATA14") >= GetTodayDate()) {
+		            if (CheckAprLine(tr[0].getAttribute("DATA1")) == "TRUE") {
+		            	chk_Passwd(UserID, chk_Passwd_CompleteSave);
+		            } else {
+		                OpenAlertUI(strLang580,"OPEN","");
+		                return;
+		            }
+		        } else {
+		        	TotalSave_onclick_complete(pSaveDocID);
+		        }
+		    }
+		    
+		    // 통합 PC 저장 시 보안결재 > 패스워드 확인 후 동작
+			function chk_Passwd_CompleteSave(Rtn) {
+		        if (Rtn == "FALSE") {
+		            var pAlertContent = "암호가 맞지 않습니다.";
+		            OpenAlertUI(pAlertContent);
+		        }
+		        else if (Rtn == "cancel") {
+		            var pAlertContent = "취소하셨습니다.";
+		            OpenAlertUI(pAlertContent);
+		        }
+		        else {
+		        	TotalSave_onclick_complete(pSaveDocID);
+		        }
+		    }
+		    
+		    // 실제 통합 PC 저장 동작 분리 (기록물대장)
+		    function TotalSave_onclick_complete(pDocID) {
+		        var url = "/ezApprovalG/totalSaveFileInfo.do?docID=" + pDocID + "&type=END";
+		        var feature = "status=no,help=no,scroll=no,edge=sunken,width=1000px,height=562px";
+		        feature = feature + GetOpenPosition(1000, 562);
+		        window.open(url, "", feature);
+		    }
+		
+		    window.onresize = function() {
+		    	settingResize();
+		    };
+		    
+		    var settingResize = function() {
+		    	if (document.getElementById('trSubInfoTab').style.display == 'none') {
+		    		var currentHeight = document.documentElement.clientHeight - 110 - (document.getElementById("mainmenu").clientHeight - 28);
+			        var divListHeight = document.getElementById('divList').style.height;
+			        document.getElementById('divList').style.height = (currentHeight - 69) + "px";
+		    	}
+		    }
+		    
+		    function onkeydown_start_search() {
+		        if (window.event.keyCode == "13") {
+		            search();
+		        }
+		    }
+		
+		    function keyword_Clear() {
+		        document.getElementById('txt_keyword').value = "";
+		    }
+		
+		    function search() {
+		        if (document.getElementById("txt_keyword").value != "") {
+					// 2021-09-27 기록물대장 검색시 페이지 변경되지 않는 버그 수정
+		            curpage = 1;
+		        }
+		        else {
+		            alert("검색어를 입력해주십시오.");
+		            return;
+		        }
+		
+		        if (document.getElementById("trRecSubMenu").style.display == "") {
+		            var radiosearch = document.getElementById('selectType');
+
+					var tempDeptID = DeptID;
+					if (checkRecordAll()) {
+						tempDeptID = "ALL";
+					}
+		            
+		            if (radiosearch.value == "rad_Subject") {
+		                g_RecSearchParamXml = "<SEARCHPARAM><DEPTCODE>" + tempDeptID + "</DEPTCODE><TITLE><![CDATA[" + document.getElementById("txt_keyword").value + "]]></TITLE><REGTYPE></REGTYPE><SREGDATE></SREGDATE><EREGDATE></EREGDATE><CHARGER></CHARGER><SC></SC><TRANSEXPIRE/><DRAFTER></DRAFTER><CABTITLE></CABTITLE></SEARCHPARAM>";
+		            } else if (radiosearch.value == "rad_Writer") {
+		                g_RecSearchParamXml = "<SEARCHPARAM><DEPTCODE>" + tempDeptID + "</DEPTCODE><TITLE></TITLE><REGTYPE></REGTYPE><SREGDATE></SREGDATE><EREGDATE></EREGDATE><CHARGER></CHARGER><SC></SC><TRANSEXPIRE/><DRAFTER><![CDATA[" + document.getElementById("txt_keyword").value + "]]></DRAFTER><CABTITLE></CABTITLE></SEARCHPARAM>";
+		            }
+		            
+		            switch (ListTypeFlag) {
+		                case "2":
+		                    GetTransListXml("P02");
+		                    break;
+		
+		                case "3":
+		                    GetTransListXml("T02");
+		                    break;
+		
+		                case "4":
+		                    GetTransListXml("T02");
+		                    break;
+		
+		                default:
+		                    GetRecordListXml();
+		            }
+		        }
+		        else if (document.getElementById("trCabSubMenu").style.display == "") {
+		            var radiosearch = document.getElementById('selectType');
+		
+		            if (radiosearch.value == "rad_Subject") {
+		                g_CabSearchParamXml = "<SEARCHPARAM><DEPTCODE>" + DeptID + "</DEPTCODE><TITLE><![CDATA[" + document.getElementById("txt_keyword").value + "]]></TITLE><TASKCODE></TASKCODE><SPRODUCEY></SPRODUCEY><EPRODUCEY></EPRODUCEY><SENDY></SENDY><EENDY></EENDY><RECTYPECODE></RECTYPECODE><KEEPPERIOD></KEEPPERIOD><KEEPMETHOD></KEEPMETHOD><KEEPPLACE></KEEPPLACE><CHARGER></CHARGER><TRANSEXPIRE/><TRANSFLAG/><RECEIVEDCAB/><GIVECAB/></SEARCHPARAM>";
+		            }
+		            else if (radiosearch.value == "rad_Writer") {
+		                g_CabSearchParamXml = "<SEARCHPARAM><DEPTCODE>" + DeptID + "</DEPTCODE><TITLE></TITLE><TASKCODE></TASKCODE><SPRODUCEY></SPRODUCEY><EPRODUCEY></EPRODUCEY><SENDY></SENDY><EENDY></EENDY><RECTYPECODE></RECTYPECODE><KEEPPERIOD></KEEPPERIOD><KEEPMETHOD></KEEPMETHOD><KEEPPLACE></KEEPPLACE><CHARGER><![CDATA[" + document.getElementById("txt_keyword").value + "]]></CHARGER><TRANSEXPIRE/><TRANSFLAG/><RECEIVEDCAB/><GIVECAB/></SEARCHPARAM>";
+		            }
+		
+		            switch (ListTypeFlag) {
+		                case "2":
+		                    GetTransListXml("P01");
+		                    break;
+		
+		                case "3":
+		                    GetTransListXml("T01");
+		                    break;
+		
+		                case "4":
+		                    g_CabSearchParamXml = "<SEARCHPARAM><TRANSFLAG>16=0</TRANSFLAG></SEARCHPARAM>";
+		                    GetTransListXml("T01");
+		                    break;
+		                default:
+		                    GetCaninetListXml();
+		            }
+		        }
+		        else {
+		            var radiosearch = document.getElementById('selectType');
+		
+		            if (radiosearch.value == "rad_Subject") {
+		                g_DeliverySearchParamXml = "<SEARCHPARAM><DEPTCODE></DEPTCODE><DEPTCODE2>" + DeptID + "</DEPTCODE2><TITLE><![CDATA[" + document.getElementById("txt_keyword").value + "]]></TITLE><SREGDATE></SREGDATE><EREGDATE></EREGDATE><DEBENTURER></DEBENTURER></SEARCHPARAM>";
+		            }
+		            else if (radiosearch.value == "rad_Writer") {
+		                g_DeliverySearchParamXml = "<SEARCHPARAM><DEPTCODE></DEPTCODE><DEPTCODE2>" + DeptID + "</DEPTCODE2><TITLE></TITLE><SREGDATE></SREGDATE><EREGDATE></EREGDATE><DEBENTURER><![CDATA[" + document.getElementById("txt_keyword").value + "]]></DEBENTURER></SEARCHPARAM>";
+		            }
+		
+		            GetDocDeliveryList(g_DeliverySearchParamXml);
+		        }
+		
+		
+		        $('#sel_year').val("ALL");
+		        /* $('#sel_year').selectmenu('refresh'); */
+		    }
+		    
+			/////////////////////////////////////////////////////////////////////////////
+		    
+		    function DeleteCab() {  	
+		    	var DocList = new ListView();
+		    	DocList.LoadFromID("DocList");
+		    	var selRow = DocList.GetSelectedRows();
+		    	if (selRow.length != 0) {
+		    		var tr = selRow[0];
+		    		SwapSubMenuDisplay("1");
+		    		pCabClassNo = tr.getAttribute("DATA1");
+		    		
+		    		var selectResult = DeleteORselect_CabNo(pCabClassNo, '/ezApprovalG/selectExpCabDocInfo.do');
+
+		    		if (selectResult=="TRUE") {
+		    			if (confirm("기록물철을 삭제하시겠습니까? ")) {
+			    			DeleteORselect_CabNo(pCabClassNo, '/ezApprovalG/deleteCabInfo.do');
+			    			LoadList();
+		    			}
+		    		} else {
+		    			OpenAlertUI("진행 또는 완료된 문서가 있어 삭제 할 수 없습니다.");
+		    			return false;
+		    		}
+					return false;
+		    	} else {
+		    		OpenAlertUI("선택된 기록물 철이 없습니다.");
+		    		return false;
+		    	}	
+		    }
+		    
+		    function DeleteORselect_CabNo(pCabClassNo, pUrl) {
+	    		var result = "";
+	    		$.ajax ({
+	    			url: pUrl
+	    			,type: 'POST'
+	    			,dataType: 'text'
+	    			,async: false
+	    			,data: {
+	    				cabClassNO : pCabClassNo
+	    			}, success: function(res) {
+	    				result = res;
+	    			}, error: function() {
+	    				OpenAlertUI("기록물철 삭제에 실패하였습니다. ");
+	    			}
+	    		});
+	    		return result;
+		    }
+		    
+		     function lvtDoclist_HeaderClick(pHeaderName) {
+		            if (OrderCell == pHeaderName) {
+		                if (OrderOption == "")
+		                    OrderOption = "DESC";
+		                else
+		                    OrderOption = "";
+		            }
+		            else {
+		                OrderCell = pHeaderName;
+		                OrderOption = "";
+		            }
+		            SortList(OrderCell);
+		        }
+		     var Tab1_SelectID = "";
+			    function Tab1_MouserOver(obj) {
+			        obj.className = "tabover";
+			    }
+		
+			    function Tab1_MouserOut(obj) {
+			        if(Tab1_SelectID != obj.id)
+			            obj.className = "";
+			    }
+		
+			    function Tab1_MouseClick(obj) {		    	
+			        obj.className = "tabon";
+			        if (obj.id != Tab1_SelectID) {
+			            if (Tab1_SelectID != "" && document.getElementById(Tab1_SelectID) != null)
+			                document.getElementById(Tab1_SelectID).className = "";
+		
+			            obj.className = "tabon";
+			            Tab1_SelectID = obj.id;
+			            ChangeTab(obj);
+			        }
+			    }
+			    
+			    function ChangeTab(obj) {
+			        var pSelectTab = obj.id;
+
+			        switch (pSelectTab) {
+			            case "tagsub1": pDocInfoValue='1';Approval_onclick(); break;
+			            case "tagsub2": pDocInfoValue='2';Recipent_onclick(); break;
+			            case "tagsub3": pDocInfoValue='4';Attach_onclick(); break;
+			            case "tagsub4": pDocInfoValue='3';Opinion_onclick(); break;
+			            case "tagsub5": pDocInfoValue='5';Circulation_onclick(); break;
+			        }
+			    }
+			    
+		     function Tab1_NewTabIni(pTabNodeID) {
+			        for (var i = 0; i < document.getElementById(pTabNodeID).childNodes.length; i++) {
+			            if (document.getElementById(pTabNodeID).childNodes.item(i).nodeName == "P") {
+			                if (document.getElementById(pTabNodeID).childNodes.item(i).childNodes.item(0).nodeName == "SPAN") {
+			                    document.getElementById(pTabNodeID).childNodes.item(i).childNodes.item(0).onmouseover = function () { Tab1_MouserOver(this); };
+			                    document.getElementById(pTabNodeID).childNodes.item(i).childNodes.item(0).onmouseout = function () { Tab1_MouserOut(this); };
+			                    document.getElementById(pTabNodeID).childNodes.item(i).childNodes.item(0).onclick = function () { Tab1_MouseClick(this); };
+
+			                    if (i == 1) {
+			                        document.getElementById(pTabNodeID).childNodes.item(i).childNodes.item(0).className = "tabon";
+			                        Tab1_SelectID = document.getElementById(pTabNodeID).childNodes.item(i).childNodes.item(0).id;
+			                    }	
+			                }
+			            }
+			        }
+			    }
+		     
+			    function GetEndYConfirmList() {
+			    	/* 2022-07-22 홍승비 -  기록물보기 화면에서 다시 기록물철보기 버튼 클릭 시, 우측 상단의 년도 선택 셀렉트박스 ALL(최근 1년)으로 초기화 */
+			    	$("#rec_year").val("ALL");
+			    	resetRecYearSel();// 기록물보기 시의 생산년도 체크로 추가된 년도 부분 초기화
+			    	
+			    	switch (g_sFlag) {
+				    	case "m02":
+				    		isPeriodYear = false;
+		                    CabinetList_onclick();
+		                    break;
+		                    
+			    		case "m07" :
+			    			isPeriodYear = false;
+			    			DelayEndYRequest_onclick();
+			    			break;
+			    		
+			    		case "m08" :
+			    			isPeriodYear = false;
+			    			ArrTargetList_onclick();
+			    			break;
+			    		
+			    		default :
+							return;				    			
+			    	}
+			    }
+			    
+			    var changeOpenGovInfo_cross_dialogArguments = new Array();
+			    function btnChangeOpenGovInfo_onclick() {
+			        var DocList = new ListView();
+			        DocList.LoadFromID("DocList");
+			        var selRow = DocList.GetSelectedRows();
+			        if (selRow.length != 0) {
+			            var tr = selRow[0];
+			            var para = new Array();
+			            para[0] = tr.getAttribute("DATA6");
+			            para[1] = tr.getAttribute("DATA8");
+			            para[2] = arr_userinfo[1];
+			            para[3] = arr_userinfo[2];
+			            para[4] = g_bRecAdmin;
+			            para[5] = tr.getAttribute("DATA1");
+			
+			            var url = "/ezApprovalG/changeOpenGovInfo.do";
+			
+			            changeOpenGovInfo_cross_dialogArguments[0] = para;
+			            changeOpenGovInfo_cross_dialogArguments[1] = btnChangeOpenGovInfo_onclick_Complete;
+			
+			            var OpenWin = window.open(url, "ChangeOpenGovInfo_Cross", GetOpenWindowfeature(615, 510));
+			            try { OpenWin.focus(); } catch (e) {console.log(e);}
+			        }
+			        else {
+			            OpenAlertUI("기록물을 선택하세요.");
+			        }
+			    }
+			
+			    function btnChangeOpenGovInfo_onclick_Complete(rtn) {
+			        if (rtn[0] == "TRUE") {
+			            GetRecordList();
+			        }
+			    }
+			    
+			    /* 2022-03-18 홍승비 - 미처리문서함의 내부시행문 반송문서 삭제 함수 추가 (물리적인 삭제가 아니며, 관리자단의 DELFLAG 변경 함수 그대로 사용함) */
+				function btnRemoveDoc_onclick() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		
+		        var oArrRows = DocList.GetSelectedRows();
+		        if (oArrRows == 0) {
+		            var pAlertContent = "문서를 선택해주십시오.";
+		            alert(pAlertContent);
+		            return;
+		        }
+		        
+		        var Ans = confirm("문서를 삭제하시겠습니까?");
+		        if (Ans) {
+					pCurSelRow = oArrRows[0];
+	        		var pDocID = GetAttribute(pCurSelRow, "DATA1");
+	        		
+	        		var xmlhttp = createXMLHttpRequest();
+	        		var xmlpara = createXmlDom();
+	        		var objNode;
+	        		
+	        		createNodeInsert(xmlpara, objNode, "PARAMETER");
+	        		createNodeAndInsertText(xmlpara, objNode, "COMPANYID", CompanyID); // 현재 회사의 문서만 표출하므로, companyID 그대로 사용
+	        		createNodeAndInsertText(xmlpara, objNode, "DOCID", pDocID);
+	        		createNodeAndInsertText(xmlpara, objNode, "DELFLAG", "Y");
+	        		createNodeAndInsertText(xmlpara, objNode, "DELINFO", "사용자[" + arr_userinfo[1] + "]에 의해 삭제된 내부시행문서입니다."); // 삭제사유 자동삽입
+	        		
+	        		xmlhttp.open("POST","/admin/ezApprovalG/setDelDocInfo.do",false);
+	        		xmlhttp.send(xmlpara);
+	        		
+					if (xmlhttp != null && xmlhttp.readyState == 4) {
+						if (xmlhttp.status == 200) {
+							openergetDocInfo();
+	  	                } else {
+	  	                	var pAlertContent = "문서 제목을 기입하여 주십시오.";
+							OpenAlertUI(pAlertContent);
+	  	                }
+					}
+		        }
+		    }
+			    
+			/* 2022-07-22 홍승비 - 기록물보기 시의 년도 셀렉트박스를 초기화하는 함수 추가 */
+			function resetRecYearSel() {
+	            var toDay = new Date();
+	            var toDayYear = parseInt(toDay.getFullYear());
+	            var minusYear = parseInt(toDay.getFullYear()) - parseInt(pOpenYaer);
+	            
+	            $("#rec_year option[value != 'ALL']").remove(); // ALL 제외하고 모든 옵션 제거
+	            
+	            for (var i = toDayYear; i >= toDayYear - minusYear ; i--) {
+	                AddOption(rec_year, i, i);
+	            }
+			}
+		    
+			function SuSinDocInfo() {
+		        var DocList = new ListView();
+		        DocList.LoadFromID("DocList");
+		        var selRow = DocList.GetSelectedRows();
+		        if (selRow.length != 0) {
+		            var tr = selRow[0];
+		            var heigth = window.screen.availHeight;
+		            var width = window.screen.availWidth;
+		            var left = (parseInt(width) - 1155) / 2;
+		            var top = (parseInt(heigth) - 496) / 2;
+		            window.open("/ezApprovalG/ezLineInfo.do?docID=" + tr.getAttribute("DATA1") + "&pDeptID=&docState=011", "", "height=496px,width=1155px, left=" + left + "px, top=" + top + ", status = no, toolbar=no, menubar=no,location=no, resizable=1");
+		        }
+		    }
+
+			$(document).ready(function(){
+				// 결재페이지 - 결재선 펼치기 기능 + 결재선 높이값(로드시, 리사이징, 펼치기 기능 클릭시)
+				var baseHeight = $(window).height() - 60;    // 윈도우 높이 - body 상하 패딩값
+				let MH1 = $("body > h1").outerHeight(true);
+				let MH2 = $("#mainmenu").outerHeight(true);
+				let MH3 = 54    //페이지네비 영역값
+				let MH4 = $("#tabnav").outerHeight(true);
+				var divListHeight = 499;
+				var divAprLineHeight = baseHeight - (MH1 + MH2 + MH3 + MH4 + divListHeight);
+				$("#div_AprLine").height(divAprLineHeight - 30);
+
+				$(window).resize(function(){
+					var baseHeight = $(window).height() - 60;    // 윈도우 높이 - body 상하 패딩값
+					var divListHeight = $("#divList").outerHeight(true);
+					var divAprLineHeight = baseHeight - (MH1 + MH2 + MH3 + MH4 + divListHeight);
+					$("#div_AprLine").height(divAprLineHeight - 30);
+				})
+
+				$(".aprLineOpt").click(function(){
+					$("#divList").toggleClass("on");
+					$("#div_AprLine").toggleClass("on");
+					if($("#divList").hasClass("on")){
+						$(".aprLineOpt").html("접기")
+						var divListHeight = 271;
+					} else {
+						$(".aprLineOpt").html("펼치기");
+						var divListHeight = 499;
+					}
+					var baseHeight = $(window).height() - 60;    // 윈도우 높이 - body 상하 패딩값
+					var divAprLineHeight = baseHeight - (MH1 + MH2 + MH3 + MH4 + divListHeight);
+					$("#div_AprLine").height(divAprLineHeight - 30);
+				})
+			})
+				function getmigdocid(olddocid){
+					var temp = null;
+					$.ajax({
+						type : "GET",
+						dataType : "text",
+						async : false,
+						url : "/ezApprovalG/getMigdocid.do",
+						data : {
+							olddocID : olddocid,
+						},
+						success: function(result){
+							if(result!='' && result!=null){
+								temp = result;
+							}
+						}
+					});
+					return temp;
+				}
+	    </script>
+	</head>
+	<body class="mainbody" style="margin-top: 0px">
+	    <h1><span id="imgTitle" style="font-size:20px"></span><span id="TitleInfo" style="color:#666;font-weight:normal;"></span>
+			<span class="searchForm" style="display:none;">
+				<select id="selectType" style="width:80px; height:27px; border-color: #c8c8c8;">
+					<option selected="" value="rad_Subject" id="rad1">제목</option>
+					<option value="rad_Writer" id="rad2">기안자</option>
+				</select>
+				<input id="txt_keyword" class="searchinputBox" style="height: 27px;border: 1px solid #cbcbcb; border-right:0px" onkeypress="onkeydown_start_search();" onselectstart="event.cancelBubble=true;event.returnValue=true" onmousedown="keyword_Clear();"> 
+				<a class="searchBtn"><img src="/images/bsearch_new2.gif" border="0" onclick="search()"></a>
+			</span>
+	    </h1>
+	
+	    <div id="mainmenu">
+	        <ul id="trCabSubMenu" style="Display: None;">
+	            <li class="" id="tdReqDelayEndY" style="Display: None"><span id="ReqDelayEndY" onclick="return ReqDelayEndY_onclick()">
+	                종료연기신청</span></li>
+	            <li class="" id="tdCancelDelayEndY" style="Display: None"><span id="CancelDelayEndY" onclick="return CancelDelayEndY_onclick()">신청취소</span></li>
+	            <li class="" id="tdbtnEndProduce" style="Display: None"><span id="btnEndProduce" onclick="return btnEndProduce_onclick()">
+	                편철확인</span></li>
+	            <li class="" id="tdbtnCancelEndProd" style="Display: None"><span id="btnCancelEndProd" onclick="return btnCancelEndProd_onclick()">
+	                확인취소</span></li>
+	            <!-- <li id="tbar1" style="background: none; padding-right: 2px;">
+	                <img src="/images/i_bar.gif"></li> -->
+	            <li class="" id="tdRegCabinet" style="Display: None"><span id="RegCabinet" onclick="return btnRegCabinet_onclick()">철등록</span></li>
+	            <li id="tdNewVol" style="Display: None"><span id="NewVol" onclick="return btnNewVolume_onclick()">권호수추가</span></li>
+	            <li id="tdViewCabInfo"><span id="ViewCabInfo" onclick="return btnViewCabInfo_onclick()">등록정보</span></li>
+	            <li id="tdViewCabHist" style="Display: None"><span id="ViewCabHist" onclick="return btnViewCabHistory_onclick()">변경이력</span></li>
+	            <li id="tdModifyCab" style="Display: None"><span id="ModifyCab" onclick="return btnChangeCabinetInfo_onclick()">수정</span></li>
+	            
+	            
+	            <li id="tdDocListPrint"><span id="DocListPrintRec" onclick="return DocListPrinter_onclick()">목록출력</span></li>
+	            <li id="tdSetCharger" style="Display: None"><span id="SetCharger" onclick="return btnSetTaskCharger_onclick()">업무담당자지정</span></li>
+	            <li id="tdSearchCab"><span class="icon16 icon16_search" id="SearchCab" onclick="return SearchCabinet('0')"></span></li>
+	            <li id="tdBtnCabDel" style="display: none;"><span class="icon16 icon16_delete" id="btnCabDel" onclick="return DeleteCab();"></span></li>
+	            <li id="tdbtnViewRecList"><span id="btnViewRecList" onclick="return btnViewRecList_onclick()">기록물보기</span></li>
+	            <li style="vertical-align: middle; float:right"> <select id="cab_year" name="cab_year" style="width:75px;" onchange="onSelect_Year(this);">    
+	                <option value="ALL">최근 1년</option>
+	            </select>  </li>
+	        </ul>
+	
+	        <ul id="trRecSubMenu" style="Display: none;">
+	            <li class="" id="tdichange_Rec" style="display:none;"><span id="ichange_Rec" onclick="return ichange_onclick()">발송의뢰</span></li>
+	            <li class="" id="tdichangeS_Rec" style="display:none;"><span id="ichangeS_Rec" onclick="return ichangeS_onclick()">시행문변환</span></li>
+	            <li class="" id="tdReSend" style="display:none;"><span id="ReSend" onclick="return btnReSend_onclick()">재발송</span></li>
+	            <!-- <li id="tbar3" style="background: none; padding-right: 2px;">
+	                <img src="/images/i_bar.gif"></li> -->	            
+	            <li class="" id="tdRegRecord" style="Display: None"><span id="RegRecord" onclick="return btnRegRecord_onclick()">대장등록</span></li>
+	            <li class="" id="tdRegSepAtt" style="display:none"><span id="RegSepAtt" onclick="return btnRegAttach_onclick()">첨부등록</span></li>
+	            <li id="tdViewRecInfo" style="Display: None"><span id="ViewRecInfo" onclick="return btnViewRecInfo_onclick()">등록정보</span></li>
+	            <li id="tDocInfo" style="Display: None"><span id="DocInfo" onclick="return GongRamDocInfo()">공람정보</span></li>	            
+	            <li id="tdbtnCardSend" style="Display: None"><span id="btnCardSend" onclick="return btnCardSend_onclick()">이첩발송</span></li>
+	            <li id="tdbtnSetRecRole" style="Display: None"><span id="btnSetRecRole" onclick="return btnSetRecUserRole_onclick()">열람권한</span></li>
+	            <li id="tdbtnViewRecReadHist" style="Display: None"><span id="btnViewRecReadHist" onclick="return btnViewRecReadHist_onclick()">열람확인</span></li>
+	            <li id="tdVeiwRecHist" style="Display: None"><span id="VeiwRecHist" onclick="return btnViewRecHistory_onclick()">변경이력</span></li>
+	            <!-- <li id="tbar4" style="background: none; padding-right: 2px;">
+	                <img src="/images/i_bar.gif"></li> -->
+	            <li id="tdMoveRec" style="Display: None"><span id="MoveRec" onclick="return btnChangeRecCabinet_onclick()">이동</span></li>
+	            <li id="tdModifyRec" style="Display: None"><span id="ModifyRec" onclick="return btnChangeRecInfo_onclick()">문서정보변경</span></li>
+	            <li id="tdGongRam" style="Display: None"><span id="GongRam" onclick="return btnSendAround_onclick()">공람발송</span></li>
+	            <li id="tdSusin" style="display:none;"><span id="SuSin" onclick="SuSinDocInfo()">발송현황</span></li>
+	            <li id="tdCabSelect" style="Display: None"><span id="CabSelect" onclick="return CabinetSelect_onclick()">철검색</span></li>
+
+
+
+				<div style="display: none">
+		            <li id="tdSearchRec"><span class="icon16 icon16_search" id="SearchRec" onclick="return btnSearchRec_onclick(0,'OPEN')"></span></li>
+				</div>
+	            
+	            <li id="tbtnRemoveDoc" style="display:none;"><span class="icon16 icon16_delete" id="btnRemoveDoc" onclick="return btnRemoveDoc_onclick()"></span></li>
+	            <li id="tdViewCabList" style="display:none"><span onclick="return GetEndYConfirmList()">기록물철보기</span></li>
+				
+				
+					<li id="tbtnTotalSave"><span id="btnTotalSave" onclick="return TotalSave_onclick()">통합 PC 저장</span></li>
+				
+				<li id="tdDocListPrint"><span id="DocListPrintRec" onclick="return DocListPrinter_onclick()">목록출력</span></li>
+                <div id="wrapAprSearch">
+                    
+                    
+                    
+						
+                        
+                        
+                        
+                    
+
+
+<html>
+<head>
+    <title>문서검색</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="/css/ezApproval/aprSearch.css?v=20230401110136">
+    <script defer type="text/javascript" src="/js/ezApprovalG/aprSearch.js?v=20230418183538"></script>
+    <script type="text/javascript" src="/js/ezApprovalG/TreeView.js?v=20230228133748"></script>
+    <!-- data picker-->
+    <script type="text/javascript" src="/js/jquery/dateControls/jquery-1.9.1.js?v=20221102171900"></script>
+    <script type="text/javascript" src="/js/jquery/dateControls/jquery.ui.core.js?v=20221102171900"></script>
+    <script type="text/javascript" src="/js/jquery/dateControls/jquery.ui.datepicker.js?v=20221102171900"></script>
+    <link rel="stylesheet" href="/js/jquery/dateControls/jquery.ui.all.css?v=20221102171900">
+    <link rel="stylesheet" href="/js/jquery/dateControls/demos.css?v=20221102171900">
+    <!-- time picker-->
+    <link rel="stylesheet" type="text/css" href="/js/jquery/timeControls/jquery.timepicker.css?v=20221102171900"/>
+    <script type="text/javascript" src="/js/jquery/timeControls/jquery.timepicker.js?v=20221102171900"></script>
+    <!-- 전달되는 parameter-->
+    <script>
+    // 부모 페이지에서 넘어온 params
+    var paramsAPS = new function() {
+        this.userId = "221016";
+        this.companyId = "0000";
+        this.deptId = "1ba0";
+        this.code = "m01";            // 현재 페이지 구분자
+    }
+    </script>
+</head>
+<body>
+<div class="bar-search" id="barSearch">
+    <input type="text" id="inputDeptDoc" name="inputDeptDoc" style="width:145px;box-sizing:border-box;-moz-box-sizing:border-box" maxlength="50" readonly="">
+    <a id="btnDeptDoc" class="imgbtn imgbck" style="vertical-align:middle; margin-top:1.48px;"><span onclick="return openSelectDept('inputDeptDoc')">부서선택</span></a>
+    <select id="select_year" name="select_year" style="width:100px;" onchange="onSelect_Year_KRX(this);">
+        <option value="">년도검색</option>
+    </select>
+    <div class="tag-search-picker" style="margin:0 5px 0 20px;">
+        <span>
+            <span>기간</span>
+        </span>
+    </div>
+    <div class="wrap-picker-search-simple">
+        <input id="dateSimpleFrom" data-date-from="1" type="text" class="date-picker" readonly>&nbsp;~
+        <input id="dateSimpleTo" data-date-to="1" type="text" class="date-picker" readonly>
+    </div>
+    <select id="searchSimpleCategory" class="sel-search-simple-category" name="categorySimpleSearch" onchange="">
+        <option value="ALL">전체</option>
+        <option value="docTitle">제목</option>
+
+        <option value="writerName">기안자</option>
+        <option value="docNo" style="display: none;">문서번호</option>
+    </select>
+    <input id="searchSimpleCategoryValue" class="" onkeyup="enterkey(event, clickSearchSimpleKRX)">
+    <div class="btn-search simple" onclick="clickSearchSimpleKRX()">
+        <span class="icon16 icon16_search"></span>
+        <span>검색</span>
+    </div>
+    <div id="openDetailSearch" class="btn-search detail" onclick="openDetailSearch()" style="display: none;">
+        <!-- <img src="/images/bsearch_new2.gif?v=20221220113718"> -->
+        <span class="icon16 icon16_search"></span>
+        <span>상세검색</span>
+    </div>
+</div>
+
+<div id="backSearch" class="back-modal" onclick="closeDetailSearch(confirm('작업을 중단하고 종료하시겠습니까?'))">
+    <div id="modalSearchDetail" class="popup wrap-search layer">
+        <div class="head-popup">
+            문서검색
+            <div id="closeSearch" class="close-popup" onclick="closeDetailSearch()"></div>
+        </div>
+
+        <table class="content">
+            <tr>
+                <th><label for="FormName">양식명</label></th>
+                <td><input type="text" id="FormName" name="FormName" style="width:200px">
+                    <a class="imgbtn imgbck" style="vertical-align:middle; margin-top:1.48px;"><span
+                            onClick="return btn_FormSelect_onclick()">양식명</span></a>
+                </td>
+            </tr>
+            <tr id="displayTR3">
+                <th><label for="DocNumber">문서번호</label></th>
+                <td>
+                    <div style="display: flex;align-items: center;justify-content: flex-start;">
+                        <input type="text" id="DocNumber" name="DocNumber" style="width:200px;box-sizing:border-box;-moz-box-sizing:border-box; " maxlength="50">
+                        <div style="margin-left: 5px;padding: 0 5px;"><input type="checkbox" name="reSearch" id="reSearch"><label for="reSearch">결과내재검색</label></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="DocTypeSel">문서종류</label></th>
+                <td><select type="text" id="DocTypeSel" name="DocType" style="width:100%;box-sizing:border-box;-moz-box-sizing:border-box" onchange="document.getElementById('DocType').value = this.value">
+                		<option value="" selected>등록대장</option>
+                		<option value="d002">내부결재</option>
+                		<option value="d003">대내발송</option>
+                		<option value="d004">대외발송</option>
+                		<option value="d005">대내수신</option>
+                		<option value="d006">대외수신</option>
+                	</select>
+                	<input type="hidden" id="DocType" name="DocType" value="">
+                </td>
+            </tr>
+            <tr>
+                <th><label for="DocTitle">문서제목</label></th>
+                <td><input type="text" id="DocTitle" name="DocTitle" style="width:100%;box-sizing:border-box;-moz-box-sizing:border-box" maxlength="50">
+                </td>
+            </tr>
+            <tr>
+                <th><label for="DocContent">본문</label></th>
+                <td><input type="text" id="DocContent" name="DocContent" style="width:100%;box-sizing:border-box;-moz-box-sizing:border-box" maxlength="50">
+                </td>
+            </tr>
+            <tr>
+                <th><label for="attach">첨부파일</label></th>
+                <td><input type="text" id="attach" name="attach" style="width:100%;box-sizing:border-box;-moz-box-sizing:border-box" maxlength="50">
+                </td>
+            </tr>
+            <tr>
+                <th><label for="writer">기안자</label></th>
+                <td><input type="text" id="writer" name="writer" style="width:100%;box-sizing:border-box;-moz-box-sizing:border-box" maxlength="50">
+                </td>
+            </tr>
+            <tr>
+                <th><label for="writeDept">기안부서</label></th>
+                <td><input type="text" id="writeDept" name="writeDept" style="width:200px;box-sizing:border-box;-moz-box-sizing:border-box" maxlength="50" readonly>
+                    <a class="imgbtn imgbck" style="vertical-align:middle; margin-top:1.48px;"><span onclick="return openSelectDept('writeDept')">부서선택</span></a>
+                    <a class="imgbtn imgbck" style="vertical-align:middle; margin-top:1.48px;"><span onclick="return resetSelectDept()">초기화</span></a>
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>
+                    <label for="dateDraftFrom">기안일자</label>
+                    <label for="dateDraftTo" style="display: none;">기안일자</label>
+                </th>
+                <td>
+                    <input type="text" id="dateDraftFrom" class="date-picker" data-date-from="2" style="width:80px;text-align:center" readonly>&nbsp;~
+                    <input type="text" id="dateDraftTo" class="date-picker" data-date-to="2" style="width:80px;text-align:center" readonly>
+                    <a class="imgbtn imgbck" style="vertical-align:middle; margin-top:1.48px; margin-left:10px !important;">
+                        <span onclick="return resetSelectDate()">일자 초기화</span></a>
+                </td>
+            </tr>
+        </table>
+
+        <div class="area-btns-popup">
+            <a class="imgbtn important"><span onClick="return clickSearchDetailKRX()">검색</span></a>
+            <a class="imgbtn"><span onClick="reset()">초기화</span></a>
+
+            <a class="imgbtn"><span onClick="return clickSearchDetailKRXRange('WEEK')">한주간문서</span></a>
+            <a class="imgbtn"><span onClick="return clickSearchDetailKRXRange('MONTH')">한달간문서</span></a>
+        </div>
+    </div>
+</div>
+
+<div id="backDept" class="back-modal" onclick="closeSelectDept()">
+    <div id="modalSelectDept" class="popup layer">
+        <div class="head-popup">
+            부서 선택
+            <div id="closeSelectDept" class="close-popup" onclick="cancelDeptSelect()"></div>
+        </div>
+        <div id="treeViewSelectDept" class="list-view-popup" style="padding:3px 10px;"></div>
+        <div class="area-btns-popup">
+            <a id="confirmDeptSelect" class="imgbtn" onClick="confirmDeptSelect()"><span>확인	</span></a>
+            <a id="cancelDeptSelect" class="imgbtn" onClick="cancelDeptSelect()"><span>취소	</span></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+                    <li style="vertical-align: middle; float:right; display: none;"><select id="rec_year" name="rec_year" style="width:90px;" onchange="onSelect_Year_KRX(this);">
+                        <option value="">년도검색</option>
+                    </select></li>
+                </div>
+	        </ul>
+	
+	        <ul id="trDeliveryMenu" style="display: none">
+	        	<li class="" id="tbnBaeBu"><span id="Span2" onclick="return btnBaeBu_onclick()">추가배부</span></li>
+	            <li id="Li1"><span id="Span1" onclick="return DocListPrinter_onclick()">목록출력</span></li>
+	            <li id="tbSearchDelivery"><span class="icon16 icon16_search" id="SearchDelivery" onclick="return btnSearchDelivery_onclick()"></span></li>
+	            <li style="vertical-align: middle; float:right"> <select id="del_year" name="del_year" style="width:75px;" onchange="onSelect_Year(this);">    
+	                <option value="ALL">최근 1년</option>
+	            </select>    </li>
+	        </ul>
+	    </div>
+	    <div id="divList" class="div_scroll" style="width: 100%; height: 489px; overflow: AUTO; margin-bottom:10px;">
+	        <div id="lvtDoclist"></div>
+	    </div>	    
+	    <div id="tblPageRayer"></div>
+	    <div id="trSubInfoTab">
+	        
+	        <div id="tabnav" class="portlet_tabpart01" style="width:100%">
+				<div class="portlet_tabpart01_top" id="tab1">
+				    <p><span id="tagsub1">결재선</span></p>
+				    <p><span id="tagsub2">수신자</span></p>
+				    <p><span id="tagsub3">첨부</span></p>
+				    <p><span id="tagsub4">의견</span></p>
+			  	</div>	
+				<span class="aprLineOpt">펼치기</span>
+			</div>
+	
+	        <div style="WIDTH:100%;HEIGHT:174px; font-size:92%; OVERFLOW-Y:AUTO;" id="div_AprLine">
+	            <div id="lvtDetail" style="border: 0;"></div>
+	        </div>
+	    </div>
+	    <script type="text/javascript">
+	        selToggleList(document.getElementById("mainmenu"), "ul", "li", "0");
+	        //selToggleList(document.getElementById("tabnav"), "p", "span", "1");
+	        Tab1_NewTabIni("tab1");
+	    </script>
+	
+	    <div id="tdDebug"></div>
+	    <div style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1000; background: none rgba(0,0,0,0.5); display: none;" id="mailPanel">&nbsp;</div>	
+		<div class="layerpopup"  style="z-index: 2000; position: absolute;display: none;" id="iFramePanel">
+			<iframe src="/blank_kr.htm" style="border:none;" id="iFrameLayer"></iframe>
+		</div>
+	</body>
+</html>
