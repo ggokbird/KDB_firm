@@ -1,0 +1,530 @@
+# @title 230805 2100 debugged + Dynamic Thres. + Volume-close Dual + Louvain + with KOSPI
+# 모든 필요한 라이브러리들을 불러옵니다
+!pip uninstall -y networkx
+!pip uninstall -y python-louvain
+!pip uninstall -y community
+!pip install python-louvain
+!pip install networkx
+!pip install pykrx
+
+import pandas as pd
+import gc # garbage collection
+from typing import List, Dict, Tuple
+import numpy as np
+from multiprocessing import Pool, cpu_count
+import multiprocessing as mp
+from tqdm import tqdm
+from typing import List, Tuple
+from itertools import combinations
+import networkx as nx
+import matplotlib.pyplot as plt
+from ast import literal_eval  # literal_eval 함수를 import 합니다
+from community import community_louvain  # Louvain 메서드를 사용하기 위해 필요합니다
+from pykrx import stock
+import community as community_louvain  # Louvain 알고리즘을 위한 라이브러리를 import 합니다
+
+
+
+# 특정 주식 쌍에 대한 롤링 상관관계를 계산하는 함수입니다
+def compute_rolling_corr(args: Tuple):
+    stock1, stock2, data1, data2, window_size, lag = args
+    common_index = data1.index.intersection(data2.index)
+    data1 = data1.loc[common_index]
+    data2 = data2.loc[common_index]
+    if data1.empty or data2.empty:
+        return {'rolling_corr_close': pd.DataFrame(), 'rolling_corr_volume': pd.DataFrame(), 'nan_count': 0}
+
+    data1_close_lagged = data1['Close'].shift(lag)
+    data1_close_lagged = data1_close_lagged.dropna()
+    data2_close = data2['Close'].loc[data1_close_lagged.index]
+
+    data1_volume_lagged = data1['Volume'].shift(lag)
+    data1_volume_lagged = data1_volume_lagged.dropna()
+    data2_volume = data2['Volume'].loc[data1_volume_lagged.index]
+
+    rolling_corr_close = data1_close_lagged.rolling(window_size).corr(data2_close)
+    rolling_corr_volume = data1_volume_lagged.rolling(window_size).corr(data2_volume)
+
+    nan_count = rolling_corr_close.isnull().sum() + rolling_corr_volume.isnull().sum()
+
+    rolling_corr_close = rolling_corr_close.reset_index()
+    rolling_corr_close = rolling_corr_close.rename(columns={'index': 'Date', 'Close': 'Correlation_Close'})
+    rolling_corr_close['Stock1'] = stock1
+    rolling_corr_close['Stock2'] = stock2
+    rolling_corr_close = rolling_corr_close.set_index('Date')
+
+    rolling_corr_volume = rolling_corr_volume.reset_index()
+    rolling_corr_volume = rolling_corr_volume.rename(columns={'index': 'Date', 'Volume': 'Correlation_Volume'})
+    rolling_corr_volume['Stock1'] = stock1
+    rolling_corr_volume['Stock2'] = stock2
+    rolling_corr_volume = rolling_corr_volume.set_index('Date')
+
+    return {'rolling_corr_close': rolling_corr_close, 'rolling_corr_volume': rolling_corr_volume, 'nan_count': nan_count}
+
+# 병렬 계산을 수행하고 결과를 요약하는 함수입니다
+def parallel_computation_and_summary(stock_data_list, compute_rolling_corr, window_size, lag):
+    stock_pairs = list(combinations(stock_data_list, 2))  # 모든 주식 쌍을 생성합니다
+    pool = Pool(processes=cpu_count())
+    num_chunks = cpu_count()
+    chunks = [stock_data_list[i::num_chunks] for i in range(num_chunks)]
+
+    args = [(chunk, window_size, lag) for chunk in chunks]
+
+    results = []
+    for res in tqdm(pool.imap_unordered(compute_all_pairs, args), total=len(chunks)):
+        results.extend(res)
+
+    pool.close()
+    pool.join()
+
+    async_nan_count_summary = pd.DataFrame(
+        [(res['rolling_corr_close']['Stock1'][0], res['rolling_corr_close']['Stock2'][0], res['nan_count']) for res in results],
+        columns=['Stock1', 'Stock2', 'nan_count']
+    ).sort_values(by='nan_count', ascending=False)
+
+    print("Async Result NaN count summary:\n", async_nan_count_summary)
+
+    total_nan_counts_async = async_nan_count_summary['nan_count'].sum()
+    mean_nan_count_async = async_nan_count_summary['nan_count'].mean()
+    max_nan_count_async = async_nan_count_summary['nan_count'].max()
+    min_nan_count_async = async_nan_count_summary['nan_count'].min()
+
+    print("\nAsync Result statistics:")
+    print(f"Total NaN counts (async_result): {total_nan_counts_async}")
+    print(f"Mean NaN count (async_result): {mean_nan_count_async}")
+    print(f"Max NaN count (async_result): {max_nan_count_async}")
+    print(f"Min NaN count (async_result): {min_nan_count_async}")
+
+    non_empty_results_close = [res['rolling_corr_close'] for res in results if not res['rolling_corr_close'].empty]
+    non_empty_results_volume = [res['rolling_corr_volume'] for res in results if not res['rolling_corr_volume'].empty]
+
+    if len(non_empty_results_close) > 0 and len(non_empty_results_volume) > 0:
+        corr_matrix_rolling_close = pd.concat(non_empty_results_close)
+        corr_matrix_rolling_volume = pd.concat(non_empty_results_volume)
+    else:
+        corr_matrix_rolling_close = None
+        corr_matrix_rolling_volume = None
+        print("Warning: All computed rolling correlations were empty.")
+
+    return results, corr_matrix_rolling_close, corr_matrix_rolling_volume
+
+# 특정 주식 쌍에 대한 롤링 상관관계를 계산하는 함수입니다
+def compute_rolling_corr(args: Tuple):
+    stock1, stock2, data1, data2, window_size, lag = args
+    common_index = data1.index.intersection(data2.index)
+    data1 = data1.loc[common_index]
+    data2 = data2.loc[common_index]
+    if data1.empty or data2.empty:
+        return {'rolling_corr_close': pd.DataFrame(), 'rolling_corr_volume': pd.DataFrame(), 'nan_count': 0}
+
+    data1_close_lagged = data1['Close'].shift(lag)
+    data1_close_lagged = data1_close_lagged.dropna()
+    data2_close = data2['Close'].loc[data1_close_lagged.index]
+
+    data1_volume_lagged = data1['Volume'].shift(lag)
+    data1_volume_lagged = data1_volume_lagged.dropna()
+    data2_volume = data2['Volume'].loc[data1_volume_lagged.index]
+
+    rolling_corr_close = data1_close_lagged.rolling(window_size).corr(data2_close)
+    rolling_corr_volume = data1_volume_lagged.rolling(window_size).corr(data2_volume)
+
+    nan_count = rolling_corr_close.isnull().sum() + rolling_corr_volume.isnull().sum()
+
+    rolling_corr_close = rolling_corr_close.reset_index()
+    rolling_corr_close = rolling_corr_close.rename(columns={'index': 'Date', 'Close': 'Correlation_Close'})
+    rolling_corr_close['Stock1'] = stock1
+    rolling_corr_close['Stock2'] = stock2
+    rolling_corr_close_copy = rolling_corr_close.copy()  # 새로 추가된 부분입니다
+    rolling_corr_close_copy = rolling_corr_close_copy.set_index('Date')
+
+    rolling_corr_volume = rolling_corr_volume.reset_index()
+    rolling_corr_volume = rolling_corr_volume.rename(columns={'index': 'Date', 'Volume': 'Correlation_Volume'})
+    rolling_corr_volume['Stock1'] = stock1
+    rolling_corr_volume['Stock2'] = stock2
+    rolling_corr_volume_copy = rolling_corr_volume.copy()  # 새로 추가된 부분입니다
+    rolling_corr_volume_copy = rolling_corr_volume_copy.set_index('Date')
+
+    return {'rolling_corr_close': rolling_corr_close_copy, 'rolling_corr_volume': rolling_corr_volume_copy, 'nan_count': nan_count}
+
+def compute_all_pairs(args: Tuple) -> List:
+    stock_data_list, window_size, lag = args
+    n = len(stock_data_list)
+    results = []
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            stock1, stock1_data = stock_data_list[i]
+            stock2, stock2_data = stock_data_list[j]
+            result = compute_rolling_corr((stock1, stock2, stock1_data, stock2_data, window_size, lag))
+            result['rolling_corr_close']['Stock1'] = stock1
+            result['rolling_corr_close']['Stock2'] = stock2
+            result['rolling_corr_volume']['Stock1'] = stock1
+            result['rolling_corr_volume']['Stock2'] = stock2
+            results.append(result)
+
+    return results
+
+# 데이터를 로드합니다
+data = pd.read_pickle(filepath + "total_dataset_.pickle")
+
+# 'price' 키에 대한 데이터만 선택합니다.
+selected_stocks = list(data['price'].keys())
+
+# 각 종목에 대해 데이터프레임을 리스트로 저장합니다.
+dfs = []
+for stock_ in selected_stocks:
+    df = data['price'][stock_].copy()
+    df['Stock'] = stock_  # 종목 코드를 새로운 열로 추가합니다.
+    dfs.append(df)
+
+# 모든 종목의 데이터프레임을 하나로 연결합니다.
+data_concat = pd.concat(dfs)
+data_concat = data_concat.reset_index().set_index(['Stock', 'index'])  # 종목 코드와 날짜를 인덱스로 설정합니다.
+data_concat.index.names = [None, 'Date']  # 인덱스 이름을 설정합니다.
+data_concat = data_concat.dropna()  # NaN 값이 있는 행을 제거합니다.
+
+# 이제 'Close' 열에 대해 pct_change()를 사용하여 일일 수익률을 계산할 수 있습니다.
+returns = data_concat.groupby(level=0)['Close'].apply(lambda x: x.pct_change())
+
+n_stocks = 300 # just for MVP debugging
+top_n_stocks = 50 # just for print
+thres_per = 90  # dynamic thres.
+n_stocks_long = 200
+n_stocks_short = 200
+
+# 실제 주식 데이터를 추출합니다
+stock_data = data['price']
+
+# 데이터를 필요한 형식으로 준비합니다
+stock_data_list = [(stock, df[['Close', 'Volume']]) for stock, df in stock_data.items()]
+
+# 창 크기와 지연을 설정합니다
+window_size = 27
+lag = 3
+
+# 계산을 실행하고 결과와 롤링 상관관계를 가져옵니다
+results, corr_matrix_rolling_close, corr_matrix_rolling_volume = parallel_computation_and_summary(stock_data_list, compute_all_pairs, window_size, lag)
+
+# 롤링 상관관계를 출력합니다
+if corr_matrix_rolling_close is not None:
+    print("\nRolling Correlation Matrix (Close):\n", corr_matrix_rolling_close)
+else:
+    print("\nWarning: All computed rolling correlations were empty.\n")
+
+if corr_matrix_rolling_volume is not None:
+    print("\nRolling Correlation Matrix (Volume):\n", corr_matrix_rolling_volume)
+else:
+    print("\nWarning: All computed rolling correlations were empty.\n")
+
+#########################################################
+
+# 이후 본격적인 상관관계 분석을 위해, 네트워크를 구성합니다.
+G_close = nx.Graph()
+G_volume = nx.Graph()
+
+# 함수 정의 부분
+def add_edge_to_graph_close(row, dynamic_threshold):
+    row = {k: (v if not pd.isnull(v) else 'None') for k, v in row.items()}
+    if row['Correlation_Close'] != 'None' and abs(row['Correlation_Close']) > dynamic_threshold:
+        return (row['Stock1'], row['Stock2'], {'weight': row['Correlation_Close']})
+    return None
+
+def parallel_processing_close(data):
+    # Compute the dynamic threshold
+    dynamic_threshold = np.percentile(abs(data['Correlation_Close'].dropna()), thres_per)
+
+    edges_close = []
+    with Pool(processes=cpu_count()//2) as pool:
+        for index, row in tqdm(data.iterrows(), total=len(data)):
+            result = add_edge_to_graph_close(row.to_dict(), dynamic_threshold)
+            if result is not None:
+                edges_close.append(result)
+    gc.collect()
+    return nx.Graph(edges_close)
+
+def add_edge_to_graph_volume(row, dynamic_threshold):
+    row = {k: (v if not pd.isnull(v) else 'None') for k, v in row.items()}
+    if row['Correlation_Volume'] != 'None' and abs(row['Correlation_Volume']) > dynamic_threshold:
+        return (row['Stock1'], row['Stock2'], {'weight': row['Correlation_Volume']})
+    return None
+
+def parallel_processing_volume(data):
+    # Compute the dynamic threshold
+    dynamic_threshold = np.percentile(abs(data['Correlation_Volume'].dropna()), thres_per)
+
+    edges_volume = []
+    with Pool(processes=cpu_count()//2) as pool:
+        for index, row in tqdm(data.iterrows(), total=len(data)):
+            result = add_edge_to_graph_volume(row.to_dict(), dynamic_threshold)
+            if result is not None:
+                edges_volume.append(result)
+    gc.collect()
+    return nx.Graph(edges_volume)
+
+# 그래프 준비
+G_close = parallel_processing_close(corr_matrix_rolling_close)
+G_volume = parallel_processing_volume(corr_matrix_rolling_volume)
+
+# 그래프에서 무한대 및 음수 가중치 제거
+edges_to_remove_inf = [(u, v) for u, v, data in G_close.edges(data=True) if np.isinf(data['weight'])]
+edges_to_remove_negative = [(u, v) for u, v, data in G_close.edges(data=True) if data['weight'] < 0]
+G_close.remove_edges_from(edges_to_remove_inf)
+G_close.remove_edges_from(edges_to_remove_negative)
+
+edges_to_remove_inf = [(u, v) for u, v, data in G_volume.edges(data=True) if np.isinf(data['weight'])]
+edges_to_remove_negative = [(u, v) for u, v, data in G_volume.edges(data=True) if data['weight'] < 0]
+G_volume.remove_edges_from(edges_to_remove_inf)
+G_volume.remove_edges_from(edges_to_remove_negative)
+
+#########################################################
+# 각 그래프에 Louvain 알고리즘 적용
+partition_close = community_louvain.best_partition(G_close)
+partition_volume = community_louvain.best_partition(G_volume)
+
+# 각 그래프에 대한 degree centrality 계산
+degree_centrality_close = nx.degree_centrality(G_close)
+degree_centrality_volume = nx.degree_centrality(G_volume)
+
+stocks_with_centrality = []
+
+##########  데이터를 로드합니다 ##########
+# pykrx를 이용해 코스피 데이터 로드
+kospi_df = stock.get_index_ohlcv_by_date("20000101", "20231231", "1001")
+kospi_df = kospi_df.rename(columns={
+    '시가': 'Open',
+    '고가': 'High',
+    '저가': 'Low',
+    '종가': 'Close',
+    '거래량': 'Volume'
+})
+kospi_df.index.name = 'Date'
+
+# 데이터를 로드합니다
+data = pd.read_pickle(filepath + "total_dataset_.pickle")
+data['price']['KOSPI'] = kospi_df  # 코스피 데이터 추가
+
+# 'price' 키에 대한 데이터만 선택합니다.
+selected_stocks = list(data['price'].keys())
+
+# 각 종목에 대해 데이터프레임을 리스트로 저장합니다.
+dfs = []
+
+for stock in selected_stocks:
+    df = data['price'][stock].copy()
+    df = df.reset_index()
+    df.rename(columns={df.columns[0]: 'Date'}, inplace=True)  # 첫 번째 열의 이름을 'Date'로 변경
+    # 필요한 열만 선택합니다.
+    df = df[['Date', 'Open', 'High', 'Low', 'Close', 'Volume']]
+    df['Stock'] = stock
+    dfs.append(df)
+
+# 이후에는 이전과 동일하게 데이터를 처리합니다.
+data_concat = pd.concat(dfs)
+data_concat = data_concat.set_index(['Stock', 'Date'])  # 종목 코드와 날짜를 인덱스로 설정합니다.
+data_concat = data_concat.dropna()  # NaN 값이 있는 행을 제거합니다.
+
+# 이제 'Close' 열에 대해 pct_change()를 사용하여 일일 수익률을 계산할 수 있습니다.
+returns = data_concat.groupby(level=0)['Close'].apply(lambda x: x.pct_change())
+
+########## Parameter ##########
+n_stocks = 300
+top_n_stocks = 50
+thres_per = 90
+n_stocks_long = 50 # For Only Catch Theme
+n_stocks_short = 50 # For Only Catch Theme
+
+##########  실제 주식 데이터를 추출합니다 ##########
+stock_data = data['price']
+
+# 데이터를 필요한 형식으로 준비합니다
+stock_data_list = [(stock, df[['Close', 'Volume']]) for stock, df in stock_data.items()]
+
+# 창 크기와 지연을 설정합니다
+window_size = 27
+lag = 3
+
+# 계산을 실행하고 결과와 롤링 상관관계를 가져옵니다
+results, corr_matrix_rolling_close, corr_matrix_rolling_volume = parallel_computation_and_summary(stock_data_list, compute_all_pairs, window_size, lag)
+
+# 롤링 상관관계를 출력합니다
+if corr_matrix_rolling_close is not None:
+    print("\nRolling Correlation Matrix (Close):\n", corr_matrix_rolling_close)
+else:
+    print("\nWarning: All computed rolling correlations were empty.\n")
+
+if corr_matrix_rolling_volume is not None:
+    print("\nRolling Correlation Matrix (Volume):\n", corr_matrix_rolling_volume)
+else:
+    print("\nWarning: All computed rolling correlations were empty.\n")
+
+
+#########################################################
+import matplotlib.ticker as mtick
+
+# 각 커뮤니티 내에서 주식 선택
+for community in set(partition_close.values()):
+    stocks_in_community = [stock for stock in partition_close.keys() if partition_close[stock] == community]
+    stocks_in_community = [stock for stock in stocks_in_community if stock in degree_centrality_close and stock in degree_centrality_volume]
+    sorted_stocks = sorted(stocks_in_community, key=lambda x: (-degree_centrality_close[x], -degree_centrality_volume[x]))
+    stocks_with_centrality.extend([(stock, degree_centrality_close[stock], degree_centrality_volume[stock]) for stock in sorted_stocks])
+
+stocks_with_centrality.sort(key=lambda x: (-x[1], -x[2]))
+
+########## For debugging (to eleminate Randomness) ##########
+# 동일한 degree centrality 값을 가진 주식 확인
+duplicates_by_close = {}
+duplicates_by_volume = {}
+
+for stock, deg_close, deg_volume in stocks_with_centrality:
+    if deg_close not in duplicates_by_close:
+        duplicates_by_close[deg_close] = [stock]
+    else:
+        duplicates_by_close[deg_close].append(stock)
+
+    if deg_volume not in duplicates_by_volume:
+        duplicates_by_volume[deg_volume] = [stock]
+    else:
+        duplicates_by_volume[deg_volume].append(stock)
+
+# 동일한 degree centrality를 가진 주식의 개수를 요약하여 출력
+duplicates_by_close_count = sum([1 for key, value in duplicates_by_close.items() if len(value) > 1])
+duplicates_by_volume_count = sum([1 for key, value in duplicates_by_volume.items() if len(value) > 1])
+
+print(f"Number of duplicate Degree Centrality (Close): {duplicates_by_close_count}")
+print(f"Number of duplicate Degree Centrality (Volume): {duplicates_by_volume_count}")
+########## For debugging (to eleminate Randomness) end ##########
+
+long_positions = [stock[0] for stock in stocks_with_centrality[:n_stocks_long]]
+
+# 숏 포지션 결정시 Degree Centrality가 0인 주식 제외 (거래정지 / 상장폐지 시 Degree Centrality 0)
+short_candidates = [stock for stock in stocks_with_centrality[-n_stocks_short:] if stock[1] > 0 and stock[2] > 0]
+short_positions = [stock[0] for stock in short_candidates]
+
+print("Long positions:\n", long_positions)
+print("Short positions:\n", short_positions)
+
+returns_long = returns.loc[long_positions]
+returns_short = returns.loc[short_positions]
+returns_long = returns_long.dropna()
+returns_short = returns_short.dropna()
+
+print("Returns (long):\n", returns_long.head())
+print("Returns (short):\n", returns_short.head())
+
+portfolio_returns = returns_long.mean(level=1, skipna=True) - returns_short.mean(level=1, skipna=True)
+
+print("Portfolio returns:\n", portfolio_returns.head())
+if portfolio_returns.isna().any():
+    print("Portfolio returns contain NaN values.")
+if np.isinf(portfolio_returns.values).any():
+    print("Portfolio returns contain Inf values.")
+
+common_dates = returns_long.index.get_level_values(1).intersection(returns_short.index.get_level_values(1))
+portfolio_returns = portfolio_returns.loc[common_dates]
+
+multi_idx_portfolio_returns = pd.Series(
+    {idx: portfolio_returns.get(idx[1], np.nan) for idx in returns.index},
+    index=returns.index
+)
+
+print(multi_idx_portfolio_returns)
+
+portfolio_returns_cumulative = (1 + portfolio_returns).cumprod()
+
+########## Calculate Mdd and Sharp Ratio ##########
+# Calculate Maximum Drawdown (MDD)
+def calculate_mdd(prices_series):
+    cum_returns = (1 + prices_series).cumprod()
+    peak = cum_returns.cummax()
+    drawdown = (cum_returns - peak) / peak
+    mdd = drawdown.min()
+    return mdd
+
+def calculate_rolling_sharpe_ratio(returns, window_size, risk_free_rate=0.0, periods_per_year=252):
+    rolling_returns = returns.rolling(window_size)
+    rolling_excess_returns = rolling_returns.mean() - risk_free_rate
+    rolling_annualized_return = rolling_excess_returns * periods_per_year
+    rolling_annualized_std = rolling_returns.std() * np.sqrt(periods_per_year)
+    rolling_sharpe_ratio = rolling_annualized_return / rolling_annualized_std
+    return rolling_sharpe_ratio.dropna()
+
+# Calculate Sharpe Ratio
+def calculate_sharpe_ratio(returns, risk_free_rate=0.0, periods_per_year=252):
+    excess_returns = returns - risk_free_rate
+    annualized_return = np.mean(excess_returns) * periods_per_year
+    annualized_std = np.std(returns) * np.sqrt(periods_per_year)
+
+    # Debug point: print the annualized_return and annualized_std and check if they are NaN or Inf
+    print(f"Annualized return: {annualized_return}")
+    print(f"Annualized std dev: {annualized_std}")
+    if np.isnan(annualized_return):
+        print("Annualized return is NaN.")
+    if np.isnan(annualized_std):
+        print("Annualized std dev is NaN.")
+    if np.isinf(annualized_return):
+        print("Annualized return is Inf.")
+    if np.isinf(annualized_std):
+        print("Annualized std dev is Inf.")
+
+    sharpe_ratio = annualized_return / annualized_std
+    return sharpe_ratio
+
+mdd = calculate_mdd(portfolio_returns_cumulative)
+sharpe_ratio = calculate_sharpe_ratio(portfolio_returns.values)
+
+print(f"Maximum Drawdown (MDD): {mdd}")
+if np.isnan(sharpe_ratio):
+    print("Sharpe Ratio: Not meaningful due to zero volatility in portfolio returns.")
+else:
+    print(f"Sharpe Ratio: {sharpe_ratio}")
+
+returns_market = returns.loc["KOSPI"]
+returns_market = returns_market.reindex(portfolio_returns.index, fill_value=np.nan)  # Reindex to portfolio dates
+
+market_returns_cumulative = (1 + returns_market).cumprod()
+sharpe_ratio_market = calculate_sharpe_ratio(returns_market.dropna().values)  # Drop NaN for meaningful calculation
+mdd_market = calculate_mdd(market_returns_cumulative)
+
+print(f"Market Maximum Drawdown (MDD): {mdd_market}")
+if np.isnan(sharpe_ratio_market):
+    print("Market Sharpe Ratio: Not meaningful due to zero volatility in market returns.")
+else:
+    print(f"Market Sharpe Ratio: {sharpe_ratio_market}")
+
+difference_cumulative_returns = portfolio_returns_cumulative - market_returns_cumulative
+
+########## Plot the Cumulative Returns ##########
+fig, ax1 = plt.subplots(figsize=(10, 6))
+color = 'tab:blue'
+ax1.set_xlabel('Date')
+ax1.set_ylabel('Cumulative Returns', color=color)
+ax1.plot(portfolio_returns_cumulative.index, portfolio_returns_cumulative, color=color, label='Portfolio')
+ax1.plot(market_returns_cumulative.index, market_returns_cumulative, color='tab:orange', label='KOSPI (Market)')
+ax1.tick_params(axis='y', labelcolor=color)
+ax1.legend(loc='upper left')
+
+ax2 = ax1.twinx()
+color = 'tab:red'
+ax2.set_ylabel('Difference in Cumulative Returns', color=color)
+ax2.bar(difference_cumulative_returns.index, difference_cumulative_returns, color=color, alpha=0.3)
+ax2.tick_params(axis='y', labelcolor=color)
+
+fig.tight_layout()
+plt.title('Cumulative Returns and Difference in Cumulative Returns of the Portfolio vs. Market')
+plt.show()
+
+print("Finished successfully")
+
+########## Plot Rolling Sharp Ratio ##########
+rolling_window_size = 252
+rolling_sharpe_ratio = calculate_rolling_sharpe_ratio(portfolio_returns, rolling_window_size)
+rolling_sharpe_ratio_market = calculate_rolling_sharpe_ratio(returns_market, rolling_window_size)
+
+plt.figure(figsize=(10, 6))
+plt.plot(rolling_sharpe_ratio.index, rolling_sharpe_ratio, label='Portfolio Rolling Sharpe Ratio')
+plt.plot(rolling_sharpe_ratio_market.index, rolling_sharpe_ratio_market, label='KOSPI (Market) Rolling Sharpe Ratio')
+plt.xlabel('Date')
+plt.ylabel('Sharpe Ratio')
+plt.title('Rolling Sharpe Ratio of the Portfolio vs. Market')
+plt.legend()
+plt.show()
