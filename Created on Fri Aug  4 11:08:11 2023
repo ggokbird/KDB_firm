@@ -1,0 +1,632 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Aug  4 11:08:11 2023
+
+@author: Dongjae
+"""
+
+# %%
+
+####### 0. 변수 지정 및 패키지 불러오기 #######
+
+from datetime import datetime
+from selenium import webdriver
+from time import sleep
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+
+from bs4 import BeautifulSoup
+import pandas as pd
+import re
+import os
+import requests
+
+# %% (0) chrome driver Installer 
+# https://sites.google.com/chromium.org/driver/
+# https://googlechromelabs.github.io/chrome-for-testing/ 
+# WTD : Automately extract Stable Version 
+import os
+import zipfile
+import requests
+import tempfile
+from subprocess import Popen, PIPE
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+
+# 임시 디렉토리를 생성합니다.
+with tempfile.TemporaryDirectory() as chrome_driver_directory:
+
+    # 1. chromedriver 다운로드 및 압축 해제
+    chrome_v = "116.0.5845.96"
+    url = f"https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{chrome_v}/win32/chromedriver-win32.zip"
+    response = requests.get(url, stream=True)
+    response.raise_for_status()  # 오류 발생 시 예외를 발생시킵니다.
+
+    zip_path = os.path.join(chrome_driver_directory, "chromedriver.zip")
+    with open(zip_path, "wb") as f:
+        for chunk in response.iter_content(chunk_size=8192):
+            f.write(chunk)
+
+    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+        zip_ref.extractall(chrome_driver_directory)
+
+    # 2. subprocess를 사용하여 디렉토리의 파일 목록 출력
+    process = Popen(["dir", chrome_driver_directory], stdout=PIPE, stderr=PIPE, shell=True)
+    stdout, stderr = process.communicate()
+
+    print(stdout.decode('cp949'))
+
+    # 3. Selenium에서 사용할 chromedriver의 경로를 출력합니다.
+    chromedriver_path = os.path.join(chrome_driver_directory, "chromedriver-win32", "chromedriver.exe")
+    print(f"Chromedriver path: {chromedriver_path}")
+
+    # 4. Selenium을 사용하여 Google 웹 페이지를 엽니다.
+    s = Service(chromedriver_path)
+    driver = webdriver.Chrome(service=s)
+    driver.get("https://www.google.com")
+
+    # 웹 페이지를 닫습니다.
+    driver.quit()
+
+# %% JG
+
+start_date = '20230101'  # 공시 검색 시작일자
+end_date = '20230331' # 공시 검색 종료일자
+filePath = '/Users/KRX/Desktop/201021' # 바탕화면에 저장할 때 사용
+chrome_version = "116.0.5845.96"
+ 
+def createFolder(directory):
+    try:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        else : 
+            os.makedirs(directory) # DIR 이 존재하더라도 Working DIR 설정 필요 
+    except OSError:
+        print ('Error: Creating directory. ' +  directory)
+        
+createFolder(filePath)
+
+# %% driver Downloader 
+import os
+import zipfile
+import requests
+import re
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.common.exceptions import SessionNotCreatedException
+
+def download_chromedriver(chrome_version):
+    # ZIP 파일을 Working DIR에 다운로드합니다.
+    zip_path = os.path.join(os.getcwd(), "chromedriver.zip")
+    
+    url = f"https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{chrome_version}/win32/chromedriver-win32.zip"
+    response = requests.get(url, stream=True)
+    response.raise_for_status()
+
+    with open(zip_path, "wb") as f:
+        for chunk in response.iter_content(chunk_size=8192):
+            f.write(chunk)
+
+    # ZIP 파일을 압축 해제합니다.
+    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+        zip_ref.extractall(os.getcwd())
+
+    # chromedriver.exe의 실제 경로를 찾습니다.
+    for root, dirs, files in os.walk(os.getcwd()):
+        for file in files:
+            if file == "chromedriver.exe":
+                original_path = os.path.join(root, file)
+                new_path = os.path.join(os.getcwd(), "chromedriver.exe")
+                os.rename(original_path, new_path)
+                return new_path
+
+    raise FileNotFoundError(f"'chromedriver.exe' was not found in the extracted directory.")
+
+try:
+    # 이전에 다운로드 받았던 chromedriver.zip와 chromedriver.exe를 삭제합니다.
+    if os.path.exists("chromedriver.zip"):
+        os.remove("chromedriver.zip")
+    if os.path.exists("chromedriver.exe"):
+        os.remove("chromedriver.exe")
+
+    chrome_v = chrome_version
+    chromedriver_path = download_chromedriver(chrome_v)
+
+    options = webdriver.ChromeOptions()
+    options.binary_location = r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+    service = Service(executable_path=chromedriver_path)
+    driver = webdriver.Chrome(service=service, options=options)
+    driver.get("https://www.google.com")
+    driver.quit()
+
+except SessionNotCreatedException as e:
+    match = re.search(r"Chrome version (\d+\.\d+\.\d+\.\d+)", str(e))
+    if match:
+        chrome_version = match.group(1)
+        chromedriver_path = download_chromedriver(chrome_version)
+
+        options = webdriver.ChromeOptions()
+        options.binary_location = r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+        service = Service(executable_path=chromedriver_path)
+        driver = webdriver.Chrome(service=service, options=options)
+        driver.get("https://www.google.com")
+        driver.quit()
+# %% Crawler 
+options = webdriver.ChromeOptions()
+driver = webdriver.Chrome()
+driver.implicitly_wait(10)
+
+# KIND 공시화면 불러오기
+url = 'http://kind.krx.co.kr/disclosure/details.do?method=searchDetailsMain'
+driver.get(url)
+
+# 자주 쓰는 태그
+tag_a = driver.find_element(By.CSS_SELECTOR, "input#fromDate") # 날짜 시작일
+tag_b = driver.find_element(By.CSS_SELECTOR,'input#toDate') # 날짜 종료일
+tag_c = driver.find_element(By.CSS_SELECTOR,'input#reportNmTemp') # 검색할 공시명
+tag_e = driver.find_element(By.XPATH,'//*[@id="currentPageSize"]/option[4]') # 한 페이지에 보이는 공시 개수 선택칸
+tag_f = driver.find_element(By.XPATH,'//*[@id="searchForm"]/section[1]/div/div[3]/a[1]') # 검색 버튼
+
+
+####### 1. 검색기간 및 찾고 싶은 공시입력 #######
+
+sleep(2) # 이 코드 반드시 必
+
+# 검색기간 입력
+for i in range(10):
+    tag_b.send_keys(Keys.BACKSPACE)
+
+tag_b.send_keys(end_date)
+
+for i in range(10):
+    tag_a.send_keys(Keys.BACKSPACE)
+
+tag_a.send_keys(start_date)
+
+# 공시개수 페이지당 100건
+tag_e.click()
+
+# 최종보고서만 클릭
+driver.find_element(By.XPATH, '/html/body/section[2]/section/form/section[1]/div/div[1]/table/tbody/tr[7]/td/label/input').click()
+
+# 원하는 공시 검색
+tag_c.send_keys('자기주식처분결과보고서')
+tag_f.click()
+
+sleep(5) # 동적 크롤링이기 때문에, 코드 돌아가는데 시간이 좀 걸려서 여기서 멈춰서 가기
+
+# 공시개수 확인
+
+
+number = driver.find_element(By.XPATH, '/html/body/section[2]/section/article/section[2]/div[2]/em')
+numText = number.text  # 100개 넘는지 확인 必
+
+if int(numText) >= 100:
+    print("한 페이지에 공시의 갯수가 100개 초과")
+else:
+    print("한 페이지에 공시의 갯수가 100개 미만")
+
+data_list = []
+
+for j in range(1, 3+1):  # 3 → numInt+1
+    try:
+        company = driver.find_element(By.XPATH, f'/html/body/section[2]/section/article/section[1]/table/tbody/tr[{j}]/td[3]/a')
+        disclosure = driver.find_element(By.XPATH, f'/html/body/section[2]/section/article/section[1]/table/tbody/tr[{j}]/td[4]/a[@title="자기주식처분결과보고서"]')
+        date = driver.find_element(By.XPATH, f'/html/body/section[2]/section/article/section[1]/table/tbody/tr[{j}]/td[2]')
+        compName = company.text
+        discName = disclosure.text
+        dateName = date.text[0:10]
+
+        # 공시 상세 정보 페이지로 이동
+        onclick_script = disclosure.get_attribute('onclick')
+        driver.execute_script(onclick_script)
+
+        # 새로운 탭으로 전환
+        driver.switch_to.window(driver.window_handles[-1])
+
+        # 필요한 정보 수집 (예시)
+        # detail = driver.find_element(By.XPATH, '...').text
+
+        # 원래의 탭으로 돌아가기
+        driver.close()
+        driver.switch_to.window(driver.window_handles[0])
+
+        data_list.append({'회사명': compName, '공시명': discName, '공시일자': dateName})
+        data_df = pd.DataFrame(data_list)
+
+    except Exception as e:
+        print(f"Error occurred for row {j}: {e}")
+        break
+
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
+# 프레임이 존재하는지 확인
+wait = WebDriverWait(driver, 10)
+wait.until(EC.frame_to_be_available_and_switch_to_it((By.NAME, 'docViewFrm')))
+
+# %% 
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from time import sleep
+import os
+import pandas as pd
+
+start_date = '20230101'
+end_date = '20230331'
+filePath = '/Users/KRX/Desktop/201021'
+
+options = webdriver.ChromeOptions()
+driver = webdriver.Chrome()
+driver.implicitly_wait(10)
+
+url = 'http://kind.krx.co.kr/disclosure/details.do?method=searchDetailsMain'
+driver.get(url)
+
+tag_a = driver.find_element(By.CSS_SELECTOR, "input#fromDate")
+tag_b = driver.find_element(By.CSS_SELECTOR, 'input#toDate')
+tag_c = driver.find_element(By.CSS_SELECTOR, 'input#reportNmTemp')
+tag_e = driver.find_element(By.XPATH, '//*[@id="currentPageSize"]/option[4]')
+tag_f = driver.find_element(By.XPATH, '//*[@id="searchForm"]/section[1]/div/div[3]/a[1]')
+
+sleep(2)
+
+tag_b.send_keys(Keys.BACKSPACE * 10 + end_date)
+tag_a.send_keys(Keys.BACKSPACE * 10 + start_date)
+
+tag_e.click()
+driver.find_element(By.XPATH, '/html/body/section[2]/section/form/section[1]/div/div[1]/table/tbody/tr[7]/td/label/input').click()
+
+tag_c.send_keys('자기주식처분결과보고서')
+tag_f.click()
+
+sleep(5)
+
+number = driver.find_element(By.XPATH, '/html/body/section[2]/section/article/section[2]/div[2]/em')
+numText = number.text
+
+if int(numText) >= 100:
+    print("한 페이지에 공시의 갯수가 100개 초과")
+else:
+    print("한 페이지에 공시의 갯수가 100개 미만")
+
+data_list = []
+
+for j in range(1, 3+1):
+    try:
+        company = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, f'/html/body/section[2]/section/article/section[1]/table/tbody/tr[{j}]/td[3]/a')))
+        disclosure = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, f'/html/body/section[2]/section/article/section[1]/table/tbody/tr[{j}]/td[4]/a[@title="자기주식처분결과보고서"]')))
+        date = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, f'/html/body/section[2]/section/article/section[1]/table/tbody/tr[{j}]/td[2]')))
+
+        compName = company.text
+        discName = disclosure.text
+        dateName = date.text[0:10]
+
+        main_window = driver.current_window_handle
+        disclosure.click()
+
+        WebDriverWait(driver, 10).until(EC.number_of_windows_to_be(2))
+        driver.switch_to.window([window for window in driver.window_handles if window != main_window][0])
+
+        driver.close()
+        driver.switch_to.window(main_window)
+
+        data_list.append({'회사명': compName, '공시명': discName, '공시일자': dateName})
+
+    except Exception as e:
+        print(f"Error occurred for row {j}: {e}")
+        break
+
+data_df = pd.DataFrame(data_list)
+print(data_df)
+
+wait = WebDriverWait(driver, 10)
+wait.until(EC.frame_to_be_available_and_switch_to_it((By.NAME, 'docViewFrm')))
+
+# %% 
+from bs4 import BeautifulSoup
+
+# 현재 페이지의 HTML 소스를 가져옵니다.
+page_source = driver.page_source
+
+# BeautifulSoup로 HTML을 파싱합니다.
+soup = BeautifulSoup(page_source, 'html.parser')
+
+# "자기주식처분결과보고서"에 해당하는 모든 링크를 찾습니다.
+links = soup.find_all('a', title="자기주식처분결과보고서")
+
+# 각 링크의 내용을 출력합니다.
+for link in links:
+    print(link)
+
+# %% 
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from bs4 import BeautifulSoup
+import re
+import os
+import time
+
+# 변수 초기화
+start_date = '20230101'
+end_date = '20230331'
+
+# 웹 드라이버 초기화
+driver = webdriver.Chrome()
+
+# KIND 공시화면 불러오기
+url = 'http://kind.krx.co.kr/disclosure/details.do?method=searchDetailsMain'
+driver.get(url)
+time.sleep(2)
+
+# 자주 쓰는 태그
+tag_a = driver.find_element(By.CSS_SELECTOR, "input#fromDate")
+tag_b = driver.find_element(By.CSS_SELECTOR, 'input#toDate')
+tag_c = driver.find_element(By.CSS_SELECTOR, 'input#reportNmTemp')
+tag_e = driver.find_element(By.XPATH, '//*[@id="currentPageSize"]/option[4]')
+tag_f = driver.find_element(By.XPATH, '//*[@id="searchForm"]/section[1]/div/div[3]/a[1]')
+
+time.sleep(2)
+
+# 검색기간 입력
+for i in range(10):
+    tag_b.send_keys(Keys.BACKSPACE)
+tag_b.send_keys(end_date)
+
+for i in range(10):
+    tag_a.send_keys(Keys.BACKSPACE)
+tag_a.send_keys(start_date)
+
+time.sleep(1)
+
+# 공시개수 페이지당 100건
+tag_e.click()
+time.sleep(1)
+
+# 최종보고서만 클릭
+driver.find_element(By.XPATH, '/html/body/section[2]/section/form/section[1]/div/div[1]/table/tbody/tr[7]/td/label/input').click()
+time.sleep(1)
+
+# 원하는 공시 검색
+tag_c.send_keys('자기주식처분결과보고서')
+tag_f.click()
+
+time.sleep(5)
+
+# 공시개수 확인
+number = driver.find_element(By.XPATH, '/html/body/section[2]/section/article/section[2]/div[2]/em')
+numText = number.text
+
+if int(numText) >= 100:
+    print("한 페이지에 공시의 갯수가 100개 초과")
+else:
+    print("한 페이지에 공시의 갯수가 100개 미만")
+
+time.sleep(2)
+
+# 프레임이 존재하는지 확인
+# wait = WebDriverWait(driver, 10)
+# wait.until(EC.frame_to_be_available_and_switch_to_it((By.NAME, 'docViewFrm')))
+
+# 현재 페이지의 HTML 소스를 가져옵니다.
+page_source = driver.page_source
+
+# BeautifulSoup로 HTML을 파싱합니다.
+soup = BeautifulSoup(page_source, 'html.parser')
+
+# "자기주식처분결과보고서"에 해당하는 모든 링크를 찾습니다.
+links = soup.find_all('a', title="자기주식처분결과보고서")[0:2] # [0:2] Just for Example
+# 각 링크를 순회하며 클릭합니다.
+data_list = []  # 이 부분을 for loop 바깥으로 옮깁니다.
+
+for link in links:
+    try:
+        doc_id = re.search(r"openDisclsViewer\('(\d+)',", link['onclick']).group(1)
+        driver.execute_script(f"openDisclsViewer('{doc_id}','')")
+        time.sleep(3)  # 문서가 열릴 때까지 기다립니다.
+
+        # 새 창이나 탭이 열렸는지 확인하고, 필요한 경우 웹 드라이버를 해당 창이나 탭으로 전환합니다.
+        windows = driver.window_handles
+        if len(windows) > 1:
+            driver.switch_to.window(windows[1])
+
+        # 첫 번째 iframe (name="toc")으로 전환
+        driver.switch_to.frame("toc")
+
+        # 원하는 링크를 클릭
+        driver.find_element(By.LINK_TEXT, "2. 처분보고에 관한 내용").click()
+
+        # 메인 창으로 전환
+        driver.switch_to.default_content()
+
+        # 두 번째 iframe (name="docViewFrm")으로 전환
+        driver.switch_to.frame("docViewFrm")
+
+        # 네 번째 테이블의 데이터를 추출
+        table = driver.find_element(By.XPATH, "/html/body/table[4]")
+        rows = table.find_elements(By.TAG_NAME, "tr")
+
+        for row in rows:
+            columns = row.find_elements(By.TAG_NAME, "td")
+            row_data = [column.text for column in columns]
+            data_list.append(row_data)
+
+        # 원래의 페이지로 돌아옵니다.
+        driver.close()
+        driver.switch_to.window(windows[0])
+        time.sleep(2)
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        break
+
+
+# 데이터를 DataFrame으로 변환하고 출력
+column_names = ["일자", "종류", "주문수량", "처분수량", "1주당 처분가액", "처분가액 총액", "처분대상", "매도위탁 증권회사_금융투자업자", "매도위탁 증권회사_고유번호"]
+
+df = pd.DataFrame(data_list, columns=column_names)
+df.dropna(axis = 0, inplace = True)
+print(df)
+# %% # %%
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from bs4 import BeautifulSoup
+import re
+import pandas as pd
+import time
+
+# 변수 초기화
+start_date = '20230101'
+end_date = '20230331'
+
+# 웹 드라이버 초기화
+driver = webdriver.Chrome()
+
+# KIND 공시화면 불러오기
+url = 'http://kind.krx.co.kr/disclosure/details.do?method=searchDetailsMain'
+driver.get(url)
+time.sleep(2)
+
+# 자주 쓰는 태그
+tag_a = driver.find_element(By.CSS_SELECTOR, "input#fromDate")
+tag_b = driver.find_element(By.CSS_SELECTOR, 'input#toDate')
+tag_c = driver.find_element(By.CSS_SELECTOR, 'input#reportNmTemp')
+tag_e = driver.find_element(By.XPATH, '//*[@id="currentPageSize"]/option[4]')
+tag_f = driver.find_element(By.XPATH, '//*[@id="searchForm"]/section[1]/div/div[3]/a[1]')
+
+time.sleep(2)
+
+# 검색기간 입력
+for i in range(10):
+    tag_b.send_keys(Keys.BACKSPACE)
+tag_b.send_keys(end_date)
+
+for i in range(10):
+    tag_a.send_keys(Keys.BACKSPACE)
+tag_a.send_keys(start_date)
+
+time.sleep(1)
+
+# 공시개수 페이지당 100건
+tag_e.click()
+time.sleep(1)
+
+# 최종보고서만 클릭
+driver.find_element(By.XPATH, '/html/body/section[2]/section/form/section[1]/div/div[1]/table/tbody/tr[7]/td/label/input').click()
+time.sleep(1)
+
+# 원하는 공시 검색
+tag_c.send_keys('자기주식처분결과보고서')
+tag_f.click()
+
+time.sleep(5)
+
+# 공시개수 확인
+number = driver.find_element(By.XPATH, '/html/body/section[2]/section/article/section[2]/div[2]/em')
+numText = number.text
+
+if int(numText) >= 100:
+    print("한 페이지에 공시의 갯수가 100개 초과")
+else:
+    print("한 페이지에 공시의 갯수가 100개 미만")
+
+time.sleep(2)
+
+# 현재 페이지의 HTML 소스를 가져옵니다.
+page_source = driver.page_source
+
+# BeautifulSoup로 HTML을 파싱합니다.
+soup = BeautifulSoup(page_source, 'html.parser')
+
+# "자기주식처분결과보고서"에 해당하는 모든 링크를 찾습니다.
+links = soup.find_all('a', title="자기주식처분결과보고서") # [0:2] Just for Example
+
+# 시간과 회사명 크롤링
+time_elements = driver.find_elements(By.CSS_SELECTOR, "td.txc:nth-child(2)")  # CSS 선택자 수정
+company_elements = driver.find_elements(By.CSS_SELECTOR, "td > a#companysum")
+times = [element.text for element in time_elements]
+companies = [element.text for element in company_elements]
+
+# 각 링크를 순회하며 클릭합니다.
+data_list = []
+
+for idx, link in enumerate(links):
+    try:
+        doc_id = re.search(r"openDisclsViewer\('(\d+)',", link['onclick']).group(1)
+        driver.execute_script(f"openDisclsViewer('{doc_id}','')")
+        time.sleep(3)
+
+        # 새 창이나 탭이 열렸는지 확인하고, 필요한 경우 웹 드라이버를 해당 창이나 탭으로 전환합니다.
+        windows = driver.window_handles
+        if len(windows) > 1:
+            driver.switch_to.window(windows[1])
+
+        # 첫 번째 iframe (name="toc")으로 전환
+        driver.switch_to.frame("toc")
+
+        # 원하는 링크를 클릭
+        driver.find_element(By.LINK_TEXT, "2. 처분보고에 관한 내용").click()
+
+        # 메인 창으로 전환
+        driver.switch_to.default_content()
+
+        # 두 번째 iframe (name="docViewFrm")으로 전환
+        driver.switch_to.frame("docViewFrm")
+
+        # 네 번째 테이블의 데이터를 추출
+        table = driver.find_element(By.XPATH, "/html/body/table[4]")
+        rows = table.find_elements(By.TAG_NAME, "tr")
+
+        for row in rows:
+            columns = row.find_elements(By.TAG_NAME, "td")
+            row_data = [column.text for column in columns]
+            
+            # "시간"과 "회사명"을 데이터 앞에 추가
+            row_data.insert(0, companies[idx])
+            row_data.insert(0, times[idx])
+            data_list.append(row_data)
+
+        # 원래의 페이지로 돌아옵니다.
+        driver.close()
+        driver.switch_to.window(windows[0])
+        time.sleep(2)
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        break
+
+# 데이터를 DataFrame으로 변환하고 출력
+column_names = ["시간", "회사명", "일자", "종류", "주문수량", "처분수량", "1주당 처분가액", "처분가액 총액", "처분대상", "매도위탁 증권회사_금융투자업자", "매도위탁 증권회사_고유번호"]
+
+df = pd.DataFrame(data_list, columns=column_names)
+df.dropna(axis = 0, inplace = True)
+print(df)
+
+# 웹 드라이버 종료
+driver.quit()
+# %%
+# 각 링크를 순회하며 클릭합니다.
+for link in links:
+    try:
+        doc_id = re.search(r"openDisclsViewer\('(\d+)',", link['onclick']).group(1)
+        driver.execute_script(f"openDisclsViewer('{doc_id}','')")
+        time.sleep(3)  # 문서가 열릴 때까지 기다립니다.
+
+        # 새 창이나 탭이 열렸는지 확인하고, 필요한 경우 웹 드라이버를 해당 창이나 탭으로 전환합니다.
+        windows = driver.window_handles
+        if len(windows) > 1:
+            driver.switch_to.window(windows[1])
+
+        # 원래의 페이지로 돌아옵니다.
+        driver.close()
+        driver.switch_to.window(windows[0])
+        time.sleep(2)
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        break
